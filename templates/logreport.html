@@ -1,0 +1,728 @@
+
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+	$(document).ready(function() { 
+		$(function() { 
+			$( "#my_date_picker" ).datepicker(); 
+		}); 
+
+	}) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<script>
+$(document).ready( function() {
+	var now = new Date();
+ 
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<br><button type="button"><a href="/branchreport/pdf/{{branchcode}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<button type="button"><a href="/excel-branch-report/{{branchcode}}/" target="_blank"> Excel Download</a></button><br>
+			<form method="POST" action="/logreport/" enctype=""><br>
+				{% csrf_token %}
+				<label for="fname"><b>From Date</b> </label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"> <b>TO Date</b></label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label>
+					<b>Report</b></label>
+					<select name="report" id="report" onchange="changeDropdown()" required>
+						<option value="">---------Select---------</option>
+						<option value="dok">Dock Report</option>
+						<option value="qcc">Qc Report</option>
+						<option value="mat">Matchdata Report</option>
+						<option value="upr">Update Rates</option>
+						<option value="kp">UpdateratesCSV Report</option>
+						<option value="bl">Branch Report</option>
+						<option value="jj">procurement Report</option>
+					</select><br>
+			 <!-- 	<label for="fname"><b>Branch Name</b> </label>
+				<select name="centercode">
+					<option value="all">All</option>
+					{% for center in center %}
+							<option value="{{branch.name}}">{{branch.name}}</option>
+					{% endfor %}
+				  </select>-->
+	 
+				  <button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""> Get Data </button>
+				<br><br>
+			</form>
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">DOCK Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+					<tr>
+						<th   colspan="7" width="10%" class="school_activity">Entry Values</th>
+						<th  colspan="4" width="10%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						
+						<th width="10%" class="school_activity">Date</th>
+						<th width="5%" class="school_activity">shift</th>
+						<th width="5%" class="school_activity">center code</th>
+						<th width="6%" class="school_activity">Quantity</th>
+						<th width="6%" class="school_activity">Cans</th>
+						<th width="10%" class="school_activity">User</th>
+						<th width="10%" class="school_activity">Time stamp</th>
+
+						<th width="6%" class="school_activity">Quantity</th>
+						<th width="6%" class="school_activity">Cans</th>
+						<th width="10%" class="school_activity">User</th>
+						<th width="15%" class="school_activity">Time stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for dok in dok %}
+					<tr>
+						<td>{{dok.date}}</td>
+						<td>{{dok.shift}}</td>
+						<td>{{dok.code}}</td>
+						<td>{{dok.Quantity}}</td>
+						<td>{{dok.cans}}</td>
+						<td>{{dok.crreateddd_by}}</td>
+						<td>{{dok.crreatedddd}}</td>
+						<td>{{dok.Quantity1}}</td>
+						<td>{{dok.cans1}}</td>
+						<td>{{dok.uppdated_by}}</td>
+						<td>{{dok.upppdated}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">QC Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead  align="center" style="background-color: #69bc5f !important;">
+					<tr>
+						<th  colspan="7" width="20%" class="school_activity">Entry Values</th>
+						<th  colspan="5" width="20%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						<th width="10%" class="school_activity">Date</th>
+						<th width="5%" class="school_activity">Shift</th>
+						<th width="8%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="10%" class="school_activity">Snf</th>
+						<th width="10%" class="school_activity">User</th>
+						<th width="10%" class="school_activity">Time Stamp</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="10%" class="school_activity">Snf</th>
+						<th width="10%" class="school_activity">User</th>
+						<th width="15%" class="school_activity">Time Stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for qcc in qcc %}
+					<tr>
+						<td>{{qcc.date}}</td>
+						<td>{{qcc.shift}}</td>
+						<td>{{qcc.fat}}</td>
+						<td>{{qcc.clr}}</td>
+						<td>{{qcc.snf|floatformat:2}}</td>
+						<td>{{qcc.ccreated_by}}</td>
+						<td>{{qcc.ccrreatedd}}</td>
+						<td>{{qcc.fat1}}</td>
+						<td>{{qcc.clr1}}</td>
+						<td>{{qcc.snf1|floatformat:2}}</td>
+						<td>{{qcc.uupdaated_by}}</td>
+						<td>{{qcc.uupdatedd}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">MATCHDATA Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+					<tr>
+						<th   colspan="8" width="10%" class="school_activity">Entry Values</th>
+						<th  colspan="7" width="10%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						
+						<th width="10%" class="school_activity">Date</th>
+						<th width="5%" class="school_activity">shift</th>
+						<th width="5%" class="school_activity">center code</th>
+						<th width="6%" class="school_activity">Quantity</th>
+						<th width="6%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="5%" class="school_activity">Snf</th>
+						<th width="6%" class="school_activity">Quantity</th>
+						<th width="6%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="5%" class="school_activity">Snf</th>
+						<th width="8%" class="school_activity">User</th>
+						<th width="15%" class="school_activity">Time stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for mat in mat %}
+					<tr>
+						<td>{{mat.date}}</td>
+						<td>{{mat.shift}}</td>
+						<td>{{mat.code}}</td>
+						<td>{{mat.qty}}</td>
+						<td>{{mat.can}}</td>
+						<td>{{mat.fat}}</td>
+						<td>{{mat.clr}}</td>
+						<td>{{mat.snf|floatformat:2}}</td>
+						<td>{{mat.qty1}}</td>
+						<td>{{mat.can1}}</td>
+						<td>{{mat.fat1}}</td>
+						<td>{{mat.clr1}}</td>
+						<td>{{mat.snf1|floatformat:2}}</td>
+						<td>{{mat.hcreated_by}}</td>
+						<td>{{mat.hupdatedd}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">UPDATERATES Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+
+					<tr>
+						<th  colspan="10" width="10%" class="school_activity">Entry Values</th>
+						<th  colspan="7" width="10%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						<th width="5%" class="school_activity">Date</th>
+						<th width="5%" class="school_activity">Shift</th>
+						<th width="5%" class="school_activity">Center code</th>
+						<th width="5%" class="school_activity">Quantity</th>
+						<th width="5%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="6%" class="school_activity">Snf</th>
+						<th width="7%" class="school_activity">ID</th>
+						<th width="8%" class="school_activity">Time Stamp</th>
+						<th width="5%" class="school_activity">Quantity</th>
+						<th width="5%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="8%" class="school_activity">Snf</th>
+						<th width="7%" class="school_activity">Id</th>
+						<th width="15%" class="school_activity">Time Stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for upr in upr %}
+					<tr>
+						<td>{{upr.date}}</td>
+						<td>{{upr.shift}}</td>
+						<td>{{upr.centercode}}</td>
+						<td>{{upr.qty}}</td>
+						<td>{{upr.can}}</td>
+						<td>{{upr.fat}}</td>
+						<td>{{upr.clr}}</td>
+						<td>{{upr.snf|floatformat:2}}</td>
+						<td>{{upr.crea_by}}</td>
+						<td>{{upr.crb}}</td>
+						<td>{{upr.qty1}}</td>
+						<td>{{upr.can1}}</td>
+						<td>{{upr.fat1}}</td>
+						<td>{{upr.clr1}}</td>
+						<td>{{upr.snf1|floatformat:2}}</td>
+						<td>{{upr.updatedd_by}}</td>
+						<td>{{upr.updateddd}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+
+
+
+<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">Procurement Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+
+					<tr>
+						<th  colspan="10" width="10%" class="school_activity">Entry Values</th>
+						<th  colspan="7" width="10%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						<th width="5%" class="school_activity">Date</th>
+						<th width="5%" class="school_activity">Shift</th>
+						<th width="5%" class="school_activity">Center code</th>
+						<th width="5%" class="school_activity">Quantity</th>
+						<th width="5%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="6%" class="school_activity">Snf</th>
+						<th width="7%" class="school_activity">ID</th>
+						<th width="8%" class="school_activity">Time Stamp</th>
+						<th width="5%" class="school_activity">Quantity</th>
+						<th width="5%" class="school_activity">Cans</th>
+						<th width="5%" class="school_activity">Fat</th>
+						<th width="5%" class="school_activity">Clr</th>
+						<th width="8%" class="school_activity">Snf</th>
+						<th width="7%" class="school_activity">Id</th>
+						<th width="15%" class="school_activity">Time Stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for jj in jj %}
+					<tr>
+						<td>{{jj.date}}</td>
+						<td>{{jj.shift}}</td>
+						<td>{{jj.code}}</td>
+						<td>{{jj.Quantity}}</td>
+						<td>{{jj.cans}}</td>
+						<td>{{jj.fat}}</td>
+						<td>{{jj.clr}}</td>
+						<td>{{jj.snf|floatformat:2}}</td>
+						<td>{{jj.creeated_by}}</td>
+						<td>{{jj.icreate}}</td>
+						<td>{{jj.Quantity1}}</td>
+						<td>{{jj.cans1}}</td>
+						<td>{{jj.fat1}}</td>
+						<td>{{jj.clr1}}</td>
+						<td>{{jj.snf1|floatformat:2}}</td>
+						<td>{{jj.updatedt_by}}</td>
+						<td>{{jj.iupdatee}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">UPDATERATES CSV Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+
+					
+					<tr>
+						
+					  
+
+						<th width="5%" class="school_activity">ID</th>
+						<th width="15%" class="school_activity">Time Stamp</th>
+						
+						<th width="5%" class="school_activity">Filename</th>
+						<th width="5%" class="school_activity">Moredetails</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for kp in kp %}
+					<tr>
+						
+
+						
+						<td>{{kp.crrea_by}}</td>
+						<td>{{kp.crb}}</td>
+						
+						<td>{{kp.csv_file}}</td>
+						<td><a href="/logreportexcel/{{kp.centercode}}">More Details</a></td>
+
+
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+			<table>
+				<thead>
+					<tr>
+						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">Branch Log Report</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+						<select name="category_cow">
+						 <option value="">All</option>
+						{% for center in dc %}
+								<option value="{{center.centercode}}">{{center.centercode}}</option>
+						{% endfor %}
+						</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead align="center" style="background-color: #69bc5f !important;">
+
+					<tr>
+						<th  colspan="8" width="10%" class="school_activity">Entry Values</th>
+						<th  colspan="8" width="10%" class="school_activity">Updated Values</th>
+					</tr>
+					<tr>
+						
+						<th width="3%" class="school_activity">Code</th>
+						<th width="5%" class="school_activity">Name</th>
+						<th width="10%" class="school_activity">Address</th>
+						<th width="5%" class="school_activity">Pin</th>
+						<th width="5%" class="school_activity">Contact No</th>
+						<th width="10%" class="school_activity">Email</th>
+						<th width="5%" class="school_activity">ID</th>
+						<th width="10%" class="school_activity">Time Stamp</th>
+						<th width="3%" class="school_activity">Code</th>
+						<th width="5%" class="school_activity">Name</th>
+						<th width="10%" class="school_activity">Address</th>
+						<th width="5%" class="school_activity">Pin</th>
+						<th width="5%" class="school_activity">Contact No</th>
+						<th width="10%" class="school_activity">Email</th>
+						<th width="5%" class="school_activity">Id</th>
+						<th width="10%" class="school_activity">Time Stamp</th>
+					
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for bl in bl %}
+					<tr>
+						<td>{{bl.code}}</td>
+						<td>{{bl.name}}</td>
+						<td>{{bl.address}}</td>
+						<td>{{bl.pin}}</td>
+						<td>{{bl.contno}}</td>
+						<td>{{bl.email}}</td>
+						<td>{{bl.creaated_by}}</td>
+						<td>{{bl.crreaatedd}}</td>
+						<td>{{bl.code1}}</td>
+						<td>{{bl.name1}}</td>
+						<td>{{bl.address1}}</td>
+						<td>{{bl.pin1}}</td>
+						<td>{{bl.contno1}}</td>
+						<td>{{bl.email1}}</td>
+						<td>{{bl.uppt_by}}</td>
+						<td>{{bl.updaatedd}}</td>
+						
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+</div><br><br><br>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+<script type="text/javascript">
+/*$("#displaytable").hide();
+*/
+$(document).ready(function(){
+	/*$("#centerhide").hide()
+		$('#centershow').click(function() {
+		
+			
+
+			$("#centerhide").show()
+			
+		
+	});*/
+});
+
+$(document).ready(function(){
+
+	$('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+	$('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+});
+</script>
+{% endblock %}

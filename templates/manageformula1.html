@@ -1,0 +1,147 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script> 
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+});</script>
+<style type="text/css">
+	 inpu7t[type=text],input[type=email],input[type=password],input[type=Number],input[type=date],select {
+  width: 17%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset {
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+transition: 0.5s;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+font-family: 'Arial', sans-serif;
+}
+
+
+
+ 
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!--<script>
+
+    $(document).ready(function(){
+    document.getElementById("route").value = localStorage.getItem("route");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("route",document.getElementById("route").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("lname").value = localStorage.getItem("lname");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("lname",document.getElementById("lname").value);
+  });
+
+	</script>-->
+<script>
+    function myFunction() {
+        var bank=document.getElementById("route").value; 
+        {
+            document.getElementById("route").value = "R";
+        }
+        }
+    </script>
+
+<div class="container">
+
+    <div class="col-md col-sm"><br>
+      
+	<h2><center>Formula</center></h2><br>
+	<form>
+	
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/formulae/" >New </a>
+        <a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_formulae/" >Edit </a>
+    </form>   
+	</div>
+    </div>
+</div><br>
+
+
+
+{% endblock %} 

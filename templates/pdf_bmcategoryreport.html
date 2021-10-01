@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align:center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Bufallo Milk Category Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">center code : {{centercode}}<br>
+
+		   </p><br>
+		<table>
+			<tr>
+                <th>Category</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Rate Calc</th>
+                <th>Comm Type</th>
+                <th>Milk Type</th>
+                <th>Fat Min</th>
+                <th>Max Fat</th>
+                <th>Min Snf</th>
+                <th>Max Snf</th>
+                <th>TS-Rate</th>
+                <th>Fixed Value</th>
+                <th>CategoryId</th>
+			</tr>
+			{% for bmcategory in data %}
+			<tr>
+						<td>{{bmcategory.category }}</td>
+						<td>{{bmcategory.from_date|date:'d-m-Y'}}</td>
+						<td>{{bmcategory.to_date|date:'d-m-Y'}}</td>
+						<td>{{bmcategory.rate_calculation}}</td>
+						<td>{{bmcategory.commission_type}}</td>
+						<td>{{bmcategory.milk_type}}</td>
+						<td>{{bmcategory.min_fat}}</td>
+						<td>{{bmcategory.max_fat}}</td>
+						<td>{{bmcategory.min_SNF}}</td>
+						<td>{{bmcategory.max_SNF}}</td>
+						<td>{{bmcategory.tsrate}}</td>
+						<td>{{bmcategory.fixed_value}}</td>
+						<td>{{bmcategory.categoryid}}</td>
+			</tr>
+			{% endfor %}
+	
+		</table>
+	</body>
+</html>

@@ -1,0 +1,170 @@
+{% extends "header.html" %}
+{% block title %}JacknJill {% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+select {
+     width: 100px;
+     margin: 10px;
+}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=tel],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#select:focus {
+    min-width: 150px;
+    width: auto;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+
+</style>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch").value = localStorage.getItem("branch");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch",document.getElementById("branch").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch1").value = localStorage.getItem("branch1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch1",document.getElementById("branch1").value);
+  });
+
+	</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("address").value = localStorage.getItem("address");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("address",document.getElementById("address").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("number").value = localStorage.getItem("number");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("number",document.getElementById("number").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("pin").value = localStorage.getItem("pin");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("pin",document.getElementById("pin").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("mail").value = localStorage.getItem("mail");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("mail",document.getElementById("mail").value);
+  });
+
+	</script>
+	
+
+<script>
+	function myFunction() {
+		var bank=document.getElementById("branch").value; 
+		{
+			document.getElementById("branch").value = "B";
+		}
+		}
+	</script>
+<div class="container">
+		<h2><center><b>Branch</b></center></h2>
+
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		<br>
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/branch/" >New </a>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_branch/" >Edit </a>
+	<br>
+	</form>
+
+	
+</div>
+
+
+{% endblock %}

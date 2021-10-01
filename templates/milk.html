@@ -1,0 +1,199 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse;
+	  /*width: 100%;*/
+	}
+td, th 
+	{
+  		border: 1px solid #dddddd;
+  		text-align: left;
+  		padding: 8px;
+	}
+.no_pad{
+	padding-left:0px;
+	padding-right: 0px;
+}
+.td_border{
+	border:none;
+}
+.td_border input{
+	width:140px !important;
+}
+</style>
+<div class="container">
+	<h2>Cow Milk Rates</h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<form  method="POST" action="/rate/" enctype="">
+			{% csrf_token %}
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+				  		<label >Category</label>
+				  		<select name="category_cow">
+					  	{% for category in category %}
+							    <option value="{{category.name}}">{{category.name}}</option>
+					  	{% endfor %}
+					  	</select><br>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						<h6>Cow Milk</h6>
+						<label for="fname"> Date Form  : </label>
+						<input type="date" id="datePicker" name="dateform" placeholder="Enter MM/DD/YYYY" required="">
+						<label for="fname"> Date To : </label>
+						<input type="date" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY" required=""><br>
+						<h6>TS Rate</h6>
+						<label >Rate Calculation</label>
+						<select name="rate_calculation">
+						   <option value="ltr">LtrRate</option>
+						   <option value="kgr">KgRate</option>
+						   <option value="tsr">LtrTSRate</option>
+						   <option value="ktsr">KgTSRate</option>		    
+					  	</select>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+					  	<label >SNF Value</label>
+				  	  	<input type="radio" name="snfix_actual" checked>
+				  	  	<label>Actual</label>
+			  	    	<input type="radio" name="snfix_actual">
+			  	    	<label>Fixed</label>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+			  	    	<label>Fixed Value</label>
+			  	    	<input type="number" name="fixedvalue" step="any"><br>
+			  	    	<div class="col-md-10 col-sm-10 col-xs-12">
+				  	    	<table>
+				  	    		<tr>
+				  	    			<td class="td_border"><input type="number" name="min_fat" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="max_fat" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="min_SNF" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="max_SNF" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="rate" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="commission" step="any"></td>
+				  	    		</tr>
+						  		<tr>
+								    <th>Min Fat</th>
+								    <th>Max Fat</th>
+								    <th>MinSNF</th>
+								    <th>MaxSNF</th>
+								    <th>Rate</th>
+								    <th>Commission</th>
+							  	</tr>
+							 	<tr>
+			
+						  		</tr>
+							</table>
+						</div>
+						<label >SNF Deduction</label>
+						<input type="checkbox" name="snfdeduction" checked><br>
+						<div class="row">
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								<h6>SNF Deduction</h6>
+								<div class="row">
+									<div class="col-md-9 col-sm-9 col-xs-12">
+										<table style="border:none;">
+									  		<tr style="border:none;">
+											    <th style="border:none;">From</th>
+											    <th style="border:none;">To</th>
+											    <th style="border:none;">Penalty</th>
+										  	</tr>
+										 	<tr style="border:none;">
+												<td style="border:none;"><input type="number" name="from_snf" step="any"></td>
+											    <td style="border:none;"><input type="number" name="to_snf" step="any"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf" step="any"></td>
+									  		</tr>
+									  		<!-- <tr style="border:none;">
+												<td style="border:none;"><input type="number" name="from_snf1"></td>
+											    <td style="border:none;"><input type="number" name="to_snf1"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf1"></td>
+									  		</tr>
+									  		<tr style="border:none;">
+												<td style="border:none;"><input type="number" name="from_snf2"></td>
+											    <td style="border:none;"><input type="number" name="to_snf2"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf2"></td>
+									  		</tr> -->
+										</table>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-12 no_pad">
+										<label>Deduction<br>Calculation</label>
+								  	  	<input type="radio" name="ded_ltrkg" >
+								  	  	<label>Kg</label>
+							  	    	<input type="radio" name="ded_ltrkg" checked>
+							  	    	<label>Ltr</label><br>
+							  	    	<label>Premium(%)</label>
+							  	    	<input type="number" name="premium" checked step="any"><br>
+							  	    	<label>Amount</label>
+							  	    	<input type="number" name="amount" checked step="any">
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2 col-sm-2 col-xs-12">
+								<br>
+								<label>Comm. Type</label>
+								<select name="com_type">
+								   <option value="1">LtrTSRate</option>
+								   <option value="2">KgTSRate</option>		    
+							  	</select>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								<h6>Sub Standard Milk</h6>
+								<label>Sour Milk</label>
+						  	  	<input type="radio" name="sour_ltrkg" >
+						  	  	<label>Kg</label>
+					  	    	<input type="radio" name="sour_ltrkg" checked>
+					  	    	<label>Ltr</label>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+					  	    	<label>Min Rate</label>
+						  	  	<input type="number" name="min_rate" ><br>
+						  	  	<label>Curd Rate</label>
+					  	    	<input type="number" name="curd_rate">
+					  	    	&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+						  	  	<label>SourMilk Rate</label>
+					  	    	<input type="number" name="sourmilk_rate">
+							</div>
+						
+							<div class="col-md-2 col-sm-2 col-xs-12">
+								<br>
+								<!-- <label>Comm. Type</label>
+								<select name="com_type">
+								   <option value="tsr">LtrTSRate</option>
+								   <option value="ktsr">KgTSRate</option>		    
+							  	</select>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0; -->
+							</div>
+						</div>
+					</div>
+				</div>
+		  	</div>
+			<button id="save"  type="submit" class="Submit_form" value="save"><b>Submit</b></button>
+	  		<button id="cancel"  type="submit" class="Submit_form" value="cancel" ><b>Cancel</b></button>
+		</form> 
+	</div>
+</div>
+
+{% endblock %}

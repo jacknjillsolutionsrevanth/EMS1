@@ -1,0 +1,140 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+	</style>
+
+<script>
+    function myFunction() {
+        var bank=document.getElementById("emsfertiliser").value; 
+        {
+            document.getElementById("emsfertiliser").value = "F";
+        }
+        }
+    </script>
+ 
+<div class="container">
+	<h2><center><b>Fertiliser</b></center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	<label for="fname"><b>Type</b> &nbsp;&nbsp;&nbsp;&nbsp;  </label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;
+		<input class="border-right" type="text" name="type" placeholder="" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Name</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="name" placeholder=""  required=""><br><br>
+		<!-- &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>remove</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+		<!-- <input class="border-right" type="text" name="remove"  required=""> -->
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Cost</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="0.00"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Quantity</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="qty" placeholder="0"  required="">&emsp;(Per Tree)<br><br>
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Frequency</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="freq" placeholder="0"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Increment</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="per" placeholder="0"  required="">&emsp;(%)<br><br>
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>FStAge</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="stage" placeholder="FStAge"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>FEndAge</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="endage" placeholder="FEndAge"  required=""><br><br>
+		
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+				<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="new" class="btn btn-primary btn-lg" value="new"  href="/emsfertiliser/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_emsfertiliser/">Edit </a>
+
+	</form>
+</div>
+
+
+{% endblock %}}

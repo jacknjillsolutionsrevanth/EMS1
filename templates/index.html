@@ -1,0 +1,225 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<style>
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
+
+}
+
+
+html, body {margin:0;padding:0;}
+.page-title {
+  position: absolute;
+  text-align: center;
+  max-width: 38%;
+  top: 50px;
+  left: 0;
+}
+
+.hero-title {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 15px 15px 40px;
+}
+
+.hero-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+z-index: -1;
+}
+
+.text-wraper {
+  z-index: 700;
+  color: #FFFFFF;
+  width: 100%;
+}
+
+.main-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1pt;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.sub-title {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+
+.blur_image {
+  filter: blur(2px);
+}
+#slider-item1{
+  width:1500px;
+  height:600px;
+  position: fixed;
+
+}
+
+#slider-item2{
+  width:100%;
+  height: 700px;
+  position: fixed;
+
+}
+.background-image{
+
+  width: 0%;
+  height: 10px;
+  position: absolute;
+  background-size: 800px 150px;
+}
+  
+  h1 {
+  font-size: 72px;
+  background: -webkit-linear-gradient(red,yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+</style>
+    {% if user.is_authenticated %}<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    {% else %}
+    <section class="home-slider owl-carousel">
+      <!--<div class="slider-item" id= "slider-item1" style="background-image:url(/static/images/bg_12345.jpg);">-->
+      <div class="slider-item" id= "slider-item1" style="background-image:url(/static/images/ems/EMSPic3.jpeg" height="600">
+        
+       <!-- <div class="slider-item" id= "slider-item1" style="background-image:url(https://thumbs.dreamstime.com/b/coconut-palms-trees-green-plants-tropical-forest-island-thailand-coconut-palms-trees-green-plants-108862461.jpg);"> -->       
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-left justify-content-left" data-scrollax-parent="true">
+          <div class="col-md-8 text-left ftco-animate">
+            <h1 class="mb-4" class="btn btn-secondary px-3 py-3 mt-3"><br><font size = 11 color = 'red' ><strong>S</strong>ustainable <span> <strong>H</strong>olistic</span><strong>A</strong>griculture</font></h1>
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image:url(/static/images/ems/EMSPci5Nicer.jpeg);">
+              <!--<div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/beautiful-greenery-view-many-coconut-trees-organic-corn-field-green-plants-large-mountains-blue-sky-background-192110773.jpg);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-left justify-content-left" data-scrollax-parent="true">
+          <div class="col-md-8 text-left ftco-animate">
+            <h1 class="mb-4" class="btn btn-secondary px-4 py-3 mt-3"><strong>S</strong>ustainable <span> <strong>H</strong>olistic</span><strong>A</strong>griculture</h1>
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image:url(/static/images/ems/EMsPic9.jpeg);">
+              <!--<div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/beautiful-greenery-view-many-coconut-trees-organic-corn-field-green-plants-large-mountains-blue-sky-background-192110773.jpg);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = '0056b3 !important' > METRO LAGENDA SDN BHD <span> Sustainable  </span></font><span><font size = 11 color = blue >H</font><font size = 11 color = blue >olistic    </font><font size = 11 color = blue >A</font><font size = 11 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image:url(/static/images/ems/EMSPic8.jpeg);">
+              <!--<div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/beautiful-greenery-view-many-coconut-trees-organic-corn-field-green-plants-large-mountains-blue-sky-background-192110773.jpg);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = blue > METRO LAGENDA SDN BHD <span> Sustainable  </span></font><span><font size = 14 color = blue >H</font><font size = 12 color = blue >olistic    </font><font size = 14 color = blue >A</font><font size = 12 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+      
+
+              <!-- <div class="slider-item" style="background-image:url(/static/images/bg_13.jpg);"> -->
+              <!-- <div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/tropical-paradise-sunset-3975417.jpg);"> -->
+        <div class="slider-item" style="background-image:url(/static/images/ems/Goa_Coconut_tree.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = blue > METRO LAGENDA SDN BHD <span> Sustainable  </span></font><span><font size = 14 color = blue >H</font><font size = 12 color = blue >olistic </font><font size = 14 color = blue >A</font><font size = 12 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image:url(/static/images/ems/EMSPic6.jpeg);">
+              <!--<div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/beautiful-greenery-view-many-coconut-trees-organic-corn-field-green-plants-large-mountains-blue-sky-background-192110773.jpg);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = blue > METRO LAGENDA SDN BHD <span> Sustainable  </span></font><span><font size = 14 color = blue >H</font><font size = 12 color = blue >olistic </font><font size = 14 color = blue >A</font><font size = 12 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+             <!--<div class="slider-item" style="background-image:url(/static/images/bg_14.jpg);">-->
+      <div class="slider-item" style="background-image:url(/static/images/ems/CoconutPalm.jpg);">
+              <!--<div class="slider-item" style="background-image:url(https://thumbs.dreamstime.com/b/beautiful-greenery-view-many-coconut-trees-organic-corn-field-green-plants-large-mountains-blue-sky-background-192110773.jpg);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = blue > ..METRO LAGENDA SDN BHD <span> </span></font><span><font size = 14 color = red ></font><font size = 12 color = yellow >Sustaintable </font><font size = 14 color = red >H</font><font size = 12 color = yellow >olistic</font><font size = 14 color = red >A</font><font size = 12 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+
+      <div class="slider-item" style="background-image:url(/static/images/ems/goa-government-tables-bill-to-classify-coconut-as-palm.jpg);">
+        <!--<div class="slider-item" style="background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiX4Ncljhd6473p6c23jUw4dj2KVBuVlfpYQ&usqp=CAU);">-->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+           <h1 class="mb-4" align="text-center"> <font size = 12 color = blue > METRO LAGENDA SDN BHD <span> Sustaintable </span></font><span><font size = 14 color = red >H</font><font size = 12 color = yellow >olistic </font><font size = 14 color = red >A</font><font size = 12 color = yellow >griculture</font></span></h1>
+          
+            <p><a href="/login/" class="btn btn-secondary px-4 py-3 mt-3">LOGIN</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+
+{%endif%}
+      
+    </section>
+ 
+	
+{% endblock %}

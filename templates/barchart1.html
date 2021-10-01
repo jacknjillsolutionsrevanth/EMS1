@@ -1,0 +1,251 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+  $( ".start_date" ).datepicker({
+    defaultDate: +7
+  });
+
+</script> 
+
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</body>
+
+  <meta charset="utf-8"><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<style>
+th{
+  text-align: center !important;
+  padding: 7px !important;
+  border: 1px solid black !important;
+}
+th{
+  
+  color:white !important;
+}
+
+td{
+    text-align: right !important;
+    padding: 7px;
+  border: 1px solid black !important;
+
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-xs-12">
+      <br><button type="button"><a href="/consolidated/pdf/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/{{selecting}}/" target="_blank"> PDF Download</a></button>&emsp;
+      <button type="button"><a href="/excel_consolidated/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/{{selecting}}/" target="_blank"> Excel Download</a></button><br>
+      <form method="POST" action="" id="main" name="main" method="get" onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" enctype=""><br>
+        {% csrf_token %}
+        <label><b>Issued to</b></label>&emsp;
+                  <select name="Issued_to"  id="Issuedto" onchange="changedropdown()">
+
+                  <option value="Center" id="date">Center</option>
+                  </select><br>
+        <label > <b>From Date</b></label>
+        <input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+        <!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+        <label for="fname"><b>TO Date</b> </label>
+        <input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+        <!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+        <label > <b>Center</b> </label>
+        <select name="centercode" id="center">
+            <option value="all">All</option>
+            {% for center in center %}
+                <option value="{{center.centre_code}}">{{center.centre_code}}</option>
+            {% endfor %}
+          </select>
+            
+          
+          <label > <b>Route</b> </label>
+        <select name="routecode" id="routecode">
+            <option value="all">All</option>
+
+            {% for route in route %}
+                <option value="{{route.Route_number}}">{{route.Route_number}}-{{route.Route_name}}</option>
+            {% endfor %}
+          </select>
+        
+        <button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""><b>Get Data</b></button>
+      </form>
+    
+        
+
+          
+
+
+        
+
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+        
+
+
+<script type="text/javascript">
+/*$("#displaytable").hide();
+*/
+$(document).ready(function(){
+  /*$("#centerhide").hide()
+    $('#getdata').click(function() {
+    
+      
+
+      $("#centerhide").show()
+      
+    
+  });*/
+});
+
+$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+});
+</script>
+
+
+<div class="row mt-3 pt-3">
+  
+<div style="width:90%;" class="container">
+  <canvas id="canvas"></canvas><br>
+</div>
+
+<script>
+
+var config = {
+  type: 'line',
+
+
+    data: {
+      labels: [{% for dc in dc %}'{{dc.centercode}}  {{dc.Shift}}',{% endfor %}],
+     
+
+
+
+
+
+    datasets: [{
+      label: 'Qunatity',
+      data: [{% for dc in dc %}'{{dc.Ltrs}}',{% endfor %}],
+     
+
+    },
+    
+     {
+      label: 'FAT',
+      data: [{% for dc in dc %}'{{dc.afat}}',{% endfor %}],
+      backgroundColor: [
+                'rgb(238, 130, 238)'
+            ],
+            borderColor: [
+                'rgb(238, 130, 238)'
+            ],
+
+      
+    },
+     {
+      label: 'SNF',
+      data: [{% for dc in dc %}'{{dc.asnf}}',{% endfor %}],
+       backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132)',
+                'rgba(54, 162, 235)',
+                'rgba(255, 206, 86)',
+                'rgba(75, 192, 192)',
+                'rgba(153, 102, 255)',
+                'rgba(255, 159, 64)'
+            ],
+
+      
+    },  ]
+
+
+  },
+  options: {
+    
+    spanGaps: true,
+    responsive: true,
+    title: {
+      display: true,
+      text:'Date View'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: '{{selecting}}'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Values'
+        },
+        
+      }]
+    }
+  }
+};
+
+
+window.onload = function() {
+  var ctx = document.getElementById('canvas').getContext('2d');
+  window.myLine = new Chart(ctx, config);
+};
+</script>
+  </div>
+</div>
+<br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+{% endblock %}

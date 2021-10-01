@@ -1,0 +1,413 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<style>
+	.css-serial {
+ counter-reset: serial-number; 
+}
+.css-serial td:first-child:before {
+ counter-increment: serial-number;
+ content: counter(serial-number); 
+}
+	th{
+	text-align: center !important;
+	}
+</style>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			
+			<br><button type="button"><a href="/EmsSmryAreaBlock/pdf1/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<button type="button"><a href="/excelem/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel Download</a></button>&emsp; 
+		
+			<!--<button type="button"><a href="/excelbank6/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel Download</a></button><br>-->
+			<form method="POST" action="" id="main" name="main" method="get" onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" enctype=""><br>
+				{% csrf_token %}
+				<label><b>Date</b></label>&emsp;
+                  <select name="Date"  id="Date" onchange="changeDropdown()">
+
+                  <option value="Plant">Plant</option>
+                  <option value="Census">Census</option>
+                  <option value="Data Ext">Data Ext</option>
+                  <option value="Manure">Manure</option>
+                  </select>
+
+                  <label><b>Filter</b></label>&emsp;
+                  <select name="filter1"  id="filter1" onchange="changeFilter()">
+                  <option value="Dtl">Select</option>
+                  <option value="ArOnly">Area Only</option>
+                  <option value="AnB">Area and Block</option>
+                  <option value="Dtl">Detailed</option>
+                  
+                  </select>
+
+				<label for="fname"> <b> Planted Date From </b></label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"><b>To </b> </label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"> <b>Area</b> </label>
+				<select name="routecode" id="route" >
+				    <option value="all">All</option>
+				    {% for censusA in censusA %}
+						    <option value="{{censusA.areaCode}}">{{censusA.areaCode}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	
+			  	<label for="fname"><b>Block</b></label>
+				
+				<select name="centercode" id="center">
+				    <option value="all">All</option>
+				    {% for censusB in censusB %}
+						    <option value="{{censusB.blkCode}}">{{censusB.blkCode}}</option>
+				  	{% endfor %}
+			  	</select>
+
+				<button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""><b>Get Data</b></button><br><br>
+			</form>
+			<table  class="css-serial"  id="centerhide">
+				<thead>
+					<tr>
+   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; &nbsp;&nbsp; Area - {{routecode}} &nbsp;&nbsp;&emsp;&emsp; Block - {{centercode}} &nbsp;&nbsp;Filter  &nbsp;&nbsp; {{filterS}}</th>
+  					</tr>
+  				</thead>
+				
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						<th width="3%" class="school_activity">S.NO</th>
+						<th width="10%" class="school_activity">Area</th>
+						<th width="10%" class="school_activity">Block</th>
+						<th width="10%" class="school_activity">Terace</th>
+						<!--<th width="15%" class="school_activity">Terrace</th>-->
+						
+						
+						
+						<th width="10%" class="school_activity">Live Tree&emsp;&emsp;&emsp;&emsp;</th>
+						<th width="10%" class="school_activity">Dead Tree&emsp;&emsp;&emsp;&emsp;</th>
+						<th width="10%" class="school_activity">Total Tree &emsp;&emsp;&emsp;&emsp;</th>
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					
+					
+					{% for center1 in center1 %}
+
+					<tr>
+								<td style="text-align:center !important">&nbsp;</td>						
+								<td style="text-align:center !important">{{center1.areaCode}}</td>						
+								<td style="text-align:center !important">{{center1.blkCode}}</td>
+								<td style="text-align:center !important">{{center1.teraceNo}}</td>
+
+								<td style="text-align:right !important">{{center1.LivCnt|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:right !important">{{center1.DedCnt|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:right !important">{{center1.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+										
+						</tr>
+						{% if center1.cid == 1 %}
+					<thead style="background-color: #60bc1f !important;">	
+						<tr>					
+						<th width="6%" class="school_activity"> Sub Total</td>	
+						<th width="10%" class="school_activity">{{center1.areaCode}}</td>
+						
+						<th width="10%" class="school_activity">{{center1.blkCode}}</td>	
+						<th width="10%" class="school_activity">Teraces &emsp;&emsp;</td>					
+						<th width="10%" class="school_activity">{{center1.TeraceCnt}}&emsp;&emsp;</td>
+						<th width="10%" class="school_activity">Trees &emsp;&emsp;</td>
+						<th width="10%" class="school_activity">{{center1.LivSum|floatformat:0}}&emsp;&emsp;</td>
+						
+						
+						</tr>
+					 </thead>						
+						{% endif %}
+						{% endfor %}
+					</tbody>	
+			</table>
+
+			<table id="centerhide1">
+				<tbody>
+					{% for center11 in center11 %}
+						{% if center1.areaCode == center11.areaCode and center1.eid == center11.eid %}	
+						<tr>					
+						<td  style="text-align:center !important"> Sub Total</td>	
+						<td  style="text-align:center !important">{{center11.areaCode}}</td>
+						
+						<td style="text-align:center !important">{{center11.blkCode}}</td>	
+						<td style="text-align:right !important">Teraces &emsp;&emsp;</td>					
+						<td style="text-align:right !important">{{center11.teraceNo}}&emsp;&emsp;</td>
+						<td style="text-align:right !important">Live Treees &emsp;&emsp;</td>
+						<td style="text-align:right !important">{{center11.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+						</tr>						
+						{% endif %}
+					{% endfor %}
+				
+			   </tbody>
+					<tr>
+						
+						<td width="53%" style="text-align:center !important">TOTAL</td>
+						
+						
+						<td width="16%" style="text-align:right !important">{{total_gLivsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>
+						<td width="16%" style="text-align:right !important">{{total_gDedsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>
+						<td width="20%" style="text-align:right !important">{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>
+					</tr>
+			</table>
+			<br> <br>
+			
+			
+			<div class="col-md-7 col-sm-7 col-xs-7">
+
+			    <table id="centerhide2">
+
+					<thead style="background-color: #69bc5f !important;">
+						
+						<tr>
+	   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+	   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; &nbsp;&nbsp;<br> Area - {{routecode}} &nbsp;&nbsp;&emsp;&emsp; Block - {{centercode}} </th>
+	  					</tr>
+	  				
+						<tr>		
+						  <th width="7%" class="school_activity">Area</th>
+						   <th width="7%" class="school_activity">Block</th>
+						   <th width="10%" class="school_activity">Terace(s) </th>
+						   <th width="7%" class="school_activity">Total Tree(s)</th>
+					    </tr>
+					</thead>
+					
+				
+				    <tbody>
+						
+					 {% for center11 in center11 %}
+						<tr>
+													
+							<td style="text-align:center !important">{{center11.areaCode}}</td>
+							
+							<td style="text-align:center !important">{{center11.blkCode}}</td>						
+							<td style="text-align:right !important">{{center11.teraceNo}}&emsp;&emsp;</td>
+
+							
+							<td style="text-align:right !important">{{center11.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+							
+							
+						</tr>
+					  {% endfor %}
+						<!--
+						<tr>
+							<td style="text-align:center !important">{{routecode}}</td>
+							<td style="text-align:center !important">{{centercode}}</td>
+							<td>{{valuescount2}}</td>
+							<td style="text-align:right !important">{{total_gLivsum_detail|floatformat:0}}</td>
+							<td style="text-align:right !important">{{total_gDedsum_detail|floatformat:0}}</td>
+							
+						</tr>-->
+				    </tbody>
+				</table>
+			</div>
+
+			<div class="col-md-7 col-sm-7 col-xs-7">
+
+			    <table id="centerhide3">
+
+					<thead style="background-color: #69bc5f !important;">
+						<tr>
+	   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+	   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} <br> &nbsp;&nbsp; &nbsp;&nbsp; Area - {{routecode}}  </th>
+	  					</tr>
+					    <tr>		
+							<th width="7%" class="school_activity">Area</th>
+							<th width="7%" class="school_activity">Block(s)</th>
+							<th width="10%" class="school_activity">Terace(s) </th>
+							
+							<th width="7%" class="school_activity">Total Tree(s)</th>
+						
+					    </tr>
+					</thead>
+				
+			
+					<tbody>
+							
+						{% for center11Ar in center11Ar %}
+							<tr>												
+								<td style="text-align:center !important">{{center11Ar.areaCode}}</td>
+								
+								<td style="text-align:right !important">{{center11Ar.blkCnt}}&emsp;&emsp;</td>
+							
+								<td style="text-align:right !important">{{center11Ar.teraceNo}}&emsp;&emsp;</td>
+
+								
+								<td style="text-align:right !important">{{center11Ar.TotCnt|floatformat:0}}&emsp;&emsp;</td>	
+							</tr>
+						{% endfor %}
+						
+				    </tbody>
+		        </table>
+	        </div>
+			<br>
+			<br>
+
+			<br>
+			<br>
+		</div>
+	</div>
+</div>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+<script type="text/javascript">
+//$("#displaytable").hide();
+
+$(document).ready(function(){
+	$('#centerhide').hide();
+	$('#centerhide1').hide();
+	$('#centerhide2').hide();
+	$('#centerhide3').hide();
+		
+		
+	
+
+			//$("#centerhide").show()
+			
+		
+	});
+$('#filter1').ready(function () {
+    //alert( this.value );
+    var tableValue = $(this).val();
+    //alert(tableValue);
+    
+    if (tableValue == "ArOnly") {
+  
+        $("#centerhide3").show();
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide2').hide();
+
+    } 
+    else if (tableValue == "AnB") {
+    	// alert("get");
+        $("#centerhide2").show();
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide3').hide();
+    } 
+    else  {
+    	//alert(tableValue);
+        $('#centerhide').show();
+		$('#centerhide1').show();
+		$('#centerhide2').hide();
+		$('#centerhide3').hide();
+    }
+    
+});
+
+//$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+//});
+</script>
+
+    
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("route").value = localStorage.getItem("route");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("route",document.getElementById("route").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("center").value = localStorage.getItem("center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("center",document.getElementById("center").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("filter1").value = localStorage.getItem("filter1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("filter1",document.getElementById("filter1").value);
+  });
+
+</script>
+
+{% endblock %}

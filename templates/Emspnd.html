@@ -1,0 +1,137 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+	</style>
+
+<script>
+    function myFunction() {
+        var bank=document.getElementById("emspnd").value; 
+        {
+            document.getElementById("emspnd").value = "V";
+        }
+        }
+    </script>
+<div class="container">
+	<h2><center><b>EMSpnd</b></center></h2>
+	<form method="POST" action="" enctype="">
+		{% csrf_token %}
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	<label for="fname"><b> PlanType </b> &nbsp;&nbsp;&nbsp;&nbsp;  </label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;
+		<input class="border-right" type="text" name="type" placeholder="  " required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>PName</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="name" placeholder="PName"  required=""><br><br>
+		<!-- &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>remove</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="remove"  required=""><br><br> -->
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>PCost</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="0.00"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>QtyPerTree</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="Qty" placeholder="0.00"  required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>  FreqOfSpray</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="Freq" placeholder="0"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>IncrPer</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text"  name="Incr" placeholder="" required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>PStAge</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="stage" placeholder="0"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>PEndAge</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="endage" placeholder="0"  required=""><br><br>
+		
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">+
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+				<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="new" class="btn btn-primary btn-lg" value="new"  href="/supervisor/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manageemspnd1/" >Edit </a>
+		<br><br><br><br>
+	</form>
+</div>
+
+
+{% endblock %}}

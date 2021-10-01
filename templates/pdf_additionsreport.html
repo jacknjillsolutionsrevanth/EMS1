@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Additions Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Center code : {{centercode}}<br>
+
+		   </p><br>
+		   <h2  class="title_middle"><b>Additions</b></h2>
+		<table>
+            <tr>
+                <th>Centercode (+)</th>
+                <th>Cartage (+)</th> 
+				<th>Autofine (+)</th>
+				<th>A Arrears (+)</th>
+				<th>A Others (+)</th>
+				<th>Commission (+)</th>
+				
+
+                
+			</tr>
+			{% for ar in data %}
+					<tr>
+					
+                        <td>{{ar.centercode}}</td>
+						<td>{{ar.cartage}}</td>
+						<td>{{ar.autofine}}</td>
+						<td>{{ar.aarrears}}</td>
+						<td>{{ar.aothers}}</td>
+						<td>{{ar.commission}}</td>
+					
+					</tr>
+			{% endfor %}
+			</table>
+			<br>
+			<h2  class="title_middle"><b>Recoveries</b></h2>
+			<table>
+			<tr>
+               
+				<th>Cattle Feed(-)</th>
+				<th>Vet.Medicine (-)</th>
+				<th> Stationary(-) </th>
+				<th>Emt Charges(-)</th>
+				<th>Seed(-)</th>
+				<th>Insurance(-)</th>
+				<th>Stores(-)</th>
+				<th>RArrears(-)</th><th>ROthers(-)</th>
+
+                
+			</tr>
+			{% for ar in data %}
+					<tr>
+					
+						<td>{{ar.cattlefeed}}</td>
+						<td>{{ar.medicine }}</td>
+						<td>{{ar.stationary}}</td>
+						<td>{{ar.emtcharges}}</td>
+						<td>{{ar.seed}}</td>
+						<td>{{ar.insurance}}</td>
+						<td>{{ar.stores}}</td>
+						<td>{{ar.rarrears}}</td>
+						<td>{{ar.rothers}}</td>
+                      
+					</tr>
+			{% endfor %}
+
+	
+		
+		</table>
+	</body>
+</html>

@@ -1,0 +1,198 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script> 
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker2').val(today);
+
+});</script>
+<style>
+select {
+     width:75px;
+    margin: 10px;
+}
+#select:focus {
+     width: 75px;
+     width: auto;
+}
+select{
+  width: 20%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=date]{
+  width: 20%;
+  padding: 2px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input[type=text]{
+  padding: 2px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+  </style>
+  <div class="col-md-15 col-sm-15 col-xs-15" style="border: 1px solid #dddddd;"> 
+<div class="container">
+  <h2><center><b>Additions</b></center></h2>
+  <form  method="POST" action="/additions/"  enctype="multipart/form-data">
+    {% csrf_token %}
+         
+       
+<div class="col-md-15 col-sm-15 col-xs-15" style="border: 1px solid #dddddd;"> <br>
+       &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&nbsp;&nbsp;
+      <label for="fname"><b>Date</b></label>&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+      <input class="border-right" type="date"  id="datePicker" name="datefrom" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+      
+        
+      
+
+        
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label><b>Center</b></label>&emsp;&emsp;&emsp;&emsp;
+      <select name="centername" id="cn">
+      {% for center in center %}
+      <option></option>
+      <option value="{{center.centre_code}}">{{center.centre_code}}-{{center.name}}</option>
+      {% endfor %}
+      </select><br>
+      &emsp;&emsp;<br>
+      
+      <div class="col-md-12 col-sm-12 col-xs-12 no_padding row">
+      <div class="col-md-7 col-sm-7 col-xs-12 no_padding">
+     &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+      <b style="font-size: 25px">Additions</b> <br><br>
+      &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+        <label><b>Cartage</b></label> &emsp;&ensp;&ensp;&ensp;&emsp;&emsp;&nbsp;
+          <input name="cartage" type="text" value="0" style="text-align: right;"><br>
+          &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+         <label for="fname"><b>Auto Fine</b></label>&emsp;&emsp;&emsp;&emsp;&nbsp;
+        <input name="autofine" type="text" value="0" style="text-align: right;">
+        <br>
+        <!--<label for="fname">Interest Amt</label>
+        <input name="intamt" type="number">&emsp;&emsp;&emsp;&emsp;-->
+        &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+        <label for="fname"><b>Arrears   </b></label>&emsp;&emsp;&emsp;&emsp;&emsp;
+        &nbsp;<input name="arrears" type="text" value="0" style="text-align: right;" ><br>
+      &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+        
+        <label for="fname"><b>Others</b>&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp; </label>
+        <input name="aothers" type="text" value="0" style="text-align: right;"><br>
+        &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+        <label for="fname"><b>Commission</b>&emsp;&emsp;&nbsp;&nbsp;&nbsp; </label>
+        <input name="comm" type="text" value="0" style="text-align: right;"><br>
+        
+      </div>
+      <div class="col-md-5 col-sm-5 col-xs-12">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b style="font-size: 25px">Recoveries</b><br><br>
+        <label><b>Cattle Feed</b></label>&ensp;&ensp;&emsp;&nbsp;&nbsp;
+          <input name="cattle" type="text" value="0" style="text-align: right;">&emsp;&emsp;&emsp;&emsp;<br>
+          <label for="fname"><b>Stores</b></label>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
+        <input name="stores" type="text" value="0" style="text-align: right;"><br>
+        <label for="fname"><b>Vet . Medicine</b>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input name="medicine" type="text" value="0" style="text-align: right;"><br>
+        <label for="fname"><b> Stationary</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+        <input name="stationary" type="text" value="0" style="text-align: right;"><br>
+        <label for="fname"><b>Emt Charges</b>&emsp;&emsp; </label>
+        <input name="emtcharges" type="text" value="0" style="text-align: right;"><br>
+        <label for="fname"><b>Seed</b>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; </label>
+        <input name="seed" type="text"  value="0"  style="text-align: right;"><br>
+        <label for="fname"><b>Insurance</b>&emsp;&emsp;&emsp;&nbsp; </label>
+        <input name="insurance" type="text" value="0" style="text-align: right;"><br>
+        <label for="fname"><b>Arrears&nbsp;</b>&emsp;&emsp; &emsp;&emsp;</label>
+        <input name="rarrears" type="text" value="0" style="text-align: right;" ><br>
+        <label for="fname"><b>Others</b>&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; </label>
+        <input name="rothers" type="text" value="0" style="text-align: right;"><br>
+        
+
+      </div><br><br>
+      &emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&emsp;
+      <label for="fname"><b>&emsp;Remarks</b>&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;  </label>
+        <input name="remarks" type="text" style="width: 66%; height: 150px; ">
+    </div>
+      <br>
+<br>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <button type="reset" class="btn btn-primary btn-lg" value="cancel"> Reset </button>
+        <a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/additions/" >Cancel </a>
+        <button type="text" class="btn btn-primary btn-lg" value="save"> Submit </button>
+        
+        
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+          </div>
+          
+        
+        
+      </div>
+    </div>
+    
+    
+  </form> 
+</div>
+<br><br>
+
+{% endblock %}

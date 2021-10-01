@@ -1,0 +1,183 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid black !important;
+}
+th{
+	
+	color:#000 !important;
+}
+
+td{
+    text-align: center !important;
+    padding: 25px !important;
+	border: 1px solid black !important;
+
+}
+</style>
+
+
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+				<h2><b><center>Manage TS Rates-BM By Route</center></b></h2>
+
+			<form  method="POST"  action="/managebuffroute/" enctype="">  
+				{% csrf_token %}
+				
+                <label for="fname"><b>From Date</b> </label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				
+                <label for="fname"><b>TO Date</b> </label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+			    
+                <button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""> Get Data </button>
+			
+            <br><br>
+            </form>
+            <form  method="POST"  action="/managebuffroute1/" enctype="">  
+                {% csrf_token %}
+          	 	
+            <div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+        
+                        <h3><b><center> Manage TS Rates-BM By Route</center></b></h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Route</th>
+                                    <th>Date From</th>
+                                    <th>Date To</th>
+                                    <th>Milk Type</th>
+                                    <th>Rate Calc</th>
+                                    <th>Comm Type</th>
+                                    <th>Fixed Value</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody id='form' class="form-block_1">
+        
+                                {% for cc1 in cc1 %}
+                                    <tr class="odd"  role="row">
+                                        <input type="hidden" value="{{cc1.id}}" name="id1[]">
+                                        <td><input type="text" value="{{cc1.Routecode}}" name="routecode[]" style="width:65px"></td>  
+                                        <td><input type="text" value="{{cc1.from_date|date:'Y-m-d'}}" name="fromdate[]" ></td>
+                                        <td><input type="text" value="{{cc1.to_date|date:'Y-m-d'}}" name="todate[]" ></td>
+                                        <td><input type="text" value="{{cc1.milk_type}}" name="milktype[]" style="width:55px"></td>
+                                        <td><input type="text" value="{{cc1.rate_calculation}}" name="ratecalculation[]" style="width:65px"></td>
+                                        <td><input type="text" value="{{cc1.commission_type}}" name="commtype[]"style="width:80px" ></td>
+                                        <td><input type="text" value="{{cc1.fixed_value}}" name="fixedvalue[]" style="width:55px"></td>
+                                        
+                                     </tr>        
+                                    {% endfor %}
+                           </tbody>			    
+                        </table>
+                    </div>
+                    </div>
+                    </div>
+               
+                   
+        
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                
+                                <table>
+                                    <thead class="tableHeadcolor">
+                                        <tr>
+                                            <th>Date From</th>
+                                            <th>Date To</th>
+                                            <th>Min Fat</th>
+                                            <th>Max Fat</th>
+                                            <th>Min Snf</th>
+                                            <th>Max Snf</th>
+                                            <th>TS-Rate</th>
+                                            
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody id='form' class="form-block_1">
+        
+                                        {% for mf1 in mf1 %}
+                                            <tr class="odd"  role="row">
+                                                
+                                                <input type="hidden" value="{{mf1.id}}" name="id[]" >	
+                                        <td><input type="text" value="{{mf1.from_date|date:'Y-m-d'}}" name="fromdate1[]" style="width:100px"></td>
+                                                <td><input type="text" value="{{mf1.to_date|date:'Y-m-d'}}" name="todate1[]"style="width:100px" ></td>				
+                                                <td><input type="text" value="{{mf1.min_fat}}" name="minfat1[]"style="width:65px" ></td>
+                                                <td><input type="text" value="{{mf1.max_fat}}" name="maxfat1[]" style="width:65px"></td>
+                                                <td><input type="text" value="{{mf1.min_SNF}}" name="minsnf1[]"style="width:65px" ></td>
+                                                <td><input type="text" value="{{mf1.max_SNF}}" name="maxsnf1[]"style="width:65px" ></td>
+                                                <td><input type="text" value="{{mf1.tsrate}}"  name="tsrate1[]" style="width:65px"></td>
+                                               
+                                        
+                                               
+                                           </tr>        
+                                        {% endfor %}
+                                   </tbody>			    
+                                </table>
+                            </div>
+                        </div>
+                    </div>    
+        
+                               
+                    
+        
+                                
+                  
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <button type="submit" class="btn btn-primary btn-lg" > Submit </button>
+        </form>	
+        </div></div></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
+        
+        
+        
+        
+        {% endblock %}

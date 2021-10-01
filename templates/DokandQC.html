@@ -1,0 +1,525 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+var time = new Date();
+
+  var shift = time.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+  
+  $('#shift').val(shift);
+});</script>
+<script>
+$(document).ready( function() {
+var d = new Date();
+var hours = d.getHours() % 12;
+  hours = hours ? hours : 12;
+    var test =  
+    ("00" + d.getMinutes()).slice(-2) + ":" + 
+    ("00" + d.getSeconds()).slice(-2) + ' ' + (d.getHours() >= 12 ? 'PM' : 'AM'); 
+    
+document.getElementById("demo").innerHTML = test;
+});</script>
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left; !important;
+  		padding: 6px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 6px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+input[type=shift]{
+	width:50px !important;
+}  
+input[type=date]{
+	width:150px !important;
+} 
+input[type=text] {
+	width:100px !important;
+}
+ input{
+	width:70px !important;
+}
+</style>
+
+<div class="container">
+	<h2><b><center>Proc Entry</center></b></h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+			
+			<div class="col-md-85 col-sm-85 col-xs-85">
+				
+					<form  method="POST"  action="/DokandQC/" enctype="">
+						{% csrf_token %}
+						<div class="col-md-05 col-sm-07 col-xs-09">
+							<h6><b>Daily Proc Entries</b></h6>
+							<label><b>Branch</b></label>&ensp;
+							<input type="text" name="branch11" value="{% if user.is_authenticated %}{{user.extendeduser.branch}}{%endif%}" disabled>
+						  	<label><b>Date</b></label>&ensp;
+							<input type="date" id="datePicker" name="dateform" placeholder="Enter YYYY-MM-DD" required="">&emsp;&emsp;
+							<label for="fshift"><b>Shift</b></label>&ensp;
+							<select name="time" id="time">
+							    <option value="AM">AM</option>
+							    <option value="PM">PM</option>
+						  	</select> &emsp;&emsp;
+						  	<label> <b>Good Sour</b></label>&ensp;
+							<select name="goodsour" id="goodsour">&emsp;&emsp;
+							    <option value="good">GOOD MILK</option>
+							    <option value="sour">SOUR MILK</option>
+						  	</select>&emsp;&emsp;
+						</div>
+							<br><br>
+						<div class="col-md-22 col-sm-22 col-xs-22" style="border: 1px solid #dddddd;">
+						<!-- <h6>Cow Milk</h6> -->
+			  	    		<div class="col-md-12 col-sm-12 col-xs-12  no_pad">		<!--<table>
+			  	    				<tr>						            	
+						                <th>Center</th>						     
+						                <th>Milk Type </th>
+						                <th>Samp No</th> 
+						                <th>Can</th>
+						                <th>Qty(Kgs)</th>
+						                <th>Fat</th>
+						                <th>Clr</th> 
+						                <th>Snf</th> 
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+						            	
+										<td>&emsp;&emsp;&emsp;&emsp;	
+											<select name="code[]" id="code_center">
+												{% for center in center %}
+											    <option value="{{center.centre_code}}-{{center.name}}">{{center.centre_code}}-{{center.name}}</option>
+											    {% endfor %}
+										  	</select>
+										</td>  
+						                <td>	&emsp;
+											<select name="milktype[]" id="milktype">
+											    <option value="cm">CM</option>
+											    <option value="bm">BM</option>
+										  	</select>
+										</td>
+						                <td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="samplecode[]" step="any" style="text-align:right" id="samplecode"></td>
+						               	<td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="can[]" step="any" style="text-align:right" id="can"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="qty[]" step="any" style="text-align:right" id="qty"></td>
+						                <td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="fat" name="fat[]" step="any" style="text-align:right" id="fat"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="clr" name="clr[]" step="any" style="text-align:right" id="clr" ></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="snf" id="snf" name="snf[]"  step="any" style="text-align:right" onclick="myFunction()" onkeyup="myFunction()"onkeyup="myError()"></td>
+						               
+						                
+						            </tr> 
+						        </table>-->       
+
+						  	<table class="table display data-table text-nowrap" id ="doctable"  style="width:100%;">
+								    
+			    
+								<thead class="tableHeadcolor">
+						            <tr>						            	
+						                <th>Center</th>						     
+						                <th>Milk Type </th>
+						                <th>Samp No</th> 
+						                <th>Can</th>
+						                <th>Qty(Kgs)</th>
+						                <th>Fat</th>
+						                <th>Clr</th> 
+						                <th>Snf</th> 
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+						            	
+										<td>&emsp;&emsp;&emsp;&emsp;	
+											<select name="code[]" id="code_center">
+												{% for center in center %}
+											    <option value="{{center.centre_code}}" data-name="{{center.route_number}}">{{center.centre_code}}-{{center.name}}</option>
+											    {% endfor %}
+										  	</select>
+										  	<input type="hidden" name="route" id="route">
+										</td>  
+						                <td>	&emsp;
+											<select name="milktype[]" id="milktype">
+											    <option value="CM">CM</option>
+											    <option value="BM">BM</option>
+										  	</select>
+										</td>
+						                <td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="samplecode[]" step="any" style="text-align:right" id="samplecode"></td>
+						               	<td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="can[]" step="any" style="text-align:right" id="can"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="qty[]" step="any" style="text-align:right" id="qty"></td>
+						                <td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="fat" name="fat[]" step="any" style="text-align:right" id="fat"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="clr" name="clr[]" step="any" style="text-align:right" id="clr" ></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="snf" id="snf" name="snf[]"  step="any" style="text-align:right" onclick="myFunction()" onkeyup="myFunction()"onkeyup="myError()"></td>
+						               
+						                
+						            </tr>        
+						       </tbody>
+						    </table>
+			    		<button type="button" class="btn btn-primary btn-lg"><a class="btn backgroundBlue add-more-btn addDeleteButton">Add</a></button>&emsp;&emsp;
+									<button type="submit" class="btn btn-primary btn-lg"  id="submitData" value="" disabled>Submit </button>
+									<br></br>
+			    				<table class="table display data-table1 text-nowrap" style="width:100%;">
+							        <tbody id='form' class="form-block_1">   
+							       </tbody>
+							 	</table>
+			 
+						</div>
+			</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			
+		
+		<br>
+		<br>
+		<br>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById('centre_code').onchange = function() {
+    alert(this.value);
+	}
+	// $(document).on("change", "#centercode", function(){
+ //        var a =  $(this).find(':selected').data('name');
+ //        $("#center_name").val(a);
+ //    });
+    $(document).on("change", "#code_center", function(){
+        var b =  $(this).find(':selected').data('name');
+       	
+        $("#route").val(b);
+        
+    });
+    // $(document).on("change", "#code_center", function(){
+    //     var c =  $(this).find(':selected').data('bankname');
+    //     alert(c);
+    //     $("#bankname").val(c);
+    // });
+    // function Amount(val) {
+    //     var fat = document.getElementById('fat').value;
+    //     var qty = document.getElementById('qty').value;
+    //     var snf = document.getElementById('snf').value;
+    //     var rate_min = '{{rate.rate}}';
+    //    	var quantity = parseFloat(qty)/parseFloat(1.03);
+    //    	var a1 = parseFloat(snf) + parseFloat(fat)
+    //     var rate = ( a1* parseFloat(rate_min))/100;
+    //     var total_amount = parseFloat(rate) * parseFloat(quantity);        
+    //     var amount = document.getElementById('rate');
+    //     var total = document.getElementById('amount');
+    //     total.value = total_amount;
+    //     amount.value = rate;
+    // }
+</script>
+<script>
+	function deleteRow() {
+  document.querySelectorAll('#doctable .select:checked').forEach(e => {
+    e.parentNode.parentNode.remove()
+  });
+}
+//$(document).ready(function(){
+  //  $('#delrow').click(function(){
+    //        $("#doctable input:checkbox").each(function(){
+      //          if (this.checked) {
+        //             $(this).parent().parent().remove();
+          //      }
+            //    return false;  
+
+           // })
+    //});
+    //});
+
+//	$(function(){
+//		$(document).on("click",".deleterows",function(){
+//			var deleterowsfromtable=$(".form-block_1 input:checked").parents("tr").remove();
+//		});
+//	});
+</script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+        	/*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trFirst = $tableBody.find("tr:first");
+		    $trNew = $trFirst.clone();
+		    $trFirst.after($trNew);
+		   
+		   	$trNew.find("#milktype").val( $trFirst.find("#milktype").val());
+		   	$trNew.find("#code_center").val( $trFirst.find("#code_center").val());
+		   
+        
+    		var $tableBody1 = $('.data-table1 ').find("tbody");
+			($trNew).attr("readonly", true);
+			($trNew).each(function () {
+                   $(this).children("td").each(function () {
+                   		$(this).find("input").prop("readonly", true);
+                   	
+                   		//$(this).find("input");
+                   });
+
+               });
+			var rowCount = $('.data-table1 tr').length+1;
+			($trNew).prepend($('<td>').append(rowCount));
+			$tableBody1.prepend($trNew);
+			$("#submitData").prop('disabled', false); //enable
+
+			
+        });
+    });
+   
+
+</script>
+</script>
+									
+						               
+<script>
+function myFunction() {
+  document.getElementById("snf").value = (((document.getElementById("clr").value)/4) +(0.21*(document.getElementById("fat").value))+0.36).toFixed(2) ;
+}
+
+</script>
+<script type="text/javascript">
+	function myError(){
+		var snf=document.getElementById("snf").value;
+		if(snf != (((document.getElementById("clr").value)/4) +(0.21*(document.getElementById("fat").value))+0.36) || snf == "").toFixed(2) {
+
+    alert("Enter Correct SNF")
+
+  } 
+    }
+</script>
+
+						            </tr>        
+						       </tbody>
+						    </table>
+			    
+						</div>
+			
+			</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	
+			
+
+			
+		</form>	
+		<br>
+		<br>
+		<br>
+		<br>
+		
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).on("change", "#centercode", function(){
+        var a =  $(this).find(':selected').data('name');
+        $("#center_name").val(a);
+    });
+    function Amount(val) {
+    	/*alert("hi");*/
+        var fat = document.getElementById('fat').value;
+        var qty = document.getElementById('qty').value;
+        var snf = document.getElementById('snf').value;
+        var rate_min = '{{rate.rate}}';
+       	var quantity = parseFloat(qty)/parseFloat(1.03);
+       	var a1 = parseFloat(snf) + parseFloat(fat)
+        var rate = ( a1* parseFloat(rate_min))/100;
+        var total_amount = parseFloat(rate) * parseFloat(quantity);        
+        var amount = document.getElementById('rate');
+        var total = document.getElementById('amount');
+        total.value = total_amount;
+        amount.value = rate;
+    }
+</script>
+<script type="text/javascript">
+	var field = document.querySelector('#today');
+	var date = new Date();
+
+	// Set the date
+	field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
+	    '-' + date.getDate().toString().padStart(2, 0);
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("time").value = localStorage.getItem("time");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("time",document.getElementById("time").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("goodsour").value = localStorage.getItem("goodsour");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("goodsour",document.getElementById("goodsour").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("code_center").value = localStorage.getItem("code_center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("code_center",document.getElementById("code_center").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("milktype").value = localStorage.getItem("milktype");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("milktype",document.getElementById("milktype").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("samplecode").value = localStorage.getItem("samplecode");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("samplecode",document.getElementById("samplecode").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("can").value = localStorage.getItem("can");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("can",document.getElementById("can").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("qty").value = localStorage.getItem("qty");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("qty",document.getElementById("qty").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("fat").value = localStorage.getItem("fat");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("fat",document.getElementById("fat").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("clr").value = localStorage.getItem("clr");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("clr",document.getElementById("clr").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("snf").value = localStorage.getItem("snf");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("snf",document.getElementById("snf").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker").value = localStorage.getItem("datePicker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker",document.getElementById("datePicker").value);
+  });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Bufallo Milk Center Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">center code : {{centercode}}<br>
+
+		   </p><br>
+		<table>
+			<tr>
+                <th>Center</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Rate Calc</th>
+                <th>Comm Type</th>
+                <th>Milk Type</th>
+                <th>Fat Min</th>
+                <th>Max Fat</th>
+                <th>Min Snf</th>
+                <th>Max Snf</th>
+                <th>TS-Rate</th>
+                <th>Fixed Value</th>
+                <th>CenterId</th>           
+			</tr>
+			{% for bmcenter in data %}
+			<tr>
+                <td>{{bmcenter.centercode }}</td>
+                <td>{{bmcenter.from_date|date:'d-m-Y'}}</td>
+                <td>{{bmcenter.to_date|date:'d-m-Y'}}</td>
+                <td>{{bmcenter.rate_calculation}}</td>
+                <td>{{bmcenter.commission_type}}</td>
+                <td>{{bmcenter.milk_type}}</td>
+                <td>{{bmcenter.min_fat}}</td>
+                <td>{{bmcenter.max_fat}}</td>
+                <td>{{bmcenter.min_snf}}</td>
+                <td>{{bmcenter.max_SNF}}</td>
+                <td>{{bmcenter.tsrate}}</td>
+				<td>{{bmcenter.fixed_value}}</td>
+                <td>{{bmcenter.centerid}}</td>
+			</tr>
+			{% endfor %}
+	
+		</table>
+	</body>
+</html>

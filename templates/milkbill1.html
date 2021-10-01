@@ -1,0 +1,552 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+  $( ".start_date" ).datepicker({
+    defaultDate: +7
+  });
+
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});
+
+</script>
+<script>
+  $(document).ready( function() {
+      var now = new Date();
+   
+     var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+  
+      var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+  
+  
+  
+     $('#datePicker1').val(today);
+  });</script>
+<script>
+  $(function () {
+    setNavigation();
+});
+
+function setNavigation() {
+    var path = window.location.pathname;
+    path = path.replace(/\/$/, "");
+    path = decodeURIComponent(path);
+
+    $(".nav a").each(function () {
+        var href = $(this).attr('href');
+        if (path.substring(0, href.length) === href) {
+            $(this).closest('li').addClass('active');
+        }
+    });
+}
+</script>
+<style>
+h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px; 
+}
+
+b.uppercase1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 25px;
+}
+b.uppercasedate {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+}
+.title_middle{text-align: center;
+
+}
+.title_middle1{
+   border: 0px solid #dddddd;
+
+}
+
+
+
+th.school_activity{
+  text-align: center;
+  font-weight: bold;
+}
+a {
+  position: relative;
+  display: inline-block;
+  font-size: 1em;
+  color: #000;
+  font-weight: 500;
+  
+  // text-decoration: none;
+  overflow: hidden;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transform: translateX(-100%);
+    transition: transform 275ms ease;
+    &::before {
+      display: inline-block;
+      content: attr(data-content);
+      color: yellow;
+      transform: translateX(100%);
+      transition: transform 275ms ease;
+      text-decoration: underline;
+    }
+  }
+  &:hover {
+    span {
+      transform: translateX(0);
+      &::before {
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+.title_right{text-align: right;
+            }
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-14 col-md-12 col-xs-14">
+      <table>
+        <thead>
+          <tr>
+               <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #69bc5f !important;">MILK BILL VOUCHER</th>
+            </tr>
+          </thead>
+      </table>
+      <button type="button"><a href="/milk/pdf1/" target="_blank"> PDF Download</a></button>&emsp;
+      <!--
+      <button type="button"><a href="/excel4/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel Download</a></button><br>-->
+      <form method="POST" action="/milkbill/" enctype=""><br>
+        {% csrf_token %} 
+        <label for="fname"><b>From Date</b> </label>
+        <input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+        <!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+        <label for="fname"><b>TO Date</b> </label>
+        <input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+        <!--<input class="border_foot" type="date" id="my_date_picker1" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+        <label for="fname"> <b>Route</b> </label>
+        <select name="routecode" id="route">
+            <option value="all">All</option>
+
+            {% for route in route %}
+                <option value="{{route.Route_number}}">{{route.Route_number}}-{{route.Route_name}}</option>
+            {% endfor %}
+          </select>
+          
+        <!--btn btn-outline-primary-->
+        <button type="submit" class="btn btn-link btn-lg" id="getdata" value=""><b>Get Data</b></button>
+      </form>
+      <br>
+
+      <div class="col-md-15 col-sm-12 col-xs-15" >
+        <div class="row">
+          <div class="col-md-2 col-sm-2 col-xs-2">
+      <table id="centerhide">
+        <thead style="background-color: #69bc5f !important;">
+          <tr>
+            <th width="10%" class="school_activity">Center Code</th>
+            
+          </tr>
+        </thead>
+        <tbody name="centercode">
+          
+          {% for dk in dk %}
+          <tr>  
+            <td><a href="/milkbillchange/{{dk.centercode}}" value = "phone">{{dk.centercode}}</a></td>    
+          </tr>
+          {% endfor %}
+        
+          
+        </tbody>
+        
+    </table>
+  </div>
+   <div class="col-sm-11 col-md-10 col-xs-12">
+     <div style="border:3px solid black;padding:15px;margin:15px;">
+        <div style="border:2px solid #dddddd;padding:5px;margin:5px;">
+      
+                <h1 class="uppercase"><b class ="uppercase1">LS Dairy Products Pvt Ltd</b>,<b>{{name}}</b> <br><b>{{address}}-{{pin}}</b></h1>
+                </div>
+           
+            <h1 class="uppercase"><b>Milk Bill Voucher From </b><b class="uppercasedate">{{datefirst}}</b><b> To</b><b class="uppercasedate"> {{datelast}}  </b><br></h1>
+          
+            
+      <div style="border:2px solid #dddddd;padding:5px;margin:5px;">
+      <table class="title_middle1" style="border: 2px;">
+               <tr>
+
+                   <th>Center   <br>
+                         Name  <br>
+                        Account No   <br>   
+                                            
+                    </th>
+                    <th>
+                      :<br>
+                      :<br>
+                      :<br>
+                  
+                    </th>
+                    <th>
+                      {{centre_code}} / {{centername}}<br>
+                       {{centername}}<br>
+                       {{bankno}}<br>
+                       
+                    </th>
+                   <th>
+                        Route  <br>
+                        Contact No  <br>
+                        IFSC  <br>
+                   </th>
+                   <th>
+                    :<br>
+                    :<br>
+                    :<br>
+                   </th>
+                   <th>
+                    {{route_number}} / {{routename}}<br>
+                    {{mobile}}<br>
+                    {{ifsc}}<br>
+                   </th>
+                   <th>
+                     <!--<button type="button"><a href="/milkbillcenter/pdf1/{{slug3}}/" target="_blank"> PRINT</a></button>-->
+                   </th>
+               </tr>
+           </table>
+         </div>
+        <table id="centerhide">
+        <thead style="background-color: #69bc5f !important;">
+          <tr>
+            <th width="10%" class="school_activity">Date</th>
+            <th width="5%" class="school_activity">Shift</th>
+            
+            <th width="5%" class="school_activity">Type</th>
+            <th width="6%" class="school_activity">KGS</th>
+            <th width="6%" class="school_activity">LTRS</th>
+            <th width="6%" class="school_activity">FAT</th>
+            <th width="6%" class="school_activity">SNF</th>
+            <th width="7%" class="school_activity">Rate/Ltr</th>
+            <th width="12%" class="school_activity">Amount</th>
+            
+            <th width="9%" class="school_activity">P&I Exp</th>
+            <th width="12%" class="school_activity">Total</th>
+            
+            <!--<th width="10%" class="school_activity">Receviable</th>
+            <th width="10%" class="school_activity">Payment</th>-->
+          </tr>
+        </thead>
+        <tbody>
+          {% for dc in dc %}
+          <tr>
+            <td>&nbsp;{{dc.date|date:'d-m-Y'}}</td>
+            <td style="text-align:right !important">{{dc.shift}}&ensp;</td>
+            
+            <td style="text-align:right !important">{{dc.milk_type}} &ensp;</td>
+            <td style="text-align:right !important">{{dc.kgs|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.ltrs|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.fat|floatformat:2|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.snf|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.ltrrate|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.amount|floatformat:2}}&ensp;</td>
+            
+            <td style="text-align:right !important">{{dc.pel|floatformat:2}}&ensp;</td>
+            <td style="text-align:right !important">{{dc.net|floatformat:2}}&ensp;</td>
+              
+          </tr>
+          {% endfor %}
+          <tr>
+            <td style="text-align:left !important"><b>Total</b></td>
+            <td style="text-align:right !important"></td>
+            
+            <td style="text-align:right !important"></td>
+            <td style="text-align:right !important"><b>{{total_kgssum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_ltrssum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_fatsum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_snfsum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_ratesum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_amountsum_detail|floatformat:2}}</b>&ensp;</td>
+            
+            <td style="text-align:right !important"><b>{{total_pelsum_detail|floatformat:2}}</b>&ensp;</td>
+            <td style="text-align:right !important"><b>{{total_totalsum_detail|floatformat:2}}</b>&ensp;</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <br>
+      <div style="border:2px solid #dddddd;padding:5px;margin:5px;">
+      <table>
+    <tr>
+        <th>Additions<br>----------------</th><th></th><th></th><th></th>
+        <th>Recoveries<br>---------------------</th><th></th><th></th><th></th>
+        <th>Bill Details<br>-------------------</th><th></th><th></th><th></th>
+    </tr>
+    <tr>
+        <th width="15%">Auto Fine  <br>  
+            Cartage <br>
+         Others  <br>
+         Arrears<br>
+         Commission<br>
+         
+    ----------------
+     <br>   Total     <br>
+  ----------------
+  <br>
+
+<br>
+<br> Milk Value/Ltr<br>
+Avg. Per Day<br>
+</th>
+
+  <th width="3%">
+     :<br>
+     :<br>
+     :<br>
+     :<br>
+     :<br>
+     
+     ---
+     <br>  <br>
+     ---
+      <br> <br> <br>: <br>
+       :<br>
+ </th>
+  
+  <th class="title_right" width="7%">
+    
+     {{autofine|floatformat:2}}<br>
+     {{cartage|floatformat:2}}<br>
+     {{aothers|floatformat:2}}<br>
+     {{aarrears|floatformat:2}}<br>
+    {{commission|floatformat:2}}<br>
+     
+    -------<br>
+     {{total_additions|floatformat:2}}<br>
+    -------
+    <br>
+    <br><br>
+    
+     {{total_milkvalue|floatformat:2}}<br>
+     {{total_rateltr|floatformat:2}}<br>
+
+ </th><th width="6%"></th>
+        <th width="20%"> Stationary  <br>
+            Cattle Feed    <br>
+            Seed           <br>
+            EMT          <br>
+            Vet.medicine    <br>
+            Insurance    <br>
+            Stores      <br>
+            Loans      <br>
+            Others     <br>
+            Arrears <br>
+            -----------------------<br>
+            Total <br>
+            ----------------------
+        </th>
+        <th width="2%">
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          :<br>
+          --<br>
+          :<br>
+          --<br>
+        </th>
+
+        <th class="title_right" width="10%">
+          
+           {{stationary|floatformat:2}}<br>
+           {{cattlefeed|floatformat:2}}<br>
+           {{seed|floatformat:2}}<br>
+           {{emtcharges|floatformat:2}}<br>
+           {{medicine|floatformat:2}}<br>
+           {{insurance|floatformat:2}}<br>
+           {{stores|floatformat:2}}<br>
+           {{instamt|floatformat:2}}<br>
+           {{rothers|floatformat:2}}<br>
+          {{rarrears|floatformat:2}}<br>           
+          ----------<br>
+           {{total_recoveries|floatformat:2}}<br>
+          -----------
+
+
+
+          
+        </th><th width="3%"></th>
+        <th width="20%">
+          Milk Value   <br>
+            P&I Exp. <br>
+            Additions <br>
+            -----------------------<br>
+            Gross Amount <br>
+            <br><br><br><br>
+            Recoveries  <br>
+            -----------------------<br>
+            Net Payable  <br>
+            -----------------------<br>
+
+        </th>
+        <th width="2%">
+          :<br>
+          :<br>
+          :<br>
+          --<br>
+          :<br>
+          <br><br><br><br>
+          :<br>
+          --<br>
+          :<br>
+          --<br></th>
+        <th class="title_right" width="10%">
+            {{total_amountsum_detail|floatformat:2}}<br>
+              {{total_pelsum_detail|floatformat:2}}<br> 
+               {{total_additions|floatformat:2}} <br>
+           -----------<br>
+             {{total_totalsum1|floatformat:2}}<br>
+             <br><br><br><br>
+             {{total_recoveries|floatformat:2}}<br>
+           -----------<br>
+             {{total_netvalue|floatformat:2}} <br>
+           -----------
+
+
+        </th>
+    </tr>
+
+
+{% if valuecount < 32  or  valuecount > 47 and valuecount < 80 or valuecount > 96 and valuecount < 128   %}       
+  <th>
+          
+        </th>
+        <th>
+          
+        </th>
+    
+    
+{%endif%}
+</table>
+<table>
+    <tr>
+    <th>Report Generated By : {{user}}</th>
+    <th style="text-align: left;">{{timedate}}</th>
+    <th>
+        
+    </th>
+
+      <th style="text-align: right;"> # Rec:  {{valuescount}}
+           
+        </th>
+        
+</tr>
+</table>
+</div>
+</div>
+<br>
+        <br>
+        <br><br>
+        <br>
+        <br>
+</div>
+        
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+<script type="text/javascript">
+/*$("#displaytable").hide();
+*/
+$(document).ready(function(){
+  /*$("#centerhide").hide()
+    $('#getdata').click(function() {
+    
+      
+
+      $("#centerhide").show()
+      
+    
+  });*/
+});
+
+$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yyyy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yyyy"}}' );
+});
+</script>
+<script>
+
+  $(document).ready(function(){
+  document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+      });
+
+ $(window).on('beforeunload', function() {
+  localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+});
+
+</script>
+<script>
+
+  $(document).ready(function(){
+  document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+      });
+
+ $(window).on('beforeunload', function() {
+  localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+});
+
+</script>
+<script>
+
+  $(document).ready(function(){
+  document.getElementById("route").value = localStorage.getItem("route");
+      });
+
+ $(window).on('beforeunload', function() {
+  localStorage.setItem("route",document.getElementById("route").value);
+});
+
+</script>
+{% endblock %}

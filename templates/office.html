@@ -1,0 +1,142 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+select {
+    width: 100px;
+    margin: 10px;
+}
+ #select:focus {
+     min-width: 150px;
+     width: auto;
+ }
+ h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+	</style>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("office").value = localStorage.getItem("office");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("office",document.getElementById("office").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("office1").value = localStorage.getItem("office1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("office1",document.getElementById("office1").value);
+  });
+
+	</script>
+<script>
+    function myFunction() {
+        var bank=document.getElementById("office").value; 
+        {
+            document.getElementById("office").value = "O";
+        }
+        }
+    </script>
+
+<div class="container">
+	<h2><center><b>Area</b></center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b> Code</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+		<input class="border-right" type="text" name="code" placeholder="Enter code" id="office" onclick="myFunction()" required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Area</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;<input class="border-right" type="text" name="name" placeholder="Enter Name" id="office1" required=""><br><br>
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/office/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_office/" >Edit </a>
+		<br>
+		</form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 4px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(83,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:125px !important;
+}
+input[type=date]{
+	width:150px !important;
+}  
+ 
+
+</style>
+
+	</style>
+	
+<script>
+    function myFunction() {
+        var bank=document.getElementById("supervisor").value; 
+        {
+            document.getElementById("supervisor").value = "S";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+				<h2><b><center>Manage Supervisor </center></b></h2>
+
+			<form  method="POST"  action="/manage_supervisor/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>
+					            	
+					            	<th>Supervisor Code</th>
+					                <th>Supervisor Name</th>
+					               <!-- <th>Good Sour</th> -->
+					                <th>Route</th>
+					              <!--  <th>name</th>-->
+					                <th>Route1</th>
+					                <th>Route2</th> 
+					                <th>Joining date</th>
+					                <th>End of contract</th>
+					               
+					                <th>Remove</th>
+					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+
+					            	{% for al in al %}
+					            	<tr class="odd"  role="row">
+					            		<!-- <td><input type="text" value="{{dc.date}}" name="date" ></td>
+					            		 <td><input type="text" value="{{dc.shift}}" name="shift_loc1" ></td>-->
+					            		 <!--x = datetime.strptime(request.POST["date"], "%Y-%m-%d")
+										<td>{{board.date |date:'d-m-Y'}}</td>				-->
+										<input type="hidden" value="{{al.id}}" name="dcid2[]">
+					            		<td><input type="text"  value="{{al.code}}" name="code[]" readonly></td>
+						                <td ><input type="text" value="{{al.name}}" name="name[]" ></td>
+						               
+						               <td> <select name="route[]"  value ="{{al.Route_attached}}" id="Route_attached" required>
+						               	 
+						                <option>Select</option>
+ <option value="{{ al.Route_attached }}" {% if al.Route_attached == form.al.value %} selected{% endif %} selected>{{al.Route_attached}}</option>
+
+	  			{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select></td>
+						               <td><select name="route1[]"  value ="{{al.Route_attached1}}" id="Route_attached1" required>
+						                 <option>Select</option>
+ <option value="{{ al.Route_attached1 }}" {% if al.Route_attached1 == form.al.value %} selected{% endif %} selected>{{al.Route_attached1}}</option>
+
+	  			{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select></td>
+			
+						               
+						                <td><select name="route2[]"  value ="{{al.Route_attached2}}" id="Route_attached2" required>
+						                 <option>Select</option>
+ <option value="{{ al.Route_attached2 }}" {% if al.Route_attached2 == form.al.value %} selected{% endif %} selected>{{al.Route_attached2}}</option>
+
+	  			{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select></td>
+			  	{% csrf_token %}   
+			  	<td>
+			  	 <input type="text" id="datePicker" name="datefrom" placeholder=" DD/MM/YYYY"  value= "{{al.from_date|date:'Y-m-d'}}" name="fromdate[]" ></td>
+                     <td><input type="text" id="datePicker1" name="dateto" placeholder=" DD/MM/YYYY"  value="{{al.to_date|date:'Y-m-d'}}" name="todate[]" ></td>
+
+
+
+		
+						               <td>	
+											<select name="remove[]" value="{{dc.id}}">
+											    <option value="N">N</option>
+											    <option value="Y">Y</option>
+										  	</select>
+										</td>
+
+						               
+					                </tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					
+
+						
+						
+		
+					</div>
+					</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+					<a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/supervisor/" >Cancel </a>
+					<button type="submit" class="btn btn-primary btn-lg" > Submit </button>
+						
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

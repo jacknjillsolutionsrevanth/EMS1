@@ -1,0 +1,163 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+
+  </style>
+
+<script>
+    function myFunction() {
+        var bank=document.getElementById("harvesting").value; 
+        {
+            document.getElementById("harvesting").value = "V";
+        }
+        }
+    </script>
+
+<div class="container">
+  <h2><center><b>Harvesting</b></center></h2>
+  <form  method="POST" action="" enctype="">
+    {% csrf_token %}
+    &ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Code</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;&emsp;
+    <input type="text" name="HCode" width="20%" id="HCode" />
+    <!--<input class="border-right" type="text" name="type" placeholder="ptype" required="" id="PType">-->
+    
+    &emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Duration</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="Duration" placeholder="0.00" required=""id="Duration" /> <br><br>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Tree Height</b> &nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="TreeHeight" placeholder="0.00" required="" id="TreeHeight" />&ensp;&ensp;
+    &emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Time Per Tree</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;
+    <input class="border-right" type="text" name="TimePerTree" placeholder="0.00" required=""  id="TimePerTree" />&ensp;&ensp;<br><br>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>No Of Nuts</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="NoOfNuts" placeholder="0" required=""id="NoOfNuts" />&ensp;&ensp;
+
+    &emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Increase %</b> &nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="IncrPer" placeholder="0.00" required=""id="IncrPer" />&ensp;&ensp;<br><br>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Start age</b> &nbsp;&nbsp;&nbsp;&nbsp;;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="HStAge" placeholder="0" required="" id="HStAge" />&ensp;&ensp;
+    &emsp;&emsp;&emsp;&emsp;<label for="fname"><b>End age</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="HEndAge" placeholder="0" required="" id="HEndAge" />&ensp;&ensp;<br><br>
+
+   
+        
+    
+    <br>-->
+        <br>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <!--<a type="new" class="btn btn-primary btn-lg" value="new"  href="/emsplanttype/" >New </a>
+    <button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+    <button type="submit" class="btn btn-primary btn-lg" value="Submit"> Submit </button>
+    <a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manageemsplanttype/" >Edit </a>
+
+  </form>
+</div>
+
+
+
+       &emsp;&emsp;&emsp; &emsp; <label for="uname"><b>HCode</b> &nbsp;</label>&nbsp;&nbsp;&nbsp;
+      <input type="text" name="HCode" width="20%" id="HCode" /><br><br><br>
+
+      &emsp;&emsp;&emsp; <label for="uname"><b>Duration</b></label> &emsp;
+      <input type="text" name="Duration" id="Duration" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>TreeHeight</b></label> &emsp;
+      <input type="text" name="TreeHeight" id="TreeHeight" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>TimePerTree</b></label> &emsp;
+      <input type="text" name="TimePerTree" id="TimePerTree" />&ensp;&ensp;<br><br>
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>NoOfNuts</b></label> &emsp;
+      <input type="text" name="NoOfNuts" id="NoOfNuts" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>IncrPer</b></label> &emsp;&emsp;
+      <input type="text" name="IncrPer" id="IncrPer" />&ensp;&ensp;<br><br>
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>HStAge</b></label> &emsp;&emsp;
+      <input type="text" name="HStAge" id="HStAge" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp; <label for="uname"><b>HEndAge</b></label> &emsp;
+      <input type="text" name="HEndAge" id="HEndAge" />&ensp;&ensp;<br><br>
+
+     <label><b>Select Date</b></label>&ensp;&ensp;
+    <input type="date" name="noticedate" id="noticedate">&ensp;&ensp; -->
+<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+<a type="edit"class="btn btn-primary btn-lg" value="edit"  href="/manage_harvesting/">Edit</a>
+<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>&ensp;&ensp;
+   
+</form>
+
+
+
+
+{% endblock %}
+

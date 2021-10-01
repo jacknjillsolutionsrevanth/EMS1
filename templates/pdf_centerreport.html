@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Center Reports<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">route code : {{routecode}}<br>
+			<p class="title_middle">center code : {{centercode}}<br>
+			
+
+		   </p><br>
+		<table>
+            <tr>
+                        <th>Code</th>
+						<th>Name</th>
+						<th>Mobile</th>
+						<th>Email</th>
+						<th>Formula</th>
+						
+			</tr>
+			{% for cr in data %}
+					<tr>
+						<td>{{cr.centre_code}}</td>
+						<td>{{cr.name}}</td>
+						<td>{{cr.mobile}}</td>
+						<td>{{cr.Email}}</td>
+						<td>{{cr.Formula}}</td>
+						
+                       
+					</tr>
+			{% endfor %}
+		
+		</table>
+		<br>
+		
+		<table>
+            <tr>
+                     
+						<th> Route</th>
+						<th>Category</th>
+						<th>Milk Type</th>
+						<th>Agent</th>
+						<th>Supervisor</th>
+                        <th>Village</th>
+                       
+			</tr>
+			{% for cr in data %}
+					<tr>
+		
+						<td>{{cr.route_number}}</td>
+						<td>{{cr.category}}</td>
+						<td>{{cr.milk_type}}</td>
+						<td>{{cr.agent_name}}</td>
+						<td>{{cr.supervisor}}</td>
+                        <td>{{cr.village_name}}</td>
+                       
+					</tr>
+			{% endfor %}
+		
+		</table>
+		<br>
+	
+		
+
+		<table>
+            <tr>
+                      
+                        <th>CM Comm</th>
+                        <th>Address</th>
+                        <th>CM Cartage</th>
+                        <th>BM Comm</th>
+                        <th>BM  Cartage</th>
+                        <th>Fat Machine In Use</th>
+                       
+			</tr>
+			{% for cr in data %}
+					<tr>
+					
+                        <td>{{cr.address}}</td>
+                        <td>{{cr.CM_comm_amount}}</td>
+                        <td>{{cr.CM_Cartage_amount}}</td>
+                        <td>{{cr.BM_comm_amount}}</td>
+                        <td>{{cr.BM_Cartage_amount}}</td>
+                        <td>{{cr.Fat}}</td>
+                       
+						
+					</tr>
+			{% endfor %}
+		
+		</table>
+		<br>
+		<table>
+            <tr>
+                      
+                       
+                        <th>Distance</th>
+                        <th>Photo</th>
+                        <th>Bank Account No</th>
+                        <th>Bank Name</th>
+                        <th>IFSC Code</th>
+                        <th >Branch</th>
+			</tr>
+			{% for cr in data %}
+					<tr>
+					
+             
+                        <td>{{cr.Distance}}</td>
+                        <td>{{cr.Document}}</td>
+                        <td>{{cr.bankno}}</td>
+                        <td>{{cr.bankname}}</td>
+                        <td>{{cr.ifsc}}</td>
+                        <td>{{cr.branch}}</td>
+						
+					</tr>
+			{% endfor %}
+		
+		</table>
+	</body>
+</html>

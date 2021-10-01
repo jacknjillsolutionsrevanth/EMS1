@@ -1,0 +1,238 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks {% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+select {
+     width: 100px;
+     margin: 10px;
+}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=tel],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#select:focus {
+    min-width: 150px;
+    width: auto;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+
+</style>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch").value = localStorage.getItem("branch");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch",document.getElementById("branch").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch1").value = localStorage.getItem("branch1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch1",document.getElementById("branch1").value);
+  });
+
+	</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("address").value = localStorage.getItem("address");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("address",document.getElementById("address").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("number").value = localStorage.getItem("number");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("number",document.getElementById("number").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("pin").value = localStorage.getItem("pin");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("pin",document.getElementById("pin").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("mail").value = localStorage.getItem("mail");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("mail",document.getElementById("mail").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("active").value = localStorage.getItem("active");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("active",document.getElementById("active").value);
+  });
+
+	</script>	
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch").value = localStorage.getItem("branch");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch",document.getElementById("branch").value);
+  });
+
+	</script>
+
+<div class="container">
+	<h2><center><b>Branch</b></center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;
+		<label for="fname"><b>Branch Code</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="code" id="branch" placeholder="Enter Branch" onclick="myFunction()">
+		
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"> <b>Branch Name</b></label>&nbsp;&nbsp;&nbsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="name" placeholder="Enter Branch Name" id="branch1"required=""><br></br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>Address</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ensp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<textarea class="border-right" type="text" name="addr" placeholder="Enter Address" id="address"required=""></textarea>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label><b>Active</b></label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<select name="active">
+					<option value="yes">Yes</option>
+					<option value="no">NO</option>
+				</select><br></br>
+				&emsp;&emsp;&emsp;&emsp;&emsp;
+				<label for="fname"><b>Email</b></label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&ensp;&ensp;&nbsp;&nbsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="email" placeholder="Enter Email" id="mail" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>Pin Code</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ensp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" id="pin" name="pin" placeholder="Enter Pin Code" maxlength="6" pattern="[0-9]{6}"><br><br>
+		&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>Contact Number</b></label>&nbsp;
+		&nbsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;
+		<input class="border-right" type="tel" name="contno" id="number" placeholder="Enter Contact Number" maxlength="10" pattern="[0-9]{10}">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+				  <br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				  
+		
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_branch/" >Edit </a>
+	<br>
+	</form>
+
+	
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: right;
+            font-family: arial, sans-serif;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+        </style>
+    </head>
+    <body>
+            <h1 class="uppercase">LS MILK TRADERS </h1>
+           
+            <h2 class="title_middle">DayWise Abstract Report <br>From {{datefrom1}} to {{dateto1}}<br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            <!--<p class="title_middle">route code : {{routecode}}<br>
+
+           </p><p class="title_middle">center code : {{centercode}}<br>
+
+           </p>-->
+           <table class="title_middle1">
+               <tr>
+                   <th>Center : {{centercode}} 
+                                     
+                    </th>
+                   <th>
+                        Route : {{routecode}}
+                        
+                   </th>
+               </tr>
+           </table>
+            
+<h2>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            
+           
+       <table>
+        <tr>
+            <th width="8%" class="title_middle">Date</th>
+            <th width="8%" class="title_middle">Shift/Type</th>
+
+            
+            <th width="6%" class="title_middle">Kgs</th>
+            <th width="6%" class="title_middle">Ltrs</th>
+            <th width="6%" class="title_middle">FAT</th>
+            <th width="6%" class="title_middle">FAT(KG)</th>
+            <th width="6%" class="title_middle">SNF</th>
+            <th width="6%" class="title_middle">SNF(KG)</th>
+            <th width="8%" class="title_middle">Gross</th>
+            <th width="5%" class="title_middle">Snf +/-</th>
+            <th width="5%" class="title_middle">Comm.</th>
+            <th width="5%" class="title_middle">Cartage</th>
+            <th width="8%" class="title_middle">Incentive</th>
+            <th width="8%" class="title_middle">Net</th>
+            <th width="8%" class="title_middle">Rate</th>
+            <!--<th width="10%" class="title_middle">Receviable</th>
+            <th width="10%" class="title_middle">Payment</th>-->
+        </tr>
+    </thead>
+    <tbody>
+        {% for datadw in datadw %}
+        <tr>
+            <td style="text-align:left !important">{{datadw.date|date:'d-m-Y'}}</td>
+            <td style="text-align:center !important">{{datadw.Shift}}/{{datadw.Milktype}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.kgs|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.Ltrs|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2" >{{datadw.Fat|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.fatkgs|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.Snf|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.snfkgs|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.gamount|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.ltrrate|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.comm|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.amount|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.tsrate|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.net|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{datadw.rate|floatformat:2}}</td>
+            
+                
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td>Total</td>
+            <td></td>
+           
+            <td style="text-align:right !important" class="title_middle2">{{total_ratesum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_ltrssum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2" >{{total_fatsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_kgssum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_snfsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_pelsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_gamtsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_avpelsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_afatsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_apelsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_amtsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_asnfsum_detail|floatformat:2}}</td>
+            <td style="text-align:right !important" class="title_middle2">{{total_acommsum_detail|floatformat:2}}</td>
+        </tr>
+
+
+            </table>
+            
+<!-- <h6>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h6>
+<table>
+    <tr>
+        <th>Additions</th>
+        <th>Recoveries</th>
+        <th>Bill Details</th>
+    </tr>
+    <tr>
+        <th>Auto Fine :  - <br>  
+            Cartage : -  <br>
+         Others : - <br>
+     -------------------------
+     <br>        0.0<br>
+ ---------------------------</th>
+        <th> Stationary : - <br>
+            Cattle Feed:   - <br>
+            Seed:        -   <br>
+            EMT:         - <br>
+            Advance Rec :  - <br>
+            Finance Rec :  - <br>
+            Stores  :  -  <br>
+            Others :  - 0.0  <br>
+            ------------------------------<br>
+            0.0 <br>
+            -----------------------------
+        </th>
+        <th>Milk Value :  - <br>
+            P&I Exp. :   - <br>
+            Additions :       -   <br>
+            --------------------------<br>
+            Gross Amount : -  <br>
+            Recoveries :  -  0.0<br>
+            -----------------------------------<br>
+            Net Payable : - <br>
+            ---------------------------------------<br>
+
+        </th>
+    </tr>
+
+    <tr>
+        <th> Milk Value/Ltr : <br>
+        Avg. Per Day : </th>
+    </tr>
+</table>-->
+ 
+    </body>
+</html>

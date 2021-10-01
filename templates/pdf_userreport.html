@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+            <h1 class="title_middle">LS MILK TRADERS </h1>
+
+            <h2 class="title_middle">Userdata Reports<br>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+
+
+
+			
+			<p class="title_middle">Username:{{ uname }}</p>
+
+
+		      <p class="title_middle">Group:{{ groupname }}</p><br>
+		<table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Role</th>
+                <th>IsActive</th> 
+                <th>LastLogin</th>
+                <th>DateJoined</th>                    
+			</tr>
+            {% for unn in data %}
+            <tr>
+                <td>{{unn.username}}</td>
+						<td>{{unn.email}}</td>
+						<td>{{unn.gname}}</td>
+						<td>{{unn.role}}</td>
+						<td>{{unn.isactive}}</td>
+						<td>{{unn.lastlogin}}</td>
+						<td>{{unn.datejoined}}</td>
+			</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

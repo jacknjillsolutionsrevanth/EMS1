@@ -1,0 +1,260 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+   </style>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+});</script>
+
+<div class="container">
+   <h2><b><center>Refund</center></b></h2>
+   <form  method="POST" action="/refund/" enctype="">
+      {% csrf_token %}
+        <form>
+            
+         <div class="row">
+         
+               
+                  <div class="col-md-50 col-sm-50 col-xs-70 reg_mar" >
+
+
+                  &emsp;&ensp;<label for="date"><b>Date</b></label>&emsp;&emsp;&emsp;
+                  <input type="Date" name="Date" id="txtDate" value="{{page_form.date}}">
+
+                  &emsp;&emsp;&emsp;&emsp;&emsp;
+                  <label><b>Name</b></label>&emsp;
+                 <input type="text" id="name" name="Name">
+
+                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                 <label><b>Issued to</b></label>&emsp;
+                  <select name="Issued to"  id="Issuedto"  onchange="changeissuedDropdown()" required>
+                  <option value="" >--Select--</option>
+                  <option value="Center" >Center</option>
+                  <option value="Transporter" >Transporter</option>
+                  <option value="Agent" >Agent</option>
+                  </select><br>
+
+
+                  
+                  &emsp;&ensp;<label><b>Center</b></label>&ensp;&emsp;
+                  <select name="Center" id="center">
+                  <option value="">--Select--</option>
+                   
+                  {% for center in center %}
+                  <option value="{{center.centre_code}}">{{center.centre_code}}-{{center.name}}</option>
+                  {% endfor %}
+                  </select>
+             
+                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&emsp;&nbsp;
+                  <label><b>Transporter</b></label>
+                  <select name="Transporter" id="transporter" style="width:13%;">
+                  <option>--Select--</option>
+                  </select>
+
+
+                  &ensp;&ensp;&nbsp;&nbsp;&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+                  <label><b>Agent</b></label>&emsp;&emsp;&ensp;&nbsp;
+                  <select name="Agent" id="agent">
+                  <option value="">--Select--</option>
+                  <option>None</option>
+                  {% for agent in agent %}
+                  <option value="{{agent.code}}">{{agent.code}}-{{agent.name}}</option>
+                  {% endfor %}
+                  </select><br>
+
+                  &emsp;&nbsp;<label><b>Loan No</b></label>&emsp;
+                  <select name="cloan">
+                  <option value="">--Select--</option>
+                  
+                   {% for cloan in cloan %}
+                  <option value="{{cloan.loan_no}}">{{cloan.loan_no}}</option>
+                  {% endfor %}
+                  </select>
+
+
+                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;
+                  <label><b>Deposit No</b></label>
+                  <select name="depositno" id="depositno" >
+                  <option>--Select--</option>
+                  {% for deposit in deposit %}
+                  <option value="{{deposit.depositno}}">{{deposit.depositno}}</option>
+                  {% endfor %}
+                  </select>
+
+                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;
+                  <label><b>Issued date</b></label> 
+                  <input type="date" id="datePicker1"  name="Issueddate" value="{{page_form.date}}"><br>
+
+
+             &emsp;&nbsp;<label><b>Mode of Return</b></label>    
+            <select name="Modeofreturn" id="Modeofreturn" onchange="changeDropdown1()" required>
+                 <option value="">--Select--</option>
+                 <option value="Amount">Amount </option>
+                 <option value="Check/DD">Cheque/DD</option>
+                 <option value="RTGS">RTGS</option>
+            </select>
+
+            &emsp;&emsp;&ensp;&emsp;&emsp;&ensp;&emsp;&emsp;&nbsp;<label></label><b>Route Name</b></label>
+             <select name="Routename" id="route">
+                  <option value="">--Select--</option>
+                   
+                  {% for route in route %}
+                  <option value="{{route.Route_number}}">{{route.Route_number}}-{{route.Route_name}}</option>
+                  {% endfor %}
+                  </select><br><br>
+
+
+            &emsp;
+             <label><b>Amount</b></label>
+            &emsp;
+             <input type="number" id="amount" name="Amount">
+           
+            &emsp;&nbsp;<label><b>Cheque/DD No</b></label>
+            <input type="text" id="cheque" name="cheque" value="0">
+           
+            &emsp;&emsp;&ensp;&nbsp;<label><b>RTGS </b></label>
+            <input type="" id="rtgs" name="rtgs" value="NULL"><br><br>
+
+            &emsp;&ensp;<label><b>Remarks</b></label>
+             <input type="text" id="myCheck" name="Remarks"  style="width: 50%;"><br><br>
+
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+				<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+            
+          
+         </div>
+            </div>
+
+          </form>
+</div>
+<br>
+<br>
+
+<script>
+
+$(document).ready(function(){
+   $("#center").click(function(){
+          $("#transporter").hide();
+          $("#agent").hide();
+          $("#center").attr('required', 'required')
+
+
+   });
+   $("#transporter").click(function(){
+      $("#center").hide();
+      $("#agent").hide();
+      $("#transporter").attr('required', 'required')
+   });
+   $("#agent").click(function(){
+      $("#transporter").hide();
+      $("#center").hide();
+      $("#agent").attr('required', 'required')
+   });
+});
+
+$(document).ready(function(){
+   $("#amount").click(function(){
+          $("#cheque").hide();
+          $("#rtgs").hide();
+          $("#amount").attr('required', 'required')
+
+
+   });
+   $("#cheque").click(function(){
+      $("#rtgs").hide();
+      $("#amount").attr('required', 'required');
+      $("#cheque").attr('required', 'required')
+   });
+   $("#rtgs").click(function(){
+      $("#cheque").hide();
+      $("#amount").attr('required', 'required');
+      $("#rtgs").attr('required', 'required')
+   });
+});
+
+function changeDropdown1()
+   {
+   var Modeofreturn = document.getElementById('Modeofreturn').value;
+   if(Modeofreturn == 'Amount')
+   {
+        $("#cheque").hide();
+        $("#rtgs").hide();
+        $("#amount").attr('required', 'required')
+   }
+   else if(Modeofreturn == 'Check/DD')
+   {
+        $("#rtgs").hide();
+        $("#amount").attr('required', 'required');
+        $("#cheque").attr('required', 'required')
+   }
+   else
+   {
+        $("#cheque").hide();
+        $("#amount").attr('required', 'required');
+        $("#rtgs").attr('required', 'required')
+   }
+   }
+
+function changeissuedDropdown()
+   {
+   var issued = document.getElementById('Issuedto').value;
+   if(issued == 'Center')
+   {
+         $("#transporter").hide();
+          $("#agent").hide();
+          $("#center").attr('required', 'required')
+   }
+   else if(issued == 'Transporter')
+   {
+         $("#center").hide();
+      $("#agent").hide();
+      $("#transporter").attr('required', 'required')
+   }
+   else
+   {
+         $("#center").hide();
+      $("#transporter").hide();
+      $("#agent").attr('required', 'required')
+   }
+   }
+
+
+
+</script>
+
+{% endblock %}

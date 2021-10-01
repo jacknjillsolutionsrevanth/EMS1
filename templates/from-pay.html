@@ -1,0 +1,126 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:60px !important;
+}
+</style>
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<form  method="POST" action="" enctype="">
+			{% csrf_token %}
+			<div class="col-md-12 col-sm-12 col-xs-12">
+			  	<label for="fname"> Date </label>
+				<input type="date" id="my_date_picker" name="date" placeholder="Enter MM/DD/YYYY" required="">
+				<select name="time">
+				    <option value="am">am</option>
+				    <option value="pm">pm</option>
+			  	</select><br>
+			  	<label> Good Sour </label>
+				<select name="goodsour">
+				    <option value="gmilk">GOOD MILK</option>
+				    <option value="amilk">SOUR MILK</option>
+			  	</select>		  	
+			  	<label> Milk Type</label>
+				<select name="milktype">
+				    <option value="cm">CM</option>
+				    <option value="bm">BM</option>
+			  	</select><br>
+			  	<label> Center Code </label>
+			  	<select name="centercode" >
+			  	{% for center in center %}
+			  		<option value="{{center.centre_code}}">{{center.centre_code}}</option>
+			  	{% endfor %}
+			  	</select><br>
+	  	    	<table class="table display data-table text-nowrap" style="width:100%;">
+			        <thead class="tableHeadcolor">
+			            <tr>
+			                <th>Can</th>
+			                <th>Qty(Kgs)</th> 
+			                <th>Fat %</th>
+			                <th>SNF %</th>
+			                <th>CLR</th> 
+			            </tr>
+			        </thead>
+			        <tbody id='form' class="form-block_1">
+			            <tr class="odd"  role="row">
+			                <!-- <td><input class="checkbox_checked" type="checkbox" name="check" value="{{ forloop.counter }}"></td> -->
+			                <td><input type="number" class="width_percent workflowinputRadius" name="can[]" step="any"></td>
+			                <td><input type="number" class="width_percent workflowinputRadius" name="qty[]" step="any"></td>
+			                <td><input type="number" class="width_percent workflowinputRadius" name="fat[]" step="any"></td>
+			                <td><input type="number" class="width_percent workflowinputRadius" name="snf[]" step="any"></td>
+			                <td><input type="number" class="width_percent workflowinputRadius" name="clr[]" step="any"></td>
+			            </tr>        
+			       </tbody>
+			    </table>
+			    <div class="col-md-10 padWorkflowTop noPaddingLeft nopadding_mobileview">
+			        <a class="btn backgroundBlue add-more-btn addDeleteButton">Add</a>
+			    	
+			    </div>
+		  	</div>
+			<button id="save"  type="submit" class="Submit_form" value="save"><b>Submit</b></button>
+	  		<!-- <button id="cancel"  type="submit" class="Submit_form" value="cancel" ><b>Cancel</b></button> -->
+		</form> 
+		<!-- <form action="/checked-delete/" method="POST" style="text-align: right;"> 
+        	<a name="Delete" class="btn btn-danger multi_delete_btn deletebutton" onclick="return confirm('Are you sure you want to delete these accounts?');">Delete</a>
+        </form> -->
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trLast = $tableBody.find("tr:last");
+		        $trNew = $trLast.clone();
+				
+		    $trLast.after($trNew);
+        });
+    });
+
+</script>
+{% endblock %}

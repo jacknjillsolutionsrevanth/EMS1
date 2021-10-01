@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Bank Report</h2>
+			<p class="title_middle">Bank name : {{name}}<br>
+
+		   </p><br>
+		<table>
+			<tr>
+				
+				<th>Bank name</th>
+				<th>Bank fullname</th>
+				<th>Branch</th>
+				
+			    <th>IFSCcode</th>
+
+				
+				
+				              
+			</tr>
+			{% for bank in data %}
+			<tr>
+				
+				
+				<td>{{bank.name}}</td>
+						
+				         
+						<td>{{bank.fullname}}</td>
+						<td>{{bank.branch}}</td>
+						<td>{{bank.ifsc}}</td>
+
+
+			
+			</tr>
+			{% endfor %}
+		   <!-- <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Totals</td>
+				<td style="text-align:right !important">{{total_r}}</td>
+				<td style="text-align:right !important">{{total_p}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Difference(Receviable & payment)</td>
+				<td style="text-align:right !important">{{tp}}</td>
+				<td style="text-align:right !important">{{tr}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="text-align:right !important">{{total_recsum}}</td>
+				<td style="text-align:right !important">{{total_paysum}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="text-align:right !important">Total</td>
+				<td style="text-align:right !important">{{total_sum}}</td>
+			</tr>-->
+		</table>
+	</body>
+</html>

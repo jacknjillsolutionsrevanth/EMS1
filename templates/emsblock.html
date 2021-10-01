@@ -1,0 +1,146 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script> 
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+});</script>
+<style type="text/css">
+   inpu7t[type=text],input[type=email],input[type=password],input[type=Number],input[type=date],select {
+  width: 17%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset {
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 18px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+transition: 0.5s;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+font-family: 'Arial', sans-serif;
+}
+
+
+
+ 
+</style>
+
+<script>
+    function myFunction() {
+        var bank=document.getElementById("emsblock").value; 
+        {
+            document.getElementById("emsblock").value = "E";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div class="col-md col-sm"><br>
+	<h2><center><b>Ems Block</b></center></h2><br>
+	<form  method="POST" action="/emsblock/" enctype="">
+		{% csrf_token %}
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	<label for="fname"><b>blkCode</b> &nbsp;&nbsp;&nbsp;&nbsp;  </label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;
+		<input class="border-right" type="text" name="Code" placeholder="blkCode" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>blkName</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="Name" placeholder="blkname"  required=""><br><br>
+		 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>noOfTeraces</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<input class="border-right" type="text" name="Teraces"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>noOfTrees</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="trees" placeholder="noOfTrees"  required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>gpdCoOd</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cood" placeholder="gpdCoOd"  required="">
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>size</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="size" placeholder="size"  required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;<label for="fname"><b><font size="5">Start date</font></b></label>&emsp;&emsp;&emsp;
+      <input type="date"  id="datePicker" name="startDate" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&emsp;&ensp;&ensp;&nbsp;<label for="fname"><b><font size="5">End date</font></b></label>
+            &emsp;&emsp;&emsp;&emsp;
+            <input type="date" id="datePicker1" name="endDate" placeholder="Enter DD/MM/YYYY" required="">
+		
+		
+		
+		<br>
+				<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		 <a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/emsblock/" >New </a>
+    <button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+    <button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+    <a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manageemsblock/" >Edit </a>
+        </form>    
+  </div>
+    </div>
+</div><br>
+	</form>
+</div>
+
+
+{% endblock %}}

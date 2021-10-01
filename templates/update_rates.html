@@ -1,0 +1,437 @@
+ {% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: right ;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+input[type=date]{
+	width: 20%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input[type=text],input[type=password],select{
+  width: 10%;
+  padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+th{
+	
+	color:#000 !important;
+}
+ input[type=text]{
+	width:150px !important;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+ input[type=date]{
+	width:153px !important;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+ input[type=shift]{
+	width:60px !important;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input[type=number]{
+	width:60px !important;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+button[type=button]{
+	width:150px ;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input{
+	width:55px !important;
+	padding: 4px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+.border_right input[type=text]{
+	width:150px;
+
+}
+</style>
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-19 col-sm-19 col-xs-19">
+			<div class="col-md-12 col-sm-12 col-xs-12" >
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+			<form  method="POST"  action="/update-data/" enctype="">
+				{% csrf_token %}
+				
+				
+					
+				<h2><b><center>Update Rates</center></b></h2>
+				&nbsp;<label for="fname"><b>Date From</b></label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				
+				&emsp;<label for="fshift"><b>Shift</b></label>
+				<select name="shiftfrom">
+				    <option value="am">am</option>
+				    <option value="pm">pm</option>
+				    <!-- <option value="any">any</option> -->
+			  	</select>&emsp;&emsp;
+
+			  	<label for="fname"><b>Date To</b> </label>&nbsp;
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				
+				&emsp;<label for="fshift"><b>Shift</b> </label>
+				<select name="shiftto">
+				    
+				    <option value="pm">pm</option>
+					<option value="am">am</option>
+				    <!-- <option value="any">any</option> -->
+			  	</select>&emsp;&emsp;
+			  	<label><b>Centre</b></label>&ensp;
+			  	<select name="centercode">
+				    <option value="all">All</option>
+				    {% for center in center %}
+						    <option value="{{center.centre_code}}">{{center.centre_code}}-{{center.name}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	
+				  <br><br>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<button type="submit" class="btn btn-primary btn-lg" id="getdata" value="">Fetch </button>
+					
+
+			  
+		
+	
+			</form>
+		</div>
+			
+		</div>
+	</div>
+
+			<form method="POST"  action="/updatemodel/" enctype="">
+				{% csrf_token %}
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<h3> <b><center>Daily Procurement</center></b> </h3>
+						<label for="fname"><b>FAT</b></label>&emsp;
+			  	<input type="number" class="width_percent workflowinputRadius" id = "value1" name="fatH" value="0" step="any" style="text-align:right;">&emsp;
+			  	<label for="fname"> <b>SNF</b> </label>&emsp;
+			  	<input type="number" class="width_percent workflowinputRadius" id = "value2" name="snfH" value="0" step="any" style="text-align:right;">&emsp;
+			  	<!--<label for="fname"><b>CLR</b> </label>&emsp;
+			  	<input type="number" class="width_percent workflowinputRadius"  id = "value3" name="clrH" value="0" step="any">&emsp;-->
+			  	<label for="fname"><b>KGS</b> </label>&emsp;
+			  	<input type="number" class="width_percent workflowinputRadius"  id = "value4" name="kgsH" value="0" step="any" style="text-align:right;">&emsp;
+			  	
+						<table id= "edithide">
+							<thead class="tableHeadcolor">
+					            <tr>
+					            	<!-- <th>Date and Shift</th> -->
+					            	<th>Date </th>
+					            	<th>Shift/Type</th>
+					                
+					                <th>Center</th>
+					                <th>Qty</th>
+					                <th>Can</th> 
+					                <th>Fat</th>
+					                <th>Snf</th>
+					                <th>Clr</th>					                					                
+					                <th>Ts Rate</th>
+					                <!-- <th>Rate</th> -->
+					                <th>LtrRate</th>
+					                <th>Comm</th>
+					                <th>PnL</th>
+					                <th>Amount</th>
+					                <th>Net Amount</th>
+					              <!--  <th>Action</th>-->
+					            </tr>
+					        </thead>
+					        {% if user.extendeduser.role == 'Admin' %}
+					        <tbody id='form' class="form-block_1">
+					        	{% for dc in dc %}					        	
+						            <tr class="odd"  role="row">
+						            	<td ><input type="date" value="{{dc.date |date:'Y-m-d'}}" name="sdate1[]" style="text-align:right;"></td>
+					            		 <td><input type="shift" value="{{dc.shift}}/{{dc.milk_type}}" name="shift1[]" style="text-align:right;"></td>
+					            		 <input type="hidden" value="{{dc.id}}" name="dcid1[]" >
+						               
+						                <td><input type="" name="center[]" value="{{dc.centercode}}" step="any" style="text-align:right;"></td>
+						                <td><input type="" name="qty[]" value="{{dc.qty}}" step="any" style="text-align:right;"></td>
+						                <td><input type="" name="can[]" value="{{dc.can}}" step="any" style="text-align:right;"></td>
+						               	<td><input type="" name="fat[]" id ="fat" value="{{dc.fat}}" id="fat"step="any" style="text-align:right;"></td>
+						               	
+						               				<td><input type="" name="snf[]" value="{{dc.snf|floatformat:2}}" id="snf"step="any" style="text-align:right;"></td>
+                						
+                									
+                						<td><input type="" name="clr[]" value="{{dc.clr}}" id="clr"step="any"  style="text-align:right;" onkeyup="myFunction1()"onclick="myFunction1()" onload="myFunction1()" readonly></td>
+						               				
+						                <td><input type="" name="tsrate[]" value="{{dc.tsrate|floatformat:2}}" step="any"style="text-align:right;"></td>
+						                <td><input type="" name="ltrrate[]" value="{{dc.ltrrate|floatformat:2}}" step="any" style="text-align:right;"></td>
+						                <td><input type="" name="comm[]" value="{{dc.comm}}" step="any" style="text-align:right;"></td>
+						                <td><input type="" name="pel[]" value="{{dc.pel}}" step="any" style="text-align:right;"></td>
+						                <td><input type="number" name="amount[]" value="{{dc.amount}}" step="any" style="text-align:right;"></td>	
+						                <td><input type="number" name="netamount[]" value="{{dc.net}}" step="any" style="text-align:right;"></td>
+						            	<input type="hidden" value="{{dc.branch}}" name="branch" />
+						              <!--  <td><button type="submit" class="Submit_form" id="getdata" value=""><b>Edit</b></button></td>-->
+						                <!--<td><a href="/daily-edit/{{dc.id}}/"><b>Edit</b></a></td>-->      
+						                
+ <script>
+
+function myFunction1() {
+  document.getElementById("clr").value = ((((document.getElementById("snf").value)-0.36)-((document.getElementById("fat").value)*0.21))*4) ;
+}
+</script>    
+						            </tr>
+						        {% endfor %}
+					       </tbody>			   
+					       {% else %}
+					       <tbody id='form' class="form-block_1">
+					        	{% for dc in dc %}					        	
+						            <tr class="odd"  role="row">
+						            	<input type="hidden" value="{{dc.date |date:'Y-m-d'}}" name="sdate1[]" disabled>
+					            		 <input type="hidden" value="{{dc.shift}}" name="shift1[]" disabled>
+					            		 <input type="hidden" value="{{dc.id}}" name="dcid1[]" >
+						                <td><input type="" name="milk_type[]" value="{{dc.milk_type}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="center[]" value="{{dc.centercode}}" step="any" style="text-align:right;"  disabled></td>
+						                <td><input type="" name="qty[]" value="{{dc.qty}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="can[]" value="{{dc.can}}" step="any" style="text-align:right;" disabled></td>
+						               	<td><input type="" name="fat[]" id ="fat" value="{{dc.fat}}" step="any" style="text-align:right;" disabled></td>
+						               	<td><input type="" id="answer" name="answer" value="" style="text-align:right;" disabled/></td>
+						               	<input type="hidden" value="{{FfatH}}" name="fatH[]" style="text-align:right;" disabled>				
+                						<td><input type="" name="snf[]" value="{{dc.snf|floatformat:2}}" step="any" style="text-align:right;" disabled></td>
+                						<input type="hidden" value="{{FsnfH|floatformat:2}}" name="snfH[]" style="text-align:right;" disabled>				
+                						<td><input type="" name="clr[]" value="{{dc.clr}}" step="any" style="text-align:right;" disabled></td>
+						               	<input type="hidden" value="{{FclrH}}" name="clrH[]" style="text-align:right;" disabled>				
+						                <td><input type="" name="tsrate[]" value="{{dc.tsrate}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="ltrrate[]" value="{{dc.ltrrate}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="comm[]" value="{{dc.comm}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="pel[]" value="{{dc.pel}}" step="any" style="text-align:right;" disabled></td>
+						                <td><input type="" name="amount[]" value="{{dc.amount}}" step="any" style="text-align:right;" disabled></td>	
+						                <td><input type="" name="netamount[]" value="{{dc.net}}" step="any" style="text-align:right;" disabled></td>
+						            	<input type="hidden" value="{{dc.branch}}" name="branch" disabled/>
+						                <td><button type="submit" class="Submit_form" id="getdata" value=""><b>Edit</b></button></td>
+						                <!--<td><a href="/daily-edit/{{dc.id}}/"><b>Edit</b></a></td>-->            
+						            </tr>
+						        {% endfor %}
+					       </tbody>		
+					       {%endif%}	   
+						</table>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="submit" class="btn btn-primary btn-lg" id="submitData" value=""> Submit </button>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+						</form>
+						<!--<button type="submit" class="btn btn-warning" id="getdata" style="margin-bottom: 1%;" value=""><b>Submit</b></button>-->
+						<!-- <form  method="POST"  action="/daily-edit/{{dd.id}}/" enctype="">
+							{% csrf_token %}
+							<table id="edithide">
+								<thead class="tableHeadcolor">
+						            <tr>
+						                <th>Milk Type</th>
+						                <th>Center</th>
+						                <th>Qty</th>
+						                <th>Can</th> 
+						                <th>Fat</th>
+						                <th>Snf</th>
+						                <th>Clr</th>
+						                <th>Ts Rate</th>
+						                <th>LtrRate</th>
+						                <th>Comm</th>
+						                <th>Pel</th>
+						                <th>Amount</th>
+						                <th>Net Amount</th>
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+						                <td><input type="" name="milk_type" value="{{dc.milk_type}}"></td>
+						                <td>{{dc.centercode}}</td>
+						                <td>{{dc.quantity}}</td>
+						                <td>{{dc.can}}</td>
+						                <td><input type="" name="fat" value="{{dc.fat}}"></td>
+						                <td><input type="" name="snf" value="{{dc.snf}}"></td>	
+						                <td>{{dc.clr}}</td>	
+						                <td>{{tsrate}}</td>
+						                <td>{{ltrrate}}</td>
+						                <td>{{commission}}</td>
+						                <td>{{dc.pel}}</td>
+						                <td>{{dc.amount}}</td>	
+						                <td>{{dc.net}}</td>					               
+						            </tr>  
+						       </tbody>			    
+							</table>
+							<button type="submit" class="Submit_form" id="getdata" value=""><b>Submit</b></button>
+						</form> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<script>
+      function myFunction() {
+        var y = parseFloat(document.getElementById("AfatH").value);
+        var z = parseFloat(document.getElementById("afat").value);
+        var x = y + z;
+        document.getElementById("fat").innerHTML = x;
+      }
+    </script>-->
+
+<script language="text/javascript">
+                function addNumbers()
+                {
+                        var val1 = parseFloat(document.getElementById("value1").value);
+                        var val2 = parseFloat(document.getElementById("fat").value);
+                        var ansD = document.getElementById("fatH");
+                        ansD.value = val1 + val2;
+                }
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+  });
+
+</script>
+
+<script>
+<script type="text/javascript">
+	// $(document).on("change", "#centercode", function(){
+ //        var a =  $(this).find(':selected').data('name');
+ //        $("#center_name").val(a);
+ //    });
+ //    function Amount(val) {
+ //    	/*alert("hi");*/
+ //        var fat = document.getElementById('fat').value;
+ //        var qty = document.getElementById('qty').value;
+ //        var snf = document.getElementById('snf').value;
+ //        var rate_min = '{{rate.rate}}';
+ //       	var quantity = parseFloat(qty)/parseFloat(1.03);
+ //       	var a1 = parseFloat(snf) + parseFloat(fat)
+ //        var rate = ( a1* parseFloat(rate_min))/100;
+ //        var total_amount = parseFloat(rate) * parseFloat(quantity);        
+ //        var amount = document.getElementById('rate');
+ //        var total = document.getElementById('amount');
+ //        total.value = total_amount;
+ //        amount.value = rate;
+ //    }
+</script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    // $(document).ready(function(){
+    //     $('.add-more-btn').click(function() {
+    //         var $tableBody = $('.data-table ').find("tbody"),
+    //         $trLast = $tableBody.find("tr:last");
+		  //       $trNew = $trLast.clone();
+				
+		  //   $trLast.after($trNew);
+    //     });
+    // });
+
+</script>
+<script type="text/javascript">
+	// var field = document.querySelector('#today');
+	// var date = new Date();
+
+	// // Set the date
+	// field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
+	//     '-' + date.getDate().toString().padStart(2, 0);
+</script>
+<!-- <script type="text/javascript">
+	 $("#table_notshow").css('display','none');
+		$("#getdata").click(function(){
+			$("#table_notshow").css('display','block');
+			});
+</script> -->
+{% endblock %}

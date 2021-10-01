@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+
+            .title_middle{text-align: center;
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: center;
+            font-family: arial, sans-serif;
+            font-size: 13px;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+    font-family: arial, sans-serif;
+    font-size: 18px;
+}        
+</style>
+
+    </head>
+	<body>
+            <h1 class="uppercase">METRO LAGENDA SDN BHD</h1>
+           
+            <h2 class="title_middle">EMS CENSUS REPORT</h2>
+            <h3 class="title_middle2"> {{Date}} Date From {{datefrom1}} To {{dateto1}}</h3>
+            
+
+        <table class="title_middle1">
+               <tr>
+                <hr>
+                   <th class="uppercase">Area : {{areaCode}} <br>
+                                     
+                    </th>
+                   <th class="uppercase">
+                        Block : {{blkCode}}<br>
+                        
+                   </th>
+               </tr>
+            
+           </table>
+            <hr>
+                  
+
+		<table border=1  >
+
+            <tr >
+                <th  width="5%" class="school_activity" border-left = 1>No.</th>
+            	<th width="5%" class="school_activity">Area </th>
+                <th width="8%" class="school_activity">Block </th>
+                <th width="8%" class="school_activity">Terace </th>
+                        <th width="8%" class="school_activity"> Tree No</th>
+                        <th width="12%" class="school_activity">Plantation Date</th>
+						<th width="10%" class="school_activity">Type</th>
+						<th width="10%" class="school_activity">Height</th>
+            <th width="8%" class="school_activity"> Girth</th>
+						<th width="8%" class="school_activity"> Leaves</th>
+						<th width="8%" class="school_activity"> PND Fungus </th>
+						<th width="10%" class="school_activity">PND Termite </th>
+						<th width="12%" class="school_activity">PND Chemical </th>
+						<th width="12%" class="school_activity">PND Date</th>
+						<th width="8%" class="school_activity"> Manure Rate</th>
+						<th width="12%" class="school_activity">Manure Date</th>						
+                       
+			</tr>
+			{% for ar1 in data %}
+					<tr>
+                        <td style="text-align:center !important">{{forloop.counter }}</td>
+						<td style="text-align:center !important">{{ar1.areaCode}}</td>
+						<td style="text-align:center !important">{{ar1.blkCode}}</td>
+						<td style="text-align:center !important">{{ar1.teraceNo}}</td>						
+						<td style="text-align:right !important">{{ar1.treeNo}}</td>
+						<td style="text-align:center !important">{{ar1.plantDate|date:'d-m-Y' }}</td>
+						<td style="text-align:center !important">{{ar1.plantType}}</td>
+						<td style="text-align:right !important">{{ar1.height|floatformat:2}} &nbsp;&nbsp;</td>
+                        <td style="text-align:right !important">{{ar1.girth|floatformat:2}}&nbsp;&nbsp;</td>
+						<td style="text-align:right !important">{{ar1.leaveCnt }}&nbsp;&nbsp;</td>
+						
+                    	<td style="text-align:center !important">{{ar1.PnDFung}}</td>
+                    	<td style="text-align:center !important">{{ar1.PNDTermite }}</td>
+
+                    	<td style="text-align:center !important">{{ar1.PNDChType}}</td>
+                    	<td style="text-align:center !important">{{ar1.PNDDate|date:'d-m-Y'}}</td>
+                    	<!--<td>{{ar.seed}}</td>-->
+                    	<td style="text-align:right !important">{{ar1.ManureRate|floatformat:2}}&nbsp;&nbsp;</td>
+                    	<td style="text-align:center !important">{{ar1.ManureDate|date:'d-m-Y'}}</td>
+                    	<!--<td>{{ar1.Remarks}}</td>-->
+						
+					</tr>
+			{% endfor %}
+	
+		
+		</table>
+        <hr>
+	</body>
+</html>

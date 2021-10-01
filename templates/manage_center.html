@@ -1,0 +1,442 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bankno").change(function () {
+            if ($(this).val()!="" ) {
+                $("#ifsc").attr("required", "required");
+                
+            } else {
+                $("#ifsc").removeAttr("required");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val() =="others") {
+                $("#ifsc1").removeAttr("disabled");
+                $("#ifsc1").focus();
+            } else {
+                $("#ifsc1").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#branch2").removeAttr("disabled");
+                $("#branch2").focus();
+            } else {
+                $("#branch2").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val()=="others") {
+                $("#bank3").removeAttr("disabled");
+                $("#bank3").focus();
+            } else {
+                $("#bank3").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#ifsc").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#branch2").removeAttr("disabled");
+                $("#branch2").focus();
+            } else {
+                $("#branch2").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#ifsc").change(function () {
+            if ($(this).val() =="others") {
+                $("#ifsc1").removeAttr("disabled");
+                $("#ifsc1").focus();
+            } else {
+                $("#ifsc1").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+
+<style>
+select {
+    width:85px;
+    margin: 10px;
+}
+#select:focus {
+    width: 55px;
+    width: auto;
+}
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  padding: 0px;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+}
+.bank-details{
+	border: 1px solid black;
+  	
+}
+
+	</style>
+
+<script>
+	function myFunction() {
+		var bank=document.getElementById("centercode").value; 
+		{
+			document.getElementById("centercode").value = "C";
+		}
+		}
+	</script>
+	<!--<script>
+
+    $(document).ready(function(){
+    document.getElementById("cen").value = localStorage.getItem("cen");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("cen",document.getElementById("cen").value);
+  });
+
+</script>-->
+<div class="container">
+	<h2><b><center> Center Master </center></b></h2>
+	<form  method="POST" action="/managecenter/" enctype="">
+		{% csrf_token %}
+	&emsp;<label for="fname"><b>Center</b></label>
+				<select name="centercode" >
+				    <option value="all" >Choose</option>
+				    {% for center in center %}
+						    <option value="{{center.centre_code}}">{{center.centre_code}}</option>
+				  	{% endfor %}
+			  	</select>
+		<button type="submit" class="btn btn-primary btn-lg" id="getdata" value="">GetDetails </button>
+			  	
+		</form><br>
+	<form  method="POST" action="/manage_center/"  enctype="">
+		{% csrf_token %}
+			{% for ac in ac %}		
+		<input type="hidden" name="dcid3[]" value="{{ac.id}}">&ensp;
+		
+  		<label><b>Code</b></label>
+  		<input type="text" name="code[]"  style="width: 14%;" value="{{ac.centre_code}}" readonly>
+		<label><b>Name</b></label>
+
+		<input  type="text" name="name[]" style="width: 14%;"  value="{{ac.name}}">
+
+		<label><b>Mobile</b></label>
+		<input name="mobile[]" type="tel" maxlength="10" style="width: 14%;" pattern="[1-9]{1}[0-9]{9}" title =" Enter 10 digits" value="{{ac.mobile}}" id="mobile" required>
+		&emsp;&emsp;
+		<label><b>Email</b></label>
+		<input type="text" name="email[]"  value="{{ac.Email}}">&ensp;
+
+
+
+		<select name="state[]"  value ="{{ac.Formula}}" id="formula" readonly>
+		<option></option>
+		 <option value="{{ ac.formula }}" {% if ac.formula == form.ac.value %} selected{% endif %} selected>{{ac.formula}}</option>
+		{% for state in state %}
+		  <option value="{{state.name}}" selected>{{state.name}}</option>
+		{% endfor %}  
+		</select>
+			  
+			
+		
+			 
+			 	<div class="col-md-12 col-sm-12 col-xs-12 no_padding row">
+			<div class="col-md-7 col-sm-7 col-xs-12 no_padding">
+
+				<label><b>Route</b></label>&emsp;&ensp;
+
+				<select name="route[]"  value ="{{ac.route_number}}"  id="route_number">
+				<option ></option>
+
+				 <option value="{{ ac.route_number }}" {% if ac.route_number == form.ac.value %} selected{% endif %} selected>{{ac.route_number}}</option>
+				{% for route in route %}
+				  <option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				  {% endfor %}
+				</select>&emsp;&emsp;
+
+				
+				<label><b>Category</b></label>
+				<select name="category[]"  value ="{{ac.category}}"  id="category">
+				<option></option>
+				 <option value="{{ ac.category }}" {% if ac.category == form.ac.value %} selected{% endif %} selected>{{ac.category }}</option>
+				{% for category in category %}
+					 
+					  <option value="{{category.code}}" >{{category.code}}</option>
+				 {% endfor %}
+				</select>
+		
+				&ensp;&ensp;&emsp;
+				<label><b>Milk Type</b></label>&ensp;&nbsp;&nbsp;
+				<select name="milk[]"  value ="{{ac.milk_type}}" required>
+				<option></option>
+				 <option value="{{ ac.milk_type }}" {% if ac.milk_type == form.ac.value %} selected{% endif %} selected>{{ac.milk_type}}</option>
+				{% for milk in milk %}
+				<option value="{{milk.code}}" >{{milk.code}}</option>
+				{% endfor %}  
+				</select>
+
+
+
+		
+			
+		<label><b>Agent</b></label>&ensp;&nbsp;&nbsp;&nbsp;
+				<select name="agent[]"  value ="{{agent.code}}-{{ac.agent_name}}" id="agent_name" required>
+		<option></option>
+		<option value="{{agent.code}}{{ ac.agent_name }}" {% if ac.agent_name == form.ac.value %} selected{% endif %} selected>{{agent.code}}{{ac.agent_name}}</option>
+		{% for agent in agent %}
+			 <option value="{{agent.name}}" >{{agent.code}}-{{agent.name}}</option>
+		{% endfor %}  
+		</select>&ensp;&ensp;&ensp;&ensp;
+	
+		<label><b>Supervisor</b></label>
+
+				<select name="supervisor[]"  value ="{{supervisor.code}}-{{ac.supervisor}}" id="supervisor" required>
+	  	<option></option>
+		<option value="{{supervisor.code}}{{ ac.supervisor }}" {% if ac.supervisor == form.ac.value %} selected{% endif %} selected>{{supervisor.code}}{{ac.supervisor}}</option>
+	  	{% for supervisor in supervisor %}
+		<option value="{{supervisor.code}}-{{supervisor.name}}" >{{supervisor.code}}-{{supervisor.name}}</option>
+		{% endfor %}
+		</select>&nbsp;&emsp;
+		
+		<label><b>Village</b></label>&ensp;&ensp;&ensp;&nbsp;&emsp;
+
+		<select name="village[]"  value ="{{village.code}}-{{ac.village_name}}" id="village_code" required>
+	  	<option></option>
+		<option value="{{village.code}}{{ ac.village_name }}" {% if ac.village_code == form.ac.value %} selected{% endif %} selected>{{village.code}}{{ac.village_name}}</option>
+	  	
+	  	{% for village in village %}
+			<option value="{{village.name}}" >{{village.code}}-{{village.name}}</option>
+		{% endfor %}
+		</select><br>
+			
+			
+			 
+			  <label><b>Address</b></label>&ensp;&nbsp;
+					  <!--<input class="border-right" type="text" name="name[]"  value="{{av.name}}"><br><br>-->
+	
+			  <input type="text"  name="address[]" rows="2" cols="60" id="centeraddress" value="{{ac.address}}" style="width:85%;" required="required"><br>
+			
+		  <br>  
+			
+	  
+	  <label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b> Bank Details <br>
+	  </br>
+  Acc No </b>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;
+	  <input  type="text" name="bankno[]"  id="bankno" value="{{ac.bankno}}" style="width:68%;">			
+
+		
+		
+		<!--<label><b>Bank Name</b></label>
+		<input type="text" value="{{ac.bankname}}" name="bank1[]" >
+
+		  <select name="bank[]" id="bank" value ="{{ac.bankname}}">
+		<option>Select</option>
+		{% for bank2 in bank2 %}
+		  <option value="{{bank2.fullname}}">{{bank2.fullname}}</option>
+	  {% endfor %}
+	  <option value="others">Other</option>
+		</select>--><br></br>
+
+
+		<label><b>A/c holdername</b></label>&nbsp;
+		<input type="text" name="actholdername[]" value="{{ac.actholdername}}"  style="width:68%;">
+
+
+
+<br>
+
+		
+		  <label><b>Bank Name </b></label>&emsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <input  type="text" name="bank[]" id="bank3" value="{{ac.bankname}}" disabled="disabled">	
+		  <select name="bank[]" id="bank" value ="{{ac.bankname}}">
+		<option>Select</option>
+	  <option value="{{ ac.bankname }}" {% if ac.bankname == form.ac.value %} selected{% endif %} selected>{{ac.bankname}}</option>
+		{% for bank2 in bank2 %}
+		  <option value="{{bank2.fullname}}">{{bank2.fullname}}</option>
+	  {% endfor %}
+	  <option value="others">Other</option>
+		</select>		
+	  
+	   
+	  
+	   <!-- <label><b>IFSC </b></label>
+				<input type="text"  value="{{ac.ifsc}}" name="ifsc1[]" >
+
+		  <select name="ifsc[]"  id="ifsc" value ="{{ac.ifsc}}">
+	  <option>Select</option>
+		{% for bank1 in bank1 %}
+		  <option value="{{bank1.ifsc}}">{{bank1.ifsc}}</option>
+		{% endfor %}
+		<option value="others">Other</option>
+		
+		</select>--><br>
+		<label><b>IFSC code</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" id="ifsc1" name="ifsc1[]" value="{{ac.ifsc1}}" disabled="disabled" required/>
+		<select name="ifsc[]"  id="ifsc" value ="{{ac.ifsc}}">
+	  <option></option>
+		  <option value="{{ ac.ifsc }}" {% if ac.ifsc == form.ac.value %} selected{% endif %} selected>{{ac.ifsc}}</option>
+		{% for bank1 in bank1 %}
+		  <option value="{{bank1.ifsc}}">{{bank1.ifsc}}</option>
+		{% endfor %}
+		<option value="others">Other</option>
+		
+		</select><br>
+	  
+
+
+		
+	   
+		<!--<label><b>Branch</b></label>
+				<input type="text" value="{{ac.branch}}" name="branch1[]" >
+
+		<select id="branch" name="branch[]" value="{{ac.branch}}">
+			<option>Select</option>
+			{% for bank in bank %}
+			<option value="{{bank.branch}}">{{bank.branch}}</option>
+		  {% endfor %}
+		  <option value="others">Other</option>
+		</select>-->
+   <label><b>Branch Name</b></label>&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="text" id="branch2" name="bank[]"  value="{{ac.branch1}}" disabled="disabled">
+
+		<select id="branch" name="branch[]" value="{{ac.BankBranch}}">
+			<option>Select</option>
+			<option value="{{ ac.BankBranch }}" {% if ac.BankBranch == form.ac.value %} selected{% endif %} selected>{{ac.BankBranch}}</option>
+			{% for bank in bank %}
+			<option value="{{bank.branch}}">{{bank.branch}}</option>
+		  {% endfor %}
+		  <option value="others">Other</option>
+		</select>
+	   
+	  </div>
+			
+	
+	<div class="col-md-5 col-sm-5 col-xs-12">
+				
+		
+				  
+			  	&emsp;&emsp;<label><b>CM Comm</b></label>&emsp;
+			  			<input type="text" value="{{ac.CM_Comm_unit}}" style="width:10%;" name="cm1[]" readonly>
+
+				<select name="cm[]" value="{{ac.CM_Comm_unit}}">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>		    
+			  	</select>
+				<input type="number" name="cm_amount[]" style="width:20%;" value="{{ac.CM_comm_amount}}" step="any">
+				<b>(In Rs.)</b><br>
+
+				
+				&emsp;&emsp;<label><b>Cartage</b></label>&emsp;&nbsp;&ensp;&nbsp;
+
+						<input type="text" value="{{ac.CM_Cartage_unit}}" style="width:10%;" name="cmcartage1[]" readonly>
+
+				<select name="cmcartage[]" value="{{ac.CM_Cartage_unit}}">
+		   			<option value="ltr">LtrRate</option>
+		   			<option value="kg">KgRate</option>
+		   			<option value="tsr">LtrTSRate</option>
+		   			<option value="ktsr">KgTSRate</option>
+		  </select>
+		  <input type="number" name="cmcartage_amount[]" style="width:20%;" value="{{ac.CM_Cartage_amount}}"  step="any">
+		  <b>(In Rs.)</b><br>
+
+				&emsp;&emsp;<label ><b>BM Comm</b></label>&ensp;&ensp;
+						<input type="text" value="{{ac.BM_Comm_unit}}" style="width:10%;" name="bm1[]" readonly>
+
+				<select name="bm[]" value="{{ac.BM_Comm_unit}}">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>
+			  	</select >
+			  	<input type="number" name="bm_amount[]" value="{{ac.BM_comm_amount}}" style="width:20%;" step="any"> <b>(In Rs.)</b><br>
+
+			  	&emsp;&emsp;<label><b> Cartage</b></label>&emsp;&nbsp;&ensp;&nbsp;
+			  			<input type="text" value="{{ac.BM_Cartage_unit}}" style="width:10%;" name="bmcartage156[]" readonly >
+
+				<select name="bmcartage[]" value="{{ac.BM_Cartage_unit}}">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>
+			  	</select>
+				<input type="number" name="bmcartage_amount[]" value="{{ac.BM_Cartage_amount}}" style="width:20%;" step="any">
+				<b>(In Rs.)</b><br><br><br>
+
+
+			  
+				  	
+				&ensp;&ensp;&ensp;&ensp;<label><b>Fat Machine in Use</b></label>&nbsp;&nbsp;
+						<input type="text" value="{{ac.Fat}}" style="width:10%;" name="fat1[]" readonly >
+
+				<select name="fat[]" value="{{ac.Fat}}">
+					<option value="manual">Manual</option>
+					<option value="analyser">Analyser</option>&emsp;&emsp;&emsp;
+					
+				
+				</select><label >Active</label>
+				<input type="checkbox" name="active[]" value="{{ac.active}}" checked><br>
+				
+				&ensp;&ensp;&ensp;&ensp;<label><b>Distance </b></label>&nbsp;&emsp;&nbsp;&emsp;&nbsp;&emsp;&nbsp;&emsp;
+				  <input type="number" name="kilo[]" value="{{ac.Distance}}" style="width:40%;" required=""><b>(In KM.)</b><br>
+				  
+				  &ensp;&ensp;&ensp;&ensp;<label><b>Upload Photo</b></label>&emsp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				  <!--<input type="checkbox" name="HvPhoto" checked>-->
+				  <input type="file" name="HvPhoto" style="width: 50%;" accept=""  notrequried>
+			</div>
+		</div>
+			{% endfor %}
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="" class="btn btn-primary btn-lg" href="/center_milk/"> New </a>
+
+		<br><br>
+	</form>
+</div>
+<br><br><br><br><br>
+
+{% endblock %}

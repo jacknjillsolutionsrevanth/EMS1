@@ -1,0 +1,193 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+select {
+	width: 100px;
+     margin: 10px;
+}
+#select:focus {
+    min-width: 150px;
+    width: auto;
+}
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+	</style>
+
+<script>
+	$(document).ready(function(){  
+	$("select").change(function() {   
+	  $("select").not(this).find("option[value="+ $(this).val() + "]").attr('disabled', true);
+	}); 
+  });
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("agent").value = localStorage.getItem("agent");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agent",document.getElementById("agent").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("agent1").value = localStorage.getItem("agent1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agent1",document.getElementById("agent1").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("agentroute1").value = localStorage.getItem("agentroute1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agentroute1",document.getElementById("agentroute1").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("agentroute2").value = localStorage.getItem("agentroute2");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agentroute2",document.getElementById("agentroute2").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("agentroute3").value = localStorage.getItem("agentroute3");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agentroute3",document.getElementById("agentroute3").value);
+  });
+
+	</script>
+<script>
+    function myFunction() {
+        var bank=document.getElementById("agent").value; 
+        {
+            document.getElementById("agent").value = "A";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div class="col-md col-sm"><br>
+      
+	<h2><center><b>Agent</b></center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label><b>Agent Code</b> &nbsp;&nbsp;&nbsp;  </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="code" placeholder="Enter Code" id="agent" onclick="myFunction()" required="">
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label><b>Agent Name</b> &nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="name" placeholder="Enter Name" id="agent1" required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label><b>Route's</b></label>
+		&nbsp;&emsp;&emsp;&emsp;&nbsp;&emsp;
+		<select name="route" id="agentroute1" required>
+			<option></option>
+				{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+		</select>
+		<select name="route1" id="agentroute2">
+			<option></option>
+				{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+		</select>
+		<select name="route2" id="agentroute3">
+			<option></option>
+				{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+		</select><br>
+				
+		
+		<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/agent/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manageagent/" >Edit </a>
+
+		</form>
+</div>
+
+
+{% endblock %}

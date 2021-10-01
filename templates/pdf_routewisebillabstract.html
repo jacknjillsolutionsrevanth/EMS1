@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: right;
+            font-family: arial, sans-serif;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+        </style>
+    </head>
+    <body>
+            <h1 class="uppercase">LS MILK TRADERS </h1>
+           
+            <h2 class="title_middle">RouteWiseBill Abstract Report<br> From {{datefrom1}} to {{dateto1}}<br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            <!--<p class="title_middle">route code : {{routecode}}<br>
+
+           </p><p class="title_middle">center code : {{centercode}}<br>
+
+           </p>-->
+           <table class="title_middle1">
+               <tr>
+                   <th>Center : {{centercode}} <br>
+                                     
+                    </th>
+                   <th>
+                        Route : {{routecode}}<br>
+                        
+                   </th>
+               </tr>
+           </table>
+            
+<h2>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            
+           
+       <table>
+                    <tr>
+                        <th width="7%" class="school_activity">Route</th>
+                        <th width="8%" class="school_activity">QtyKgs</th>
+                        <th width="8%" class="school_activity">Ltrs</th>
+                        <th width="8%" class="school_activity">FatKgs</th>
+                        <th width="8%" class="school_activity">AvgFat</th>
+                        <th width="8%" class="school_activity">SnfKgs</th>
+                        <th width="8%" class="school_activity">AvgSnf</th>
+                        <th width="9%" class="school_activity">Amount</th>
+                        <th width="7%" class="school_activity">SNF+/-</th>
+                        <th width="8%" class="school_activity">Comm</th>
+                        <th width="9%" class="school_activity">Exs Amt</th>
+                        <th width="8%" class="school_activity">Cartage</th>
+                        <th width="8%" class="school_activity">Others</th>
+                        <th width="11%" class="school_activity">Gross</th>
+                        <th width="11%" class="school_activity">Loan</th>
+                        <th width="8%" class="school_activity">Stores</th>
+                        <th width="10%" class="school_activity">Others</th>
+                        <th width="10%" class="school_activity">Net</th>
+                    </tr>
+                
+                    {% for ra in datarw %}
+                    <tr>
+                        <td>{{ra.routecode}}</td>
+                        <td style="text-align:right !important">{{ra.qty|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.Ltrs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.fatkgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.afat|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.snfkgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.asnf|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.amount|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.Snf1|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.comm|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.aarrears|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.cartage|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.aothers|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.gamount|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.total|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.stores|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.rothers|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{ra.net|floatformat:2}}</td> 
+                        
+                            
+                    </tr>
+
+                    {% endfor %}
+                    <tr>
+                        <td>Total</td>
+                        <td style="text-align:right !important">{{total_rateqtysum_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateltrsum_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratefatkgs_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateafatkgs_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratesnfkgs_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateasnfkgs_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateamount_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratesnf_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratecomm_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateexsamt_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratecartage_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rateaothers_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_rategamt_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_total_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratestores_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_raterothers_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ratenet_detail|floatformat:2}}</td>
+                    </tr>
+
+
+            </table><br>
+     <table>
+    <tr>
+        <th>TYPE OF ADVANCE<br>-----------------------------</th>
+         <th>&emsp;&emsp;PRINCIPLE<br>------------------</th>
+        <th>INTEREST<br>-----------------</th>
+        <th>TOTAL<br>-------------</th>
+   
+    </tr>
+    <tr>
+        <th>DAIRY ADVANCE </th>   
+           <th> {{total_total_detail|floatformat:2}}</th>
+           <th></th>
+           <th>{{total_total_detail|floatformat:2}}</th>
+         
+  
+</tr>
+</table>       
+<!-- <h6>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h6>
+<table>
+    <tr>
+        <th>Additions</th>
+        <th>Recoveries</th>
+        <th>Bill Details</th>
+    </tr>
+    <tr>
+        <th>Auto Fine :  - <br>  
+            Cartage : -  <br>
+         Others : - <br>
+     -------------------------
+     <br>        0.0<br>
+ ---------------------------</th>
+        <th> Stationary : - <br>
+            Cattle Feed:   - <br>
+            Seed:        -   <br>
+            EMT:         - <br>
+            Advance Rec :  - <br>
+            Finance Rec :  - <br>
+            Stores  :  -  <br>
+            Others :  - 0.0  <br>
+            ------------------------------<br>
+            0.0 <br>
+            -----------------------------
+        </th>
+        <th>Milk Value :  - <br>
+            P&I Exp. :   - <br>
+            Additions :       -   <br>
+            --------------------------<br>
+            Gross Amount : -  <br>
+            Recoveries :  -  0.0<br>
+            -----------------------------------<br>
+            Net Payable : - <br>
+            ---------------------------------------<br>
+
+        </th>
+    </tr>
+
+    <tr>
+        <th> Milk Value/Ltr : <br>
+        Avg. Per Day : </th>
+    </tr>
+</table>-->
+ 
+    </body>
+</html>

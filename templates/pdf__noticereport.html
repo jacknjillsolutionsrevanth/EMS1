@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Notice Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Notice code : {{noticecode}}<br>
+
+
+		   </p><br>
+		<table>
+            <tr>
+            	<th>slno</th>
+                <th>Notice code</th>
+                <th>Notice details</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Created By</th>
+                <th>Edited By</th>
+                <th>Remarks</th>
+                <th>Created On</th>
+                <th>Edited On</th>
+                       
+			</tr>
+            {% for nr1 in data %}
+            <tr>
+            	<td></td>
+                <td>{{nr1.noticecode}}</td>
+                <td>{{nr1.noticename}}</td>
+                <td>{{nr1.effectedfromdate}}</td>
+                <td>{{nr1.effectedtodate}}</td>
+                <td>{{nr1.createdby}}</td>        
+                <td>{{nr1.editedby}}</td>
+                <td>{{nr1.remarks}}</td>
+                <td>{{nr1.createdOn}}</td>
+                <td>{{nr1.editedOn}}</td>
+                       
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

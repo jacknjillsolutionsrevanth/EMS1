@@ -1,0 +1,150 @@
+{% load mathfilters %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 8px;
+              padding-bottom: 8px;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: right;
+            font-family: arial, sans-serif;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+        </style>
+    </head>
+     </style>
+    </head>
+    <body>
+             <h1 class="uppercase">LS MILK TRADERS {{name}}<br>{{name}}</h1>
+
+            <h2 class="title_middle">Bank Acquisition Report From {{datefrom1}} to {{dateto1}}<br>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+
+
+            <table class="title_middle1">
+               <tr>
+                   <th>Center : {{centercode}} <br>
+                                     
+                    </th>
+                   <th>
+                        Route : {{routecode}}<br>
+                        
+                   </th>
+               </tr>
+           </table>
+            
+<h2>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+                  
+
+           
+        <table>
+            <tr>
+                <th  class="school_activity">S.NO</th>
+                <th style="width:100px">Route</th>
+
+                <th style="width:70px">Supervisor</th> 
+               
+                <th style="width:120px">Center</th>
+                
+                <th style="width:70px">Contact no</th>
+                <th style="width:70px">Account Holder</th>
+                <th style="width:80px"> Bank Account no</th>
+                <th style="width:100px">Bank name/Branch</th>
+                
+                <th style="width:100px">IFSC</th>
+                <th style="width:70px">Net amount</th>                
+            </tr>
+            
+            {% for center in data %}
+
+            <tr>
+                
+                <td>{{ forloop.counter }}</td>
+                <td style="width:100px">{{center.route_number}}{{center.route_name}}</td>
+                <td style="width:70px">{{center.supervisor}}</td>
+                <td style="width:100px">{{center.centre_code}}/{{center.name}}</td>
+                 
+                <td style="width:100px">{{center.mobile}}</td>
+                <td style="width:80px">{{center.name}}</td>
+                <td style="width:80px">{{center.bankno}}</td>
+                <td style="width:120px">{{center.bankname}}{{center.BankBranch}}</td>
+                
+                <td style="width:100px">{{center.ifsc}}</td>
+                <td style="text-align:center !important">{{center.amount|floatformat:2}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                       
+                        <td></td>
+                        <td style="text-align:center !important">{{total_gamtsum_detail|floatformat:2}}</td>
+                 </tr>
+           <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Totals</td>
+                <td style="text-align:right !important">{{total_r}}</td>
+                <td style="text-align:right !important">{{total_p}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Difference(Receviable & payment)</td>
+                <td style="text-align:right !important">{{tp}}</td>
+                <td style="text-align:right !important">{{tr}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:right !important">{{total_recsum}}</td>
+                <td style="text-align:right !important">{{total_paysum}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:right !important">Total</td>
+                <td style="text-align:right !important">{{total_sum}}</td>
+            </tr>-->
+        </table>
+    </body>
+
+</html>

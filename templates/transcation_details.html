@@ -1,0 +1,104 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse;
+	  /*width: 100%;*/
+	}
+	td, th 
+	{
+  		border: 1px solid #dddddd;
+  		text-align: left;
+  		padding: 8px;
+	}
+	.no_pad{
+		padding-left:0px;
+		padding-right: 0px;
+	}
+</style>
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				
+					<form  method="POST"  action="/transaction/{{id}}/{{slug}}/" enctype="">
+						{% csrf_token %}
+						<div class="col-md-10 col-sm-10 col-xs-12">
+							<h6>Milk in Entry </h6>
+							<label for="fname"> Date </label>
+							<input type="text" name="dateform"  required="" value="{{slug}}">
+							<select name="time">
+							    <option value="am">am</option>
+							    <option value="pm">pm</option>
+						  	</select><br>
+						  	<label> Center Code </label>
+						  	<input type="text" id="centercode" name="centercode" value="{{rate.routecode}}"><br>
+						  	<!-- <select name="centercode" id="centercode">
+						  	{% for cowmilkrate in cowmilkrate %}
+						  		<option value="{{cowmilkrate.Routecode}}">{{cowmilkrate.Routecode}}</option>
+						  	{% endfor %}
+						  	</select> -->
+						  	<label> Good Sour </label>
+							<select name="goodsour">
+							    <option value="gmilk">GOOD MILK</option>
+							    <option value="amilk">SOUR MILK</option>
+						  	</select><br>
+						  	
+						  	<label> Milk Type</label>
+							<select name="milktype">
+							    <option value="cm">CM</option>
+							    <option value="bm">BM</option>
+						  	</select><br>
+						  	<label> Cans </label>
+						  	<input type="number" name="can" step="any"><br>
+						  	<label> Qty(kgs) </label>
+						  	<input type="number" name="qty" id="qty" step="any"><br>
+						  	<label> Fat % </label>
+						  	<input type="number" name="fat" id="fat" step="any"><br>
+						  	<label> SNF % </label>
+						  	<input type="number" name="snf" id="snf" onchange="Amount(this.value)"  step="any"><br>
+						  	<label> Rate </label>
+						  	<input type="number" name="rate" id="rate"  step="any"><br>
+						  	<label> Amount </label>
+						  	<input type="number" id="amount" name="amount" step="any">
+						</div>
+			</div>
+			<button type="submit" class="Submit_form" value=""><b>Submit</b></button>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	/*$("#centercode").change(function() {
+         this.form.submit();
+    });*/
+    function Amount(val) {
+    	/*alert("hi");*/
+        var fat = document.getElementById('fat').value;
+        var qty = document.getElementById('qty').value;
+        var snf = document.getElementById('snf').value;
+        var rate_min = '{{rate.rate}}';
+       	var quantity = parseFloat(qty)/parseFloat(1.03);
+       	var a1 = parseFloat(snf) + parseFloat(fat)
+        var rate = ( a1* parseFloat(rate_min))/100;
+        var total_amount = parseFloat(rate) * parseFloat(quantity);        
+        var amount = document.getElementById('rate');
+        var total = document.getElementById('amount');
+        total.value = total_amount;
+        amount.value = rate;
+    }
+</script>
+{% endblock %}

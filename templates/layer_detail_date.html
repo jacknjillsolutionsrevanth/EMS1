@@ -1,0 +1,92 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href= 
+'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<button type="button"><a href="/down/{{slug}}/{{slug1}}/{{slug2}}/" target="_blank">PDF Download</a></button><br>
+			<button type="button"><a href="/excel-data/{{slug}}/{{slug1}}/{{slug2}}/" target="_blank">Excel Download</a></button><br>
+			<!-- <form method="POST" action="" target="_blank">
+				{% csrf_token %}
+				<input class="border_foot" type="date" id="my_date_picker" name="start_date" placeholder="Enter MM/DD/YYYY" required="">
+				<input class="border_foot" type="date" id="my_date_picker" name="end_date" placeholder="Enter MM/DD/YYYY" required="">
+				<button type="submit" value="submit">Submit</button>
+			</form> -->
+			<table>
+				<thead>
+					<tr>
+   						<th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">{{board.0.expenses_details}}<br>{{slug1}} to {{slug2}}</th>
+  					</tr>
+  				</thead>
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						<th width="12%" class="school_activity">Date</th>
+						<th width="12%" class="school_activity">Particulars</th>
+						<th width="30%" class="school_activity">Heads</th>
+						<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for board in board %}
+					<tr>
+							<td>{{board.date|date:'d-m-Y'}}</td>
+							{% if board.receviable == 0.0 %}
+							<td style="text-align:left !important">cr</td>
+							{% elif board.payment == 0.0 %}
+							<td style="text-align:left !important">dr</td>
+							{% endif %}
+							<td style="text-align:center !important">{{board.heads}}</td>
+							<td style="text-align:right !important">{{board.receviable}}</td>
+							<td style="text-align:right !important">{{board.payment}}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td></td>
+						<td></td>
+						<td style="text-align:center !important">Totals</td>
+						<td style="text-align:right !important">{{total_r}}</td>
+						<td style="text-align:right !important">{{total_p}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td style="text-align:center !important">Closing Balance</td>
+						<td style="text-align:right !important">{{tp}}</td>
+						<td style="text-align:right !important">{{tr}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:right !important">{{total_recsum}}</td>
+						<td style="text-align:right !important">{{total_paysum}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:right !important">Total</td>
+						<td style="text-align:right !important">{{total_sum}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

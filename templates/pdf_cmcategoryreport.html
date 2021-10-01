@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Cow Milk Category Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">center code : {{centercode}}<br>
+
+		   </p><br>
+		<table>
+			<tr>
+                <th>Category</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Rate Calc</th>
+                <th>Comm Type</th>
+                <th>Milk Type</th>
+                <th>Fat Min</th>
+                <th>Max Fat</th>
+                <th>Min Snf</th>
+                <th>Max Snf</th>
+                <th>TS-Rate</th>
+				<th>Fixed Value</th>
+                <th>CategoryId</th>
+			</tr>
+            {% for cmcategory in data %}
+            <tr>
+                <td>{{cmcategory.category}}</td>
+                <td>{{cmcategory.from_date|date:'d-m-Y'}}</td>
+                <td>{{cmcategory.to_date|date:'d-m-Y'}}</td>
+                <td>{{cmcategory.rate_calculation}}</td>
+                <td>{{cmcategory.commission_type}}</td>
+                <td>{{cmcategory.milk_type}}</td>
+                <td>{{cmcategory.min_fat}}</td>
+                <td>{{cmcategory.max_fat}}</td>
+                <td>{{cmcategory.min_SNF}}</td>
+                <td>{{cmcategory.max_SNF}}</td>
+                <td>{{cmcategory.tsrate}}</td>
+				<td>{{cmcategory.fixed_value}}</td>
+                <td>{{cmcategory.categoryid}}</td>
+			</tr>
+			{% endfor %}
+	
+		</table>
+	</body>
+</html>

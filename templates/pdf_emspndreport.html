@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Emspnd Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Emspnd code : {{Ecode}}<br>
+
+		   </p><br>
+		<table>
+            <tr>
+                <th>PType</th>
+                <th>PName</th>
+                <th>remove</th>
+                <th>PCost</th>
+                <th>QtyPerTree</th>
+                <th>FreqOfSpray</th>
+                <th>PEndAge</th>
+                <th>IncrPer</th>
+                <th>PStAge</th>
+                <th>PEndAge</th>
+			</tr>
+            {% for em in data %}
+            <tr>
+                <td>{{em.PType}}</td>
+                <td>{{em.PName}}</td>
+                <td>{{em.remove}}</td>
+                <td>{{em.PCost}}</td>
+                <td>{{em.QtyPerTree}}</td>
+                <td>{{em.FreqOfSpray}}</td>
+                <td>{{em.IncrPer}}</td>
+                <td>{{em.PStAge}}</td>
+                <td>{{em.PEndAge}}</td>
+                       
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

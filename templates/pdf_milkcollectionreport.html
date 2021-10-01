@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: right;
+            font-family: arial, sans-serif;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+        </style>
+    </head>
+    <body>
+            <h1 class="uppercase">LS MILK TRADERS {{name}}<br>{{name}}</h1>
+           
+            <h2 class="title_middle">Milk Collection Report From {{datefrom}} to {{dateto}}<br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            <!--<p class="title_middle">route code : {{routecode}}<br>
+
+           </p><p class="title_middle">center code : {{centercode}}<br>
+
+           </p>-->
+           <table class="title_middle1">
+               <tr>
+                   <th>Center : {{centercode}} <br>
+                                     
+                    </th>
+                   <th>
+                        Route : {{routecode}}<br>
+                        
+                   </th>
+               </tr>
+           </table>
+            
+<h2>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            
+           
+        <table>
+            <tr>
+                <th width="12%" class="school_activity">{{selecting}}</th>
+                <th width="7%" class="school_activity">Milk Type</th>
+                <th width="7%" class="school_activity">Quantity (in.Kgs)</th>
+                <th width="7%" class="school_activity">Quantity (in.Ltrs)</th>
+                <th width="7%" class="school_activity">KG-FAT</th>
+                <th width="7%" class="school_activity">KG-SNF</th>
+                <th width="7%" class="school_activity">Avg.FAT</th>
+                <th width="7%" class="school_activity">Avg.SNF</th>
+                <th width="8%" class="school_activity"> Amount</th>
+                <th width="7%" class="school_activity">Rate  (per ltr)</th>
+                <th width="7%" class="school_activity">TS Rate - Ltr </th>
+                <th width="7%" class="school_activity">Transpt. Amount</th>
+                <th width="7%" class="school_activity">Transport Rate/Ltr</th>
+                <th width="7%" class="school_activity">Pel</th>
+                <th width="7%" class="school_activity">Net Ltr TS Rate</th>
+                <th width="7%" class="school_activity">Total Amount</th>
+
+                
+            </tr>
+            <tbody>
+                {% if selecting == 'Date'  %}
+                {% for md in datad %}
+                <tr>
+                    <td>{{md.date|date:'d-m-Y'}}</td>
+                    <td>{{md.Milktype}}</td>
+                    <td style="text-align:right !important">{{md.kgs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.Ltrs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.Fat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.Snf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.afat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.asnf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.gamount|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.RateLTR|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.tsrate|floatformat:2}}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right !important">{{md.pel|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.ltrtsrate|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{md.net|floatformat:2}}</td>
+                </tr>
+
+                {% endfor %}
+                {% elif selecting == 'Branch' %}
+                 {% for mb in datad %}
+                }
+                <tr>
+                    <td>{{mb.branch|date:'d-m-Y'}}</td>
+                    <td>{{mb.Milktype}}</td>
+                    <td style="text-align:right !important">{{mb.kgs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.Ltrs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.Fat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.Snf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.afat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.asnf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.gamount|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.RateLTR|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.tsrate|floatformat:2}}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right !important">{{mb.pel|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.ltrtsrate|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mb.net|floatformat:2}}</td>
+                </tr>
+
+                {% endfor %}
+
+                {% elif selecting == 'Center' %}
+                {% for mc in datad %}
+                <tr>
+                    <td>{{mc.centercode}}-{{mc.centername}}</td>
+                    <td>{{mc.Milktype}}</td>
+                    <td style="text-align:right !important">{{mc.kgs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.Ltrs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.Fat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.Snf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.afat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.asnf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.gamount|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.RateLTR|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.tsrate|floatformat:2}}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right !important">{{mc.pel|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.ltrtsrate|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mc.net|floatformat:2}}</td>
+                </tr>
+
+                {% endfor %}
+
+                {% elif selecting == 'Route' %}
+                {% for mr in datad %}
+                <tr>
+                    <td>{{mr.routecode}}-{{mr.routename}}</td>
+                    <td>{{mr.Milktype}}</td>
+                    <td style="text-align:right !important">{{mr.kgs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.Ltrs|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.Fat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.Snf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.afat|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.asnf|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.gamount|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.RateLTR|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.tsrate|floatformat:2}}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right !important">{{mr.pel|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.ltrtsrate|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{mr.net|floatformat:2}}</td>
+                </tr>
+
+                {% endfor %}
+                {% endif %}
+                
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td style="text-align:right !important">{{total_kgssum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_ltrssum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_fatsum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_snfsum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_afatsum_detail1|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_asnfsum_detail1|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_gamtsum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_ratesum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_tsrate_detail|floatformat:2}}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right !important">{{total_pelsum_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_ltrtsrate_detail|floatformat:2}}</td>
+                    <td style="text-align:right !important">{{total_netamount_detail|floatformat:2}}</td>
+                </tr>
+            </tbody>
+             
+            </tr>
+        </table>
+<h2>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+    
+        
+                <table id="centerhide">
+                    <thead style="background-color: #69bc5f !important;">
+                        <tr>		
+                        <th width="10%" class="school_activity">{{selecting}}</th>
+                        <th width="10%" class="school_activity">QTY (kgs)</th>
+                        <th width="10%" class="school_activity">Total Amount</th>
+                        <th width="7%" class="school_activity">KG TS Rate</th>
+                        <th width="7%" class="school_activity">LTRS TS Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if selecting == 'Date'  %}
+                    {% for md in datad %}
+                    <tr>
+                        <td>{{md.date|date:'d-m-Y'}}</td>
+                        <td style="text-align:right !important">{{md.kgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{md.net|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{md.ltrtsrate|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{md.kgtsrate|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% elif selecting == 'Branch' %}
+                    {% for mb in datad %}
+                    <tr>
+                        <td>{{mb.branch}}</td>
+                        <td style="text-align:right !important">{{mb.kgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mb.net|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mb.ltrtsrate|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mb.kgtsrate|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% elif selecting == 'Center' %}
+                    {% for mc in datad %}
+                    <tr>
+                        <td>{{mc.centercode}}-{{mc.centername}}</td>
+                        <td style="text-align:right !important">{{mc.kgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mc.net|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mc.ltrtsrate|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mc.kgtsrate|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% elif selecting == 'Route' %}
+                    {% for mr in datad %}
+                    <tr>
+                        <td>{{mr.routecode}}-{{mr.routename}}</td>
+                        <td style="text-align:right !important">{{mr.kgs|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mr.net|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mr.ltrtsrate|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{mr.kgtsrate|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+
+    
+                    <tr>
+                        <td>Total</td>
+                        <td style="text-align:right !important">{{total_kgssum_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_netamount_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_ltrtsrate_detail|floatformat:2}}</td>
+                        <td style="text-align:right !important">{{total_kgtsrate_detail|floatformat:2}}</td>
+                    </tr>
+    
+                </tbody>
+    
+                </table>
+        
+
+
+
+
+
+</body>
+</html>

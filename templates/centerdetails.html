@@ -1,0 +1,111 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<script>
+	  $(document).ready(function() {
+  $('.image-link').magnificPopup({type:'image'});
+});
+</script>
+			<table>
+				<thead>
+					<tr>
+   						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">Center Report</th>
+  					</tr>
+  				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+				 	<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+				  		<select name="category_cow">
+						 <option value="">All</option>
+					  	{% for center in dc %}
+							    <option value="{{center.centercode}}">{{center.centercode}}</option>
+					  	{% endfor %}
+					  	</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+                        <th width="10%" class="school_activity">Code</th>
+                        <th width="8%" class="school_activity">Formula</th>
+                        <th width="6%" class="school_activity">Category</th>
+                        <th width="10%" class="school_activity">Supervisor</th>
+                        <th width="10%" class="school_activity">Village</th>
+                        <th width="10%" class="school_activity">Address</th>
+                        <th width="10%" class="school_activity">Bank Account No</th>
+                        <th width="10%" class="school_activity">Bank Name</th>
+                        <th width="10%" class="school_activity">IFSC Code</th>
+                        <th width="10%" class="school_activity">Branch</th> 
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					{% for center in center %}
+					<tr>
+						<td>{{center.centre_code}}</td>
+					    <td>{{center.Formula}}</td>
+						
+						<td>{{center.category}}</td>
+						<td>{{center.supervisor}}</td>
+                        <td>{{center.village_name}}</td>
+                        <td>{{center.address}}</td>
+                        <td>{{center.bankno}}</td>
+                        <td>{{center.bankname}}</td>
+                        <td>{{center.ifsc}}</td>
+                        <td>{{center.branch}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+
+				<table id="centerhide">
+					<thead style="background-color: #69bc5f !important;">
+						<tr>
+                            <th width="10%" class="school_activity">CM Comm</th>
+                            <th width="10%" class="school_activity">CM Cartage</th>
+                            <th width="10%" class="school_activity">BM Comm</th>
+                            <th width="10%" class="school_activity">BM  Cartage</th>
+                            <th width="10%" class="school_activity">Fat Machine In Use</th>
+                            <th width="10%" class="school_activity">Distance</th>
+                            <th width="10%" class="school_activity">Image</th>
+							<th width="10%" class="school_activity">Download Image</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for center in center %}
+					<tr>
+                        <td>{{center.CM_comm_amount}}</td>
+                        <td>{{center.CM_Cartage_amount}}</td>
+                        <td>{{center.BM_comm_amount}}</td>
+                        <td>{{center.BM_Cartage_amount}}</td>
+                        <td>{{center.Fat}}</td>
+                        <td>{{center.Distance}}</td>
+						<td><a class="image-link" href ="/./media/{{center.Document}}/" download="download">View Image</a></td>
+						<td><a class="image" href ="/./media/{{center.Document}}/" download="download">Download Image</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				
+			</table>
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			<a href="/centerreport/" class="btn btn-primary btn-lg">Back to Report</a>
+			<br>
+			<br><br>
+		</div>
+	</div>
+
+{% endblock %}

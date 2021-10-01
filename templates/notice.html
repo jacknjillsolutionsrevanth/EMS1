@@ -1,0 +1,132 @@
+ {% extends 'header.html' %}
+ {% block title %}Ls Milks{% endblock %}
+{% block content %}
+
+
+<style>
+  input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+<center>
+     <h2> <center> Notice </center></h2><br>
+<form id="notice-form" method="POST" action="" enctype="">
+    {% csrf_token %}
+
+       &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&ensp;<label for="uname"><b>Notice code</b> &nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="text" name="noticecode" id="noticecode" />
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;<label for="uname"><b>Notice Details</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="noticename" id="noticename" />&ensp;&ensp;<br><br><br>
+
+      &emsp;&emsp;&emsp;&ensp;<label for="uname"><b>Start Date</b></label>&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;
+      <input type="date" name="effectedfromdate" id="effectedfromdate" placeholder=" DD/MM/YYYY"   value="{{curdate}}"required="">  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+     
+
+       &emsp;&emsp; &emsp;&emsp;&emsp;<label for="uname"><b>End Date</b></label> &nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;
+      <input type="date" name="effectedtodate" id="effectedtodate" placeholder=" DD/MM/YYYY"   value="{{curdate1}}"required="">&ensp;&ensp;<br><br><br>
+
+      <label for="uname"><b>Remarks</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="text" name="remarks" width="100%" id="remarks\" /> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><br>
+
+
+    <!-- <label><b>Select Date</b></label>&ensp;&ensp;
+    <input type="date" name="noticedate" id="noticedate">&ensp;&ensp; -->
+<br>
+<br>
+<button type="submit" class="btn btn-primary btn-lg"onclick="compare()"> Submit </button>
+<button type="New" class="btn btn-primary btn-lg"> New </button>
+<a type="edit"class="btn btn-primary btn-lg" value="edit"  href="/manage_notice/">Edit</a>
+<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>&ensp;&ensp;
+    
+</form>
+
+<marquee id="notice-marque" style="
+width: 100%;
+/* position: display; */
+display: block;
+background: #001;
+z-index: 999999999999;
+margin: 0;
+font-size:18px;
+color: #FFB6C1;
+left: 0;  
+
+"> </marquee>
+<script>
+function compare()
+{
+
+    var tex1 = document.getElementById('noticecode').value;
+   
+    var tex2 = document.getElementById('noticename').value;
+
+   
+    // var startDt = document.getElementById("startDate").value;
+    // var endDt = document.getElementById("endDate").value;
+    var fromDate = document.getElementById("effectedfromdate").value;
+    var toDate = document.getElementById("effectedtodate").value;
+
+    if( fromDate == "" || toDate == "")
+    {
+      alert("Please select Valid Date");
+      return;
+    }
+    else{
+      $('#notice-marque').html('Hi sravya');
+    }
+    
+  
+}
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+

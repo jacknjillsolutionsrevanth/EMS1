@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Route Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Route code : {{routecode}}<br>
+
+		   </p><br>
+		<table>
+            <tr>
+                <th >Route Code</th>
+                <th >Route Name</th>
+                <th >Start Date</th>
+                <th >End Date</th>
+                <th >Is Active</th>
+                       
+			</tr>
+			{% for rr in data %}
+					<tr>
+						<td>{{rr.Route_number}}</td>
+						<td>{{rr.Route_name}}</td>
+						<td>{{rr.date_from}}</td>
+						<td>{{rr.date_to}}</td>
+						<td>{{rr.active}}</td>
+						
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

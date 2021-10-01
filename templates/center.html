@@ -1,0 +1,500 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bankno").change(function () {
+            if ($(this).val()!="" ) {
+                $("#ifsc").attr("required", "required");
+                
+            } else {
+                $("#ifsc").removeAttr("required");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val() =="others") {
+                $("#ifsc1").removeAttr("disabled");
+                $("#ifsc1").focus();
+            } else {
+                $("#ifsc1").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#branch2").removeAttr("disabled");
+                $("#branch2").focus();
+            } else {
+                $("#branch2").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#bank").change(function () {
+            if ($(this).val()=="others") {
+                $("#bank3").removeAttr("disabled");
+                $("#bank3").focus();
+            } else {
+                $("#bank3").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#ifsc").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#branch2").removeAttr("disabled");
+                $("#branch2").focus();
+            } else {
+                $("#branch2").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#ifsc").change(function () {
+            if ($(this).val() =="others") {
+                $("#ifsc1").removeAttr("disabled");
+                $("#ifsc1").focus();
+            } else {
+                $("#ifsc1").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+
+<style>
+select {
+    width:75px;
+    margin: 10px;
+}
+#select:focus {
+    width: 75px;
+    width: auto;
+}
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  padding: 0px;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+}
+.bank-details{
+	border: 1px solid black;
+  	
+}
+
+	</style>
+
+<script>
+	function myFunction() {
+		var bank=document.getElementById("centercode").value; 
+		{
+			document.getElementById("centercode").value = "C";
+		}
+		}
+	</script>
+<div class="container">
+	<h2><b><center>Center </center></b></h2>
+	<form  method="POST" action="/center/"  enctype="multipart/form-data">
+		{% csrf_token %}
+
+		&ensp;
+  		<label><b>Code</b></label>&emsp;&emsp;
+		<input type="text" name="code" style="width: 14%;" id="centercode" onclick="myFunction()" required>
+		  
+		<label><b>Name</b></label>
+		<input type="text" name="name"style="width: 14%;" width="70px" id="centernumber"required>
+
+		<label><b>Mobile</b></label>
+		<input name="mobile" type="tel"style="width: 14%;" maxlength="10" pattern="[1-9]{1}[0-9]{9}" title =" Enter 10 digits" id="mobile" required>
+
+		<label><b>Email</b></label>
+		<input type="email" name="email" id="email" width="70px" >
+		&emsp;
+
+	
+  		<select name="state" id="type" required>
+		<option></option>
+		{% for state in state %}
+		  <option value="{{state.name}}">{{state.name}}</option>
+		{% endfor %}  
+		</select>
+		  
+		
+	
+	 	
+	  	<div class="col-md-12 col-sm-12 col-xs-12 no_padding row">
+			<div class="col-md-7 col-sm-7 col-xs-12 no_padding">
+
+				<label><b>Route</b></label>&nbsp;&ensp;
+				<select name="route" id="centerroute" required="required">
+				<option ></option>
+				{% for route in route %}
+				  <option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				  {% endfor %}
+				</select>
+
+				&emsp;&emsp;&emsp;&nbsp;&emsp;
+				<label><b>Category</b></label>&emsp;
+				<select name="category" id="category" required="required">
+				<option></option>
+				{% for category in category %}
+					<option value="{{category.code}}">{{category.code}}</option>
+				{% endfor %}
+				</select>
+		
+				&emsp;&emsp;
+				<label><b>Milk Type</b></label>
+				<select name="milk" id="milktype" required="required">
+				<option></option>
+				{% for milk in milk %}
+				<option value="{{milk.code}}">{{milk.code}}</option>
+				{% endfor %}  
+				</select><br>
+
+ 
+
+		
+			
+		<label><b>Agent</b></label>&ensp;&ensp;
+		<select name="agent" id="centeragent" required="required">
+		<option></option>
+		{% for agent in agent %}
+			 <option value="{{agent.name}}">{{agent.code}}-{{agent.name}}</option>
+		{% endfor %}  
+		</select>
+	
+		&emsp;&emsp;&emsp;&emsp;&nbsp;
+		<label><b>Supervisor</b></label>
+		<select name="supervisor" id="sup" required="required">
+	  	<option></option>
+	  	{% for supervisor in supervisor %}
+		<option value="{{supervisor.code}}-{{supervisor.name}}">{{supervisor.code}}-{{supervisor.name}}</option>
+		{% endfor %}
+		</select>
+	
+		&emsp;&emsp;
+		<label><b>Village</b></label>&emsp;&nbsp;
+		<select  name="village" id="vill" required="required">
+	  	<option></option>
+	  	{% for village in village %}
+			<option value="{{village.name}}">{{village.code}}-{{village.name}}</option>
+		{% endfor %}
+		</select><br>
+		
+		
+		 
+		  <label><b>Address</b></label>&ensp;
+		  <textarea name="address" rows="2" cols="60" id="centeraddress" style="width:80%;" required="required"></textarea><br>
+		
+		  <div >
+		  
+			<h5><b>Bank Details</b></h5>
+			 <label><b>A/c No</b></label>&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&ensp;
+			 <input type="number" name="bankno" id="bankno" >
+   
+   
+   
+			 <label><b>A/c holdername</b></label>
+			 <input type="text" name="actholdername" >
+   
+   
+			   
+	   
+			 <label><b>Bank Name</b></label>&ensp;&ensp;
+			 <select id="bank" name="bank" >
+			 <option>Select</option>
+			 {% for bank2 in bank2 %}
+			   <option value="{{bank2.fullname}}">{{bank2.fullname}}</option>
+		   {% endfor %}
+		   <option value="others">Other</option>
+   
+			 </select>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+   
+			 
+			   Bank Name&nbsp;&ensp;&nbsp;&ensp;&ensp;
+		   <input type="text" id="bank3" name="bank" disabled="disabled" />
+		   
+			
+		   
+			 <label><b>IFSC </b></label>&ensp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&ensp;&ensp;
+		   <select id="ifsc" name="ifsc">&nbsp;&ensp;
+		   <option></option>
+			 {% for bank1 in bank1 %}
+			   <option value="{{bank1.ifsc}}">{{bank1.ifsc}}</option>
+			 {% endfor %}
+			 <option value="others">Other</option>
+			 
+			 </select>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+			 Ifsc Code&nbsp;&ensp;&nbsp;&ensp;&ensp;&ensp;&ensp;<input type="text" id="ifsc1" name="ifsc" disabled="disabled" required/>
+   
+		   
+   
+   
+			 <label><b>Branch</b></label>&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&ensp;&ensp;
+			 <select id="branch" name="branch">
+				 <option id="bank">Select</option>
+				 {% for bank in bank %}
+				 <option value="{{bank.branch}}">{{bank.branch}}</option>
+			   {% endfor %}
+			   <option value="others">Other</option>
+			 </select>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+		Branch Name&ensp;&ensp;&ensp;<input type="text" id="branch2" name="branch" disabled="disabled" />
+		 
+			
+		   </div>
+	   
+	   </div>
+			
+	
+	<div class="col-md-5 col-sm-5 col-xs-12">
+				
+		&emsp;
+				  
+			  	<label><b>CM Comm</b></label>
+				<select name="cm">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>		    
+			  	</select>
+				<input type="number" name="cm_amount" style="width:40%;" value="0" step="any">
+				<b>(In Rs.)</b>
+
+				&emsp;
+				<label><b>Cartage</b></label>&nbsp;&emsp;
+				<select name="cmcartage">
+		   			<option value="ltr">LtrRate</option>
+		   			<option value="kg">KgRate</option>
+		   			<option value="tsr">LtrTSRate</option>
+		   			<option value="ktsr">KgTSRate</option>
+		  </select>
+		  <input type="number" name="cmcartage_amount" style="width:40%;" value="0"  step="any">
+		  <b>(In Rs.)</b>
+		  &emsp;
+				<label ><b>BM Comm</b></label>
+				<select name="bm">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>
+			  	</select >
+			  	<input type="number" name="bm_amount"style="width:40%;"  value="0"  step="any"> <b>(In Rs.)</b>
+				  &emsp;
+			  	<label><b> Cartage</b></label>&ensp;&ensp;
+				<select name="bmcartage">
+				   <option value="ltr">LtrRate</option>
+				   <option value="kg">KgRate</option>
+				   <option value="tsr">LtrTSRate</option>
+				   <option value="ktsr">KgTSRate</option>
+			  	</select>
+				<input type="number" name="bmcartage_amount" style="width:40%;" value="0"  step="any">
+				<b>(In Rs.)</b>
+
+
+			  
+				&emsp;  	
+				<label><b>Fat Machine in Use</b></label>&emsp;
+				<select name="fat">
+					<option value="manual">Manual</option>
+					<option value="analyser">Analyser</option>
+					
+				&emsp;&emsp;&emsp;&emsp;
+				</select><label >Active</label>
+				<input type="checkbox" name="active" checked><br>&emsp;
+				
+				<label><b>Distance </b></label>&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;
+				  <input type="number" name="kilo" id="distance" required=""><b>(In KM.)</b><br>
+				  &emsp;
+				  <label><b>Upload Photo</b></label>
+				  &emsp;&emsp;&emsp;&emsp;
+				  <input type="checkbox" name="HvPhoto" checked>
+				  <input type="file" name="HvPhoto" style="width: 50%;" accept="image/gif, image/jpeg, image/jpg , image/png">
+			</div>
+		</div>
+	
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<br><br>
+	</form>
+</div>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("centercode").value = localStorage.getItem("centercode");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("centercode",document.getElementById("centercode").value);
+  });
+
+	</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("centernumber").value = localStorage.getItem("centernumber");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("centernumber",document.getElementById("centernumber").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("mobile").value = localStorage.getItem("mobile");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("mobile",document.getElementById("mobile").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("email").value = localStorage.getItem("email");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("email",document.getElementById("email").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("type").value = localStorage.getItem("type");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("type",document.getElementById("type").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("centerroute").value = localStorage.getItem("centerroute");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("centerroute",document.getElementById("centerroute").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("milktype").value = localStorage.getItem("milktype");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("milktype",document.getElementById("milktype").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("category").value = localStorage.getItem("category");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("category",document.getElementById("category").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("centeragent").value = localStorage.getItem("centeragent");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("centeragent",document.getElementById("centeragent").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("sup").value = localStorage.getItem("sup");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("sup",document.getElementById("sup").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("vill").value = localStorage.getItem("vill");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("vill",document.getElementById("vill").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("centeraddress").value = localStorage.getItem("centeraddress");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("centeraddress",document.getElementById("centeraddress").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("distance").value = localStorage.getItem("distance");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("distance",document.getElementById("distance").value);
+  });
+
+	</script>
+	<br><br><br><br><br>
+
+{% endblock %}

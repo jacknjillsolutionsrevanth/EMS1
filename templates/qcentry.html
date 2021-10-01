@@ -1,0 +1,191 @@
+
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: right ;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:150px !important;
+}
+
+</style>
+
+<div class="container" >
+	<h2><b><center>QC Entry</center></b></h2>
+	<div style="border:1px solid #dddddd;padding:40px;margin:40px;">	
+			<div class="col-md-15 col-sm-15 col-xs-15">
+					<form  method="POST"  action="" enctype="">
+						{% csrf_token %}
+						<div class="col-md-10 col-sm-10 col-xs-12">
+							<h6><b>QC Entries</b></h6>
+							<label for="fbranch"><b>Branch</b></label>&ensp;
+							<input type="text" name="branch11" value="{% if user.is_authenticated %}{{user.extendeduser.branch}}{%endif%}" disabled>
+
+							
+						  	<label for="fshift"><b>Date</b></label>&ensp;
+							<input style="width: 100%;" type="date" id="datePicker" name="date" placeholder="Enter MM/DD/YYYY" required="">&emsp;&emsp;
+							<label for="fshift"><b>Shift</b></label>&ensp;
+							<select name="shift">
+							    <option value="am">am</option>
+							    <option value="pm">pm</option>
+						  	</select> &emsp;&emsp;&emsp;&emsp;
+							<table class="table display data-table text-nowrap" id ="doctable"  style="width:100%;">
+							<button type="button" class="btn btn-primary btn-lg"><a class="btn backgroundBlue add-more-btn addDeleteButton">Add</a></button>	&emsp;								<button type="submit" class="btn btn-primary btn-lg" onclick ="myError()" id="submitData" value="">Submit </button> 
+						  	<table class="table display data-table text-nowrap" style="width:100%;">
+						        <thead class="tableHeadcolor">
+						            <tr>
+						                <th>Samp No</th>
+						                <th>Fat</th>
+						                <th>Clr</th> 
+						                <th>Snf</th> 
+						                 
+						            </tr>
+						        </thead>
+								<tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+						                <td>&emsp;&emsp;
+										<input type="number"  class="width_percent workflowinputRadius" name="samplecode[]" step="any" style="text-align:right"></td>
+						                <!-- <td><input type="number" class="width_percent workflowinputRadius" name="milktype[]" step="any"></td> -->
+						                <td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="fat" name="fat[]" step="any" style="text-align:right"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="clr" name="clr[]" step="any" style="text-align:right" ></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" id="snf" name="snf[]"  step="any" style="text-align:right" onclick="myFunction()" onkeyup="myFunction()"onkeyup="myError()"><span id="demo"></span></td>
+						                <script>
+function myFunction() {
+  document.getElementById("snf").value = (((document.getElementById("clr").value)/4) +(0.21*(document.getElementById("fat").value))+0.36).toFixed(2) ;
+}
+
+</script>
+<script type="text/javascript">
+	function myError(){
+		var snf=document.getElementById("snf").value;
+		if(snf != (((document.getElementById("clr").value)/4) +(0.21*(document.getElementById("fat").value))+0.36) || snf == "").toFixed(2) {
+
+    alert("Enter Correct SNF")
+
+  } 
+    }
+</script>
+
+						            </tr>        
+						       </tbody>
+						    </table>
+			    
+						</div>
+			</div>
+		</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	
+			
+
+			
+			<br>
+	<br>
+	<br>
+	<br>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).on("change", "#centercode", function(){
+        var a =  $(this).find(':selected').data('name');
+        $("#center_name").val(a);
+    });
+    function Amount(val) {
+    	/*alert("hi");*/
+        var fat = document.getElementById('fat').value;
+        var qty = document.getElementById('qty').value;
+        var snf = document.getElementById('snf').value;
+        var rate_min = '{{rate.rate}}';
+       	var quantity = parseFloat(qty)/parseFloat(1.03);
+       	var a1 = parseFloat(snf) + parseFloat(fat)
+        var rate = ( a1* parseFloat(rate_min))/100;
+        var total_amount = parseFloat(rate) * parseFloat(quantity);        
+        var amount = document.getElementById('rate');
+        var total = document.getElementById('amount');
+        total.value = total_amount;
+        amount.value = rate;
+    }
+</script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trFirst = $tableBody.find("tr:first");
+		        $trNew = $trFirst.clone();
+				
+		    $trFirst.after($trNew);
+        });
+    });
+
+</script>
+<script type="text/javascript">
+	var field = document.querySelector('#today');
+	var date = new Date();
+
+	// Set the date
+	field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
+	    '-' + date.getDate().toString().padStart(2, 0);
+</script>
+{% endblock %}

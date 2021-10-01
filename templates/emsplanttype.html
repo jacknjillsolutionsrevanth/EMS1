@@ -1,0 +1,155 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+
+	</style>
+
+<script>
+    function myFunction() {
+        var bank=document.getElementById("emsplanttype").value; 
+        {
+            document.getElementById("emsplanttype").value = "V";
+        }
+        }
+    </script>
+
+<div class="container">
+	<h2><center><b>HYBRID Master</b></center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Hybrid Type</b> &nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="type" placeholder="F1" required="" id="PType">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Description</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="name" placeholder="Descr"  required=""><br><br>
+		<!-- &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label><b>Remove</b></label>&emsp;&emsp;&emsp;
+				<select name="remove">
+					<option value="yes">Yes</option>
+					<option value="no">NO</option>
+				</select>
+		 -->		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Tender Nut Price</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="1.30"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Matured Nut Price</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="nutmatrcost"  required="">
+		<br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>VCO Price (Per Ltr)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="1.50"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Nuts for VCO (Per Ltr)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="cost" placeholder="3.50"  required="">
+		
+<br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Yield Start Age (in Mths)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="stage" placeholder="48"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>End Age(in Mths)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="EndAge" placeholder="420"  required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Estimated Nuts <per month></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="Fstage" placeholder="5"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Incr % (per Year)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="IncrPer" placeholder="0.1"  required=""><br><br>
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Incr Start Period <per month></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="Fstage" placeholder="48"  required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="fname"><b>Constant Start period</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="IncrPer" placeholder="96"  required=""><br><br>
+		
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+				<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="new" class="btn btn-primary btn-lg" value="new"  href="/emsplanttype/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg" value="Submit"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manageemsplanttype/" >Edit </a>
+
+	</form>
+</div>
+
+
+{% endblock %}}

@@ -1,0 +1,20 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="file1"> Upload a file</label>
+    <input type="file" id="file1" name="myfile">
+    <small>...Extract Plant Data Only accepts .XLS(X) files </small>
+    <button type="submit">Upload</button>
+</form>
+
+{% for profile in profiles %}
+{{profile.name}}
+{% endfor %}
+
+{% endblock %}

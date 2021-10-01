@@ -1,0 +1,86 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+h4{
+	margin: 1em 0 0.5em 0;
+	font-weight: normal;
+	position: relative;
+	text-shadow: 0 -1px rgba(0,0,0,0.6);
+	font-size: 20px;
+	line-height: 30px;
+	background: #355681;
+	background: rgba(53,86,129, 0.8);
+	border: 1px solid #fff;
+	padding: 5px 15px;
+	color: white;
+	border-radius: 0 10px 0 10px;
+	box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+	font-family: 'Muli', sans-serif;
+}
+input[type=text],input[type=password],select{
+  width: 90%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+
+.card {
+        margin-left: 75%;      
+    margin-right: -70%;
+</style>
+<div class="container register">
+	<form action="/sendsms/" method="POST">
+		{% csrf_token %}
+		<aside class="col-sm-5">
+
+<div class="card" align="center">
+<article class="card-body">
+	<h4 class="card-title text-center mb-4 mt-1">SMS</h4><hr>
+	
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="option-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+		
+	<select name="mobile">
+				    <option value="all">All</option>
+				    {% for center in center %}
+						    <option   value={{center.mobile}} placeholder="mobile" required="">{{center.mobile}}</option>
+
+
+				  	{% endfor %}
+			  	</select>
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		 </div>
+	    <input type="text" name="message" placeholder="message" >
+	    
+
+	    
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary btn-block"> Send</button>
+	</div> <!-- form-group// -->
+	
+	
+</article>
+</div> <!-- card.// -->
+</aside> <!-- col.// -->
+</div> <!-- row.// -->
+
+</div> 
+	</form>
+
+{% endblock %}

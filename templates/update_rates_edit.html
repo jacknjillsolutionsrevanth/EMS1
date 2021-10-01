@@ -1,0 +1,49 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<form  method="POST"  action="" enctype="">
+	{% csrf_token %}
+	<table id="edithide">
+		<thead class="tableHeadcolor">
+            <tr>
+                <th>Milk Type</th>
+                <th>Center</th>
+                <th>Qty</th>
+                <th>Can</th> 
+                <th>Fat</th>
+                <th>Snf</th>
+                <th>Clr</th>
+                <th>Ts Rate</th>
+                <th>LtrRate</th>
+                <th>Comm</th>
+                <th>Pel</th>
+                <th>Amount</th>
+                <th>Net Amount</th>
+            </tr>
+        </thead>
+        <tbody id='form' class="form-block_1">
+            <tr class="odd"  role="row">
+                <td><input type="" name="milk_type" value="{{dc.milk_type}}"></td>
+                <td>{{dc.centercode}}</td>
+                <td>{{dc.quantity}}</td>
+                <td>{{dc.can}}</td>
+                <td><input type="" name="fat" value="{{dc.fat}}" step="any"></td>
+                <td><input type="" name="snf" value="{{dc.snf|floatformat:2}}" step="any"></td>
+                <td><input type="" name="clr" value="{{dc.clr}}" step="any"></td>
+                <td>{{tsrate}}</td>
+                <td>{{ltrrate}}</td>
+                <td>{{commission}}</td>
+                <td>{{dc.pel}}</td>
+                <td>{{dc.amount}}</td>	
+                <td>{{dc.net}}</td>					               
+            </tr>  
+       </tbody>			    
+	</table>
+	<button type="submit" class="Submit_form" id="getdata" value=""><b>Submit</b></button>
+    <label><a href="/update-data/">update</a></label>
+</form>
+{% endblock %}

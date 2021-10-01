@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Supervisor Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Supervisor code : {{supervisorcode}}<br>
+
+		   </p><br>
+		<table>
+            <tr>
+                <th>Supervisor Code</th>
+                <th>Supervisor Name</th>
+                <th>Route 1</th>
+                <th>Route 2</th>
+                <th>Route 3</th>
+                       
+			</tr>
+            {% for sr in data %}
+            <tr>
+                <td>{{sr.code}}</td>
+                <td>{{sr.name}}</td>
+                <td>{{sr.Route_attached}}</td>
+                <td>{{sr.Route_attached1}}</td>
+                <td>{{sr.Route_attached2}}</td>
+                       
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

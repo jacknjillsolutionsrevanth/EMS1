@@ -1,0 +1,173 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /width: 100%;/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 4px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(83,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:120px !important;
+}
+input[type=date]{
+	width:100px !important;
+}  
+ 
+
+</style>
+
+	</style>
+	
+<script>
+    function myFunction() {
+        var bank=document.getElementById("emspnd").value; 
+        {
+            document.getElementById("emspnd").value = "S";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+				<h2><b><center>Manage emspnd </center></b></h2>
+
+			<form  method="POST"  action="/manageemspnd/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>
+					            	
+					            	<th>PType</th>
+					                <th> PName</th>
+					                
+					               <!-- <th>Good Sour</th> -->
+					                <th>PCost</th>
+					              <!--  <th>name</th>-->
+					                <th>QtyPerTree</th>
+					                <th>FreqOfSpray</th> 
+					                <th>PStAge</th>
+					                <th>PEndAge</th>
+					                <th>IncrPer</th>
+					                <th>remove</th>
+					              
+					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+
+					            	{% for al in al %}
+					            	<tr class="odd"  role="row">
+					            		<!-- <td><input type="text" value="{{dc.date}}" name="date" ></td>
+					            		 <td><input type="text" value="{{dc.shift}}" name="shift_loc1" ></td>-->
+					            		 <!--x = datetime.strptime(request.POST["date"], "%Y-%m-%d")
+										<td>{{board.date |date:'d-m-Y'}}</td>				-->
+										<input type="hidden" value="{{al.id}}" name="dcid1[]">
+					            		<td><input type="text"  value="{{al.PType}}" name="type[]" ></td>
+						                <td ><input type="text" value="{{al.PName}}" name="name[]" ></td>
+						                
+						                <td ><input type="text" value="{{al.PCost}}" name="cost[]" ></td>
+						                <td><input type="text"  value="{{al.QtyPerTree}}" name="Qty[]" ></td>
+						                <td ><input type="text" value="{{al.FreqOfSpray}}" name="Freq[]" ></td>
+						                <td><input type="text"  value="{{al.PStAge}}" name="stage[]" ></td>
+						                <td ><input type="text" value="{{al.PEndAge}}" name="endage[]" ></td>
+						                <td ><input type="text" value="{{al.IncrPer}}" name="Incr[]" ></td>
+						                 <td>
+											<select name="remove[]" value="{{dc.id}}">
+											    <option value="N">N</option>
+											    <option value="Y">Y</option>
+										  	</select>
+										</td>
+						               
+					                </tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					
+
+						
+						
+		
+					</div>
+					</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+					<a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/emspnd/" >Cancel </a>
+					<button type="submit" class="btn btn-primary btn-lg" > Submit </button>
+						
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">VersionReport </h2>
+			<p class="title_middle">Version Code : {{versioncode}}<br>
+
+
+		   </p><br>
+		<table>
+            <tr><th >Version </th>
+                <th >Details</th>
+                <th >Date From</th>
+                <th >Date To</th>
+                <th >Entry User</th>
+                <th >Edit User</th>
+                <th >Remarks</th>
+                       
+			</tr>
+			{% for vs in data %}
+					<tr>
+						<td>{{vs.vercode}}</td>
+						<td>{{vs.vername}}</td>
+						<td>{{vs.effectedfromdate|date:'d-m-Y'}}</td>
+						<td>{{vs.effectedtodate|date:'d-m-Y'}}</td>
+						<td>{{vs.createdby}}</td>
+						<td>{{vs.editedby}}</td>
+						<td>{{vs.remarks}}</td>
+                       
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

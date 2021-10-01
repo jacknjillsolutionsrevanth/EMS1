@@ -1,0 +1,178 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script> 
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker2').val(today);
+
+});</script>
+<style>
+select {
+     width:75px;
+    margin: 10px;
+}
+#select:focus {
+     width: 75px;
+     width: auto;
+}
+	</style>
+<div class="container">
+	<h2><center><b>Cattle Loan</b></center></h2>
+	<form  method="POST" action="/cloan/"  enctype="multipart/form-data">
+		{% csrf_token %}
+  		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;<label><b>Loan Type</b></label>&emsp;
+				<select name="loan">				
+				   <option value="cloan"><b>Cattle Loan</b></option>
+				</select>
+	  	<div class="col-md-15 col-sm-15 col-xs-15" style="border: 1px solid #dddddd;">	<br>	  	
+			&emsp;&emsp;&emsp;<label for="fname"><b>Date</b></label>&emsp;
+			<input class="border-right" type="date"  id="datePicker" name="dateform" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+			
+				
+			&emsp;&emsp;&emsp;&emsp;<label><b>Transaction Type</b></label>
+			<select name="transtype">
+			<option value="openbal"><b>Opening Balance</b></option>
+			</select>
+
+			&emsp;&emsp;<label for="fname"><b>Route</b>  </label>
+			<select name="routecode">
+			<option value="all">All<b></b></option>
+			{% for route in route %}
+			<option value="{{route.Route_number}}">{{route.Route_number}}-{{route.Route_name}}</option>
+			{% endfor %}
+			</select><br><br>
+				
+		    &emsp;&emsp;&emsp;<label><b>Center</b></label>
+			<select name="centername">
+			{% for center in center %}
+			<option value="{{center.centre_code}}">{{center.centre_code}}</option>
+			{% endfor %}
+			</select>&emsp;&emsp;
+			&emsp;&emsp;&emsp;<input name="center" type="text" style="width: 50%;"><br>
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+			<input name="center" type="text" style="width: 50%;"><br><br>
+			
+				<label><b>LoanNo</b></label> &emsp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp;
+				  <input name="loanno" type="text">&emsp;&emsp;&emsp;
+				  
+				<label for="fname"><b>Loan Date</b></label>&emsp;&nbsp;&nbsp;&emsp;
+				<input class="border-right" type="date"  id="datePicker1" name="dateform1" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+
+				&emsp;&emsp;&emsp;<label><b>Principal Amt</b></label>&ensp;&ensp;
+				  <input name="pamt" type="text">&emsp;&emsp;&emsp;&emsp;<br>
+				  
+				 <label for="fname"><b>Interest Rate</b></label>&ensp;&ensp;&emsp;&emsp;
+				<input name="intrate" type="text">%&emsp;&emsp;
+				<label for="fname"><b>Start Date</b></label>&emsp;&nbsp;&nbsp;&emsp;
+				<input class="border-right" type="date"  id="datePicker1" name="datestart" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+
+				&emsp;&emsp;&emsp;<label><b>Flat/Deminished</b></label>&nbsp;&nbsp;
+				<select name="flatdeminished">
+				<option value="flat"><b>Flat</b></option>
+				<option value="flat"><b>Deminished</b></option>
+				</select>
+
+	
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				
+		
+				<!--<label for="fname">Interest Amt</label>
+				<input name="intamt" type="number">&emsp;&emsp;&emsp;&emsp;-->
+				
+				<label for="fname"><b>No of Installments</b></label>
+				&nbsp;<input name="noinst" type="number">
+			
+
+				<!--&ensp;&nbsp;&emsp;&emsp;<label for="fname"><b>Installment Amt</b></label>
+				<input name="instamt" type="number">-->
+				
+
+				&ensp;&emsp;&emsp;<label for="fname"><b>Closing Date</b>&emsp;&nbsp;&nbsp; </label>
+				<input class="border-right" type="date"  id="datePicker2" name="dateform2" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+				&emsp;&emsp;&emsp;
+				<label for="fname"><b>Billing Period</b></label>
+				<input name="billtime" type="text"><b></b><br>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<label for="fname"><b>Loan Duration</b></label>
+				<input name="duartion" type="text"><b>(In Months)</b><br>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			
+				<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+				<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				** Billing Period - 10 days, 15 days (or) Monthly
+				
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+					</div>
+					
+				
+				
+			</div>
+		</div>
+		
+		
+	</form> 
+</div>
+
+{% endblock %}

@@ -1,0 +1,832 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<style>
+	.css-serial {
+ counter-reset: serial-number; 
+}
+.css-serial td:first-child:before {
+ counter-increment: serial-number;
+ content: counter(serial-number); 
+}
+	th{
+	text-align: center !important;
+	}
+</style>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			
+			<br><button type="button"><a href="/EmsSmryAreaBlock/pdf1/{{filter1}}/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/{{TreeAgeFrom}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<!--if(1=1):-->
+			<button type="button" name ="Dtls" id="Dtls"><a href="/excelem/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel By Tree</a></button>&emsp; 
+			<!--esif(2=2):-->
+			<button type="button" name ="PTyp" id="PTyp"><a href="/excelemHybrid/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel By Hybrid</a></button>&emsp; 
+			<button type="button" name="Dtl" id="Dtl"><a href="/excelemTerace/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel By Terrace</a></button>&emsp; 
+			<!--else -->
+			<button type="button" name="AnB "id="AnB"><a href="/excelemAnB/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel By Block</a></button>&emsp;
+			<button type="button" name ="ArOnly"id="ArOnly"><a href="/excelemArOnly/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel Area</a></button>&emsp; 
+
+			<!--<button type="button"><a href="/excelbank6/{{datefrom}}/{{dateto}}/{{routecode}}/{{centercode}}/" target="_blank"> Excel Download</a></button><br>-->
+			<form method="POST" action="" id="main" name="main" method="get" onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" enctype=""><br>
+				{% csrf_token %}
+				<label><b>Date</b></label>&emsp;
+                  <select name="Date"  id="Date" onchange="changeDropdown()">
+
+                  <option value="Plant">Plant</option>
+                  <option value="Census">Census</option>
+                  <option value="Data Ext">Data Ext</option>
+                  <option value="Manure">Manure</option>
+                  </select>
+
+                  <label><b>Filter</b></label>&emsp;
+                  <select name="filter1"  id="filter1" onchange="changeFilter()">
+                  <option value="ArOnly">Area</option>
+                  <option value="AnB">Block</option>
+                  <option value="Dtl">Terrace</option>
+                  <option value="Dtls">Tree</option>
+                  <option value="PTyp">Hybrid</option>
+                  </select>
+
+				<label for="fname"> <b> Planted Date From </b></label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"><b>To </b> </label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+				&emsp;&emsp;
+				<label for="fname"> <b>Hybrid</b> </label>
+				&emsp;&emsp;
+				<select name="plantType" id="plantType" >
+
+				    <option value="all">All</option>
+				    {% for censusT in censusT %}
+						    <option value="{{censusT.plantType}}">{{censusT.plantType}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	<br>
+
+				<label for="fname"> <b>Area</b> </label>
+				&emsp;&emsp;
+				<select name="routecode" id="route" >
+
+				    <option value="all">All</option>
+				    {% for censusA in censusA %}
+						    <option value="{{censusA.areaCode}}">{{censusA.areaCode}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	&emsp;&emsp;&emsp;
+			  	<label for="fname"><b>Block</b></label>
+				&emsp;&emsp;&emsp;&emsp;
+				<select name="centercode" id="center">
+				    <option value="all">All</option>
+				    {% for censusB in censusB %}
+						    <option value="{{censusB.blkCode}}">{{censusB.blkCode}}</option>
+				  	{% endfor %}
+			  	</select>
+
+			  	&emsp;&emsp;&emsp;&emsp;
+			  	<label for="fname" onChange="onDateChange(event)"><b>Tree Age  </b> </label>
+			  	&emsp;&emsp;
+				<select name="TreeAgeFrom" id="TreeAgeFrom">
+					<!--<option value="0">Within Mth</option>
+				    <option value="1">1 Mth</option>
+				    <option value="7">7th Mth</option>
+				    <option value="13">1 year</option>
+				    <option value="25">2 years</option>
+				    <option value="37">3 years</option>
+				    <option value="49">4 years</option>
+				    <option value="61">5 years</option>
+				    <option value="73">6 years</option>
+				    <option value="85">7 years</option>
+				    <option value="97">8 years</option>
+				    <option value="109">9 years</option>
+				    <option value="121">11 years</option>-->	
+
+				    <option value="1">With in A Mth</option>
+				    <option value="2"> More than 1 Mth</option>
+				    <option value="6"> More than 6 Months</option>
+				    <option value="12"> More than 1 Year</option>
+				    <option value="24"> More than 2 Years</option>
+				    <option value="36">More than 3 Years</option>
+				    <option value="48">More than 4 Years</option>
+				    <option value="60">More than 5 Years</option>
+				    <option value="72">More than 6 Years</option>
+				    <option value="84">More than 7 Years</option>
+				    <option value="96">More than 8 Years</option>
+				    <option value="108">More than 9 Years</option>
+				    <option value="120">More than 10 Years</option>
+				    <option value="180">More than 15 Years</option>	
+				    	    
+				    
+				   
+			  	</select>
+
+			  	&emsp;&emsp;&emsp;&emsp;
+			  	<label for="fname" onChange="onDateChange(event)"><b>Tree Height  </b> </label>
+			  	&emsp;&emsp;
+				<select name="treeHeight" id="treeHeight">
+					<!--<option value="0">Within Mth</option>
+				    <option value="1">1 Mth</option>
+				    <option value="7">7th Mth</option>
+				    <option value="13">1 year</option>
+				    <option value="25">2 years</option>
+				    <option value="37">3 years</option>
+				    <option value="49">4 years</option>
+				    <option value="61">5 years</option>
+				    <option value="73">6 years</option>
+				    <option value="85">7 years</option>
+				    <option value="97">8 years</option>
+				    <option value="109">9 years</option>
+				    <option value="121">11 years</option>-->	
+
+				    <option value="5">Above 5 CM </option>
+				    <option value="10"> Above 10 CM </option>
+				    <option value="25"> Above 25 CM</option>
+				    <option value="50"> Above 50 CM</option>
+				    <option value="100"> Above 100 CM</option>
+				    <option value="150">Above 150 CM</option>
+				    <option value="200">Above 200 CM</option>
+				    <option value="250">Above 250 CM</option>
+				    
+				    	    
+				    
+				   
+			  	</select>
+			  	
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<!--&emsp;
+				<label for="fname"> <b>To </b></label>
+				&emsp;
+				<select name="TreeAgeTo" id="TreeAgeTo">
+				    <option value="1">Within Mth</option>
+				    <option value="2">2 Mth</option>
+				    <option value="6">6th Mth</option>
+				    <option value="12">1 year</option>
+				    <option value="24">2 years</option>
+				    <option value="36">3 years</option>
+				    <option value="48">4 years</option>
+				    <option value="60">5 years</option>
+				    <option value="72">6 years</option>
+				    <option value="84">7 years</option>
+				    <option value="96">8 years</option>
+				    <option value="108">9 years</option>
+				    <option value="120">11 years</option>
+				    <option value="180">15 years</option>
+				   
+			  	</select>-->
+			  	&emsp;&emsp;&emsp;&emsp;
+
+				<button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""><b>Get Data</b></button><br><br>
+			</form>
+			<div class="col-md-10 col-sm-10 col-xs-10">
+
+			    <table class="css-serial" id="centerhide3">
+
+					<thead style="background-color: #69bc5f !important;">
+						<tr>
+	   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> AREA WISE TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+	   						   
+	   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp;&nbsp; Age > {{TreeAgeF}}  &nbsp;&nbsp; Area - {{routecode}} &nbsp; </th>	 
+	  					</tr>
+					    <tr>
+					    	<th width="3%" class="school_activity">S.NO</th>		
+							<th width="7%" class="school_activity">Area</th>
+							<th width="7%" class="school_activity">Block(s)</th>
+							<th width="10%" class="school_activity">Terrace(s) </th>
+							<th width="7%" class="school_activity">Total Tree(s)</th>
+						
+					    </tr>
+					</thead>
+				
+			
+					<tbody>
+							
+						{% for center11Ar in center11Ar %}
+							<tr>												
+								<td style="text-align:center !important">&nbsp;</td>
+								<td style="text-align:center !important">{{center11Ar.areaCode}}</td>
+								
+								<td style="text-align:center !important">{{center11Ar.blkCnt}}&emsp;&emsp;</td>
+							
+								<td style="text-align:center !important">{{center11Ar.teraceNo}}&emsp;&emsp;</td>
+
+								
+								<td style="text-align:center !important">{{center11Ar.TotCnt|floatformat:0}}&emsp;&emsp;</td>	
+							</tr>
+						
+						{% endfor %}
+					<thead style="background-color: green !important;">						
+						<th colspan="1" style="text-align:center !important">&ensp;&ensp;&ensp;<b>Total</b>&nbsp;</td>
+						<th  style="text-align:center !important" >&emsp;{{valuescount}}&emsp;&emsp;</th>
+						
+						<th  style="text-align:center !important">&emsp;&emsp;{{total_bblksum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th  style="text-align:center !important" >&emsp;&emsp;{{ total_Tteracesum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th  style="text-align:center !important">&emsp;&emsp;{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						
+					
+						
+				    </tbody>
+		        </table>
+	        </div>
+	        <div class="col-md-10 col-sm-10 col-xs-10">
+
+			    <table class="css-serial" id="centerhide2">
+
+					<thead style="background-color: #69bc5f !important;">
+						
+						<tr>
+	   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> BLOCK WISE TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+	   						   
+	   						   <!--<br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp; Age {{TreeAgeFrom}} {{aa}} {{TreeAgeTo}} {{a4}} &nbsp;&nbsp; Area - {{routecode}} &nbsp; Block - {{centercode}} &nbsp;&nbsp; </th>	-->
+
+	   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp; Age > {{TreeAgeF}} &nbsp;&nbsp; Area - {{routecode}} &nbsp; Block - {{centercode}} &nbsp;&nbsp; </th>	
+
+	  					</tr>
+	  				
+						<tr>		
+						  <th width="3%" class="school_activity">S.NO</th>
+						  <th width="7%" class="school_activity">Area</th>
+						   <th width="7%" class="school_activity">Block</th>
+						   <th width="10%" class="school_activity">Terrace(s) </th>
+						   <th width="7%" class="school_activity">Total Tree(s)</th>
+					    </tr>
+					</thead>
+					
+				
+				    <tbody>
+						
+					{% for center11 in center11 %}
+						<tr>
+							
+							<td style="text-align:center !important">&nbsp;</td>						
+							<td style="text-align:center !important">{{center11.areaCode}}</td>
+							
+							<td style="text-align:center !important">{{center11.blkCode}}</td>						
+							<td style="text-align:center !important">{{center11.teraceNo}}&emsp;&emsp;</td>
+
+							
+							<td style="text-align:center !important">{{center11.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+							
+							
+						</tr>
+					  {% if center11.cid == 1 %}
+					  
+					<thead style="background-color: #60bc1f !important;">	
+						<tr>					
+						<th width="6%" class="school_activity"> Sub Total</td>	
+						<th width="10%" class="school_activity">{{center11.areaCode}}</td>
+						
+						<th width="10%" class="school_activity">{{center11.blkCode}}</td>	
+											
+						<th width="10%" class="school_activity">{{center11.teraceno}}</td>
+						
+						<th width="10%" class="school_activity">{{center11.LivCnt|floatformat:0}}&emsp;&emsp;</td>
+						</tr>
+					 </thead>						
+					{% endif %}
+					{% endfor %}
+					</tbody>	
+			
+
+			
+				<tbody>
+					{% for center11 in center11 %}
+						{% if center11.areaCode == center11.areaCode and center11.1eid == center11.eid %}	
+						<tr>					
+						<td  style="text-align:center !important"> Sub Total..</td>	
+						<td  style="text-align:center !important">{{center11.areaCode}}</td>
+						
+						<td style="text-align:center !important">{{center11.blkCode}}</td>	
+											
+						<td style="text-align:right !important">{{center11.teraceNo}}&emsp;&emsp;</td>
+						
+						<td style="text-align:right !important">{{center11.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+						</tr>						
+						{% endif %}
+					{% endfor %}
+						<thead style="background-color: green !important;">						
+						<th colspan="4" style="text-align:center !important">&ensp;&ensp;&ensp;<b>Total</b>&nbsp;</td>
+						
+						
+						
+						<th  class="school_activity" >{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+					</thead>
+			 </tbody>
+			</table>
+			</div>
+			<table  class="css-serial"  id="centerhide">
+				<thead>
+					<tr>
+   						 <th colspan="8" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TERRACE WISE TREE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp;&nbsp; Age > {{TreeAgeF}} &nbsp;&nbsp; Area - {{routecode}} &nbsp;&nbsp; Block - {{centercode}} &nbsp;&nbsp; </th>
+  					</tr>
+  				</thead>
+				
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						<th width="3%" class="school_activity">S.NO</th>
+						<th width="10%" class="school_activity">Area</th>
+						<th width="10%" class="school_activity">Block</th>
+						<th width="10%" class="school_activity">Terrace</th>
+						<!--<th width="15%" class="school_activity">Terrace</th>-->
+						
+						
+						
+						<th width="10%" class="school_activity">Live Tree&emsp;&emsp;&emsp;&emsp;</th>
+						<th width="10%" class="school_activity">Dead Tree&emsp;&emsp;&emsp;&emsp;</th>
+						<th width="10%" class="school_activity">Total Tree &emsp;&emsp;&emsp;&emsp;</th>
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					
+					
+					{% for center1 in center1 %}
+
+					<tr>
+								<td style="text-align:center !important">&nbsp;</td>						
+								<td style="text-align:center !important">{{center1.areaCode}}</td>						
+								<td style="text-align:center !important">{{center1.blkCode}}</td>
+								<td style="text-align:center !important">{{center1.teraceNo}}</td>
+
+								<td style="text-align:center !important">{{center1.LivCnt|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">{{center1.DedCnt|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">{{center1.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+										
+						</tr>
+						{% if center1.cid == 1 %}
+					<thead style="background-color: #60bc1f !important;">	
+						<tr>					
+						<th width="6%" class="school_activity"> Sub Total</td>	
+						<th width="10%" class="school_activity">{{center1.areaCode}}</td>
+						
+						<th width="10%" class="school_activity">{{center1.blkCode}}</td>	
+											
+						<th width="10%" class="school_activity">{{center1.TeraceCnt}}</td>
+						<th width="10%" class="school_activity">&emsp;&emsp;</td>
+						<th width="10%" class="school_activity">&emsp;&emsp;</td>
+						<th width="10%" class="school_activity">{{center1.LivSum|floatformat:0}}&emsp;&emsp;</td>
+						</tr>
+					 </thead>						
+						{% endif %}
+						{% endfor %}
+					</tbody>	
+			
+
+			
+				<tbody>
+					{% for center11 in center11 %}
+						{% if center1.areaCode == center11.areaCode and center1.eid == center11.eid %}	
+						<tr>					
+						<td  style="text-align:center !important"> Sub Total..</td>	
+						<td  style="text-align:center !important">{{center11.areaCode}}</td>
+						
+						<td style="text-align:center !important">{{center11.blkCode}}</td>	
+						<td style="text-align:right !important">Terrace(s) &emsp;&emsp;</td>					
+						<td style="text-align:right !important">{{center11.teraceNo}}&emsp;&emsp;</td>
+						<td style="text-align:right !important">Live Treees &emsp;&emsp;</td>
+						<td style="text-align:right !important">{{center11.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+						</tr>						
+						{% endif %}
+					{% endfor %}
+				
+			  
+					
+					
+					<thead style="background-color: green !important;">						
+						<th colspan="4" style="text-align:center !important">&ensp;&ensp;&ensp;<b>Total</b>&nbsp;</td>
+						
+						<th  class="school_activity" >
+						{{total_gLivsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th  class="school_activity" >{{total_gDedsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th  class="school_activity" >{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+					</thead>
+			 </tbody>
+			</table>
+			<br> <br>
+			<table  class="css-serial"  id="AllDtl">
+				<thead>
+					<tr>
+   						 <th colspan="10" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TREE WISE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp;&nbsp; Age > {{TreeAgeF}} &nbsp;&nbsp; Height > {{treeHeight}} (CM) &nbsp;&nbsp; Area - {{routecode}} &nbsp;&nbsp; Block - {{centercode}} &nbsp;&nbsp;  Hybrid - {{plantType}} &nbsp;&nbsp;</th>
+  					</tr>
+  				</thead>
+				
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						<th width="3%" class="school_activity">S.NO</th>
+						<th width="10%" class="school_activity">Area</th>
+						<th width="10%" class="school_activity">Block</th>
+						<th width="10%" class="school_activity">Terrace</th>
+						<!--<th width="15%" class="school_activity">Terrace</th>-->
+						
+						
+						
+						<th width="10%" class="school_activity">&emsp;Tree No &emsp;&emsp;</th>
+						<th width="5%" class="school_activity">Hybrid </th>					
+						<th width="5%" class="school_activity">&emsp;Age &emsp;</th>
+						<th width="5%" class="school_activity">&emsp;Height &emsp;</th>
+						<th width="5%" class="school_activity">&emsp;Leaves &emsp;</th>
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					
+					
+					{% for center1z in centerZ %}
+
+					<tr>
+								<td style="text-align:center !important">&nbsp;</td>						
+								<td style="text-align:center !important">{{center1z.areaCode}}</td>						
+								<td style="text-align:center !important">{{center1z.blkCode}}</td>
+								<td style="text-align:center !important">{{center1z.teraceNo}}</td>
+
+								<td style="text-align:center !important">{{center1z.treeNo|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">{{center1z.plantType}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">
+
+								{{center1z.TreeAge|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">
+
+								{{center1z.height|floatformat:0}}&emsp;&emsp;</td>
+								
+								<td style="text-align:center !important">{{center1z.leaveCnt|floatformat:0}}&emsp;&emsp;</td>
+										
+						</tr>
+						{% if center1z.cid == 1 %}
+					<thead style="background-color: #60bc1f !important;">	
+						<tr>					
+						<th width="6%" class="school_activity"> Sub Total</td>	
+						<th width="10%" class="school_activity">{{center1z.areaCode}}</td>
+						
+						<th width="10%" class="school_activity">{{center1z.blkCode}}</td>	
+											
+						<th width="10%" class="school_activity">Terace No : {{center1z.teraceNo}}</td>
+						<th width="10%" class="school_activity"> Tree Count : {{center1z.LivSum|floatformat:0}}</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						</tr>
+					 </thead>						
+						{% endif %}
+						{% endfor %}
+					<thead style="background-color: green !important;">						
+						<th colspan="4" style="text-align:center !important">&ensp;&ensp;&ensp;<b>Total</b>&nbsp;</td>
+						
+						<th  class="school_activity" >
+						{{total_gLivsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+
+						<th  class="school_activity" >{{total_gDedsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th></th>
+						<th></th>
+						<th  class="school_activity" >{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+					</thead>
+			 </tbody>
+			</table>	
+			
+			<table  class="css-serial"  id="Hybred">
+				<thead>
+					<tr>
+   						 <th colspan="10" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;"> TREE HYBRID WISE SUMMARY REPORT &nbsp;&nbsp;&emsp;&emsp;
+   						   <br> Period  {{datefrom1}} {{aa}} {{dateto1}} &nbsp;&nbsp; <br>&nbsp;&nbsp; Age > {{TreeAgeF}} &nbsp;&nbsp; Height > {{treeHeight}} (CM) &nbsp;&nbsp; Area - {{routecode}} &nbsp;&nbsp; Block - {{centercode}} &nbsp;&nbsp;  Hybrid - {{plantType}} &nbsp;&nbsp;</th>
+  					</tr>
+  				</thead>
+				
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						<th width="3%" class="school_activity">S.NO</th>
+						<th width="10%" class="school_activity">Area</th>
+						<th width="10%" class="school_activity">Bock</th>
+						<th width="10%" class="school_activity">Telrrace</th>
+						<!--<th width="15%" class="school_activity">Terrace</th>-->
+						
+						
+						<th width="5%" class="school_activity">Hybrid </th>	
+						<th width="10%" class="school_activity">&emsp;Tree No &emsp;&emsp;</th>
+										
+						<th width="5%" class="school_activity">&emsp;Age &emsp;</th>
+						<th width="5%" class="school_activity">&emsp;Height &emsp;</th>
+						<th width="5%" class="school_activity">&emsp;Leaves &emsp;</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					
+					
+					{% for center1z in centerZ %}
+
+					<tr>
+								<td style="text-align:center !important">&nbsp;</td>						
+								<td style="text-align:center !important">{{center1z.areaCode}}</td>						
+								<td style="text-align:center !important">{{center1z.blkCode}}</td>
+								<td style="text-align:center !important">{{center1z.teraceNo}}</td>
+
+								<td style="text-align:center !important">{{center1z.plantType}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">{{center1z.treeNo|floatformat:0}}&emsp;&emsp;</td>
+								
+								<td style="text-align:center !important">
+
+								{{center1z.TreeAge|floatformat:0}}&emsp;&emsp;</td>
+								<td style="text-align:center !important">
+
+								{{center1z.height|floatformat:0}}&emsp;&emsp;</td>
+								
+								<td style="text-align:center !important">{{center1z.leaveCnt|floatformat:0}}&emsp;&emsp;</td>
+										
+						</tr>
+						{% if center1z.cid == 1 %}
+					<thead style="background-color: #60bc1f !important;">	
+						<tr>					
+						<th width="6%" class="school_activity"> Sub Total</td>	
+						<th width="10%" class="school_activity">{{center1z.areaCode}}</td>
+						
+						<th width="10%" class="school_activity">{{center1z.blkCode}}</td>	
+											
+						<th width="10%" class="school_activity">Terace No : {{center1z.teraceNo}}</td>
+							<th width="5%" class="school_activity">Hybrid : {{center1z.plantType}}</td>
+						<th width="10%" class="school_activity"> Tree Count : {{center1z.LivSum|floatformat:0}}</td>
+						
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						<th width="5%" class="school_activity">&emsp;&emsp;</td>
+						</tr>
+					 </thead>						
+						{% endif %}
+						{% endfor %}
+						<thead style="background-color: green !important;">						
+						<th colspan="5" style="text-align:center !important">&ensp;&ensp;&ensp;<b>Total</b>&nbsp;</td>
+						
+						<th  class="school_activity" >
+						{{total_gLivsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th  class="school_activity" >{{total_gDedsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+						<th></th>
+						<th  class="school_activity" >{{total_gamtsum_detail|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</th>
+					</thead>
+			 </tbody>
+			</table>	
+			</table>
+
+			
+			<br>
+			<br>
+
+			<br>
+			<br>
+		</div>
+	</div>
+</div>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+<script type="text/javascript">
+/*$("#displaytable").hide(); */
+
+$(document).ready(function(){
+	/*$("#centerhide").hide()
+		$('#centershow').click(function() {
+		
+			
+
+			$("#centerhide").show()
+			
+		
+	})
+});*/
+
+$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+});
+</script>
+
+<script>
+
+	$(document).ready(function(){
+    $('#PTyp').hide();
+    $('#Dtls').hide();
+	$('#Dtl').hide();
+	$('#AnB').hide();
+	$('#ArOnly').hide();
+    $('#centerhide').hide();
+    $('#AllDtl').hide();
+    $('#Hybred').hide();
+	$('#centerhide1').hide();
+	$('#centerhide2').hide();
+	$('#centerhide3').hide();
+
+    document.getElementById("filter1").value = localStorage.getItem("filter1");
+    var tableValue = localStorage.getItem("filter1");
+    
+    if (tableValue == "ArOnly") {
+  
+        $('#centerhide3').show();
+        $('#ArOnly').show();
+        $('#AllDtl').hide();
+        $('#Hybred').hide();
+        $('#PTyp').hide();
+	    $('#Dtls').hide();
+		$('#Dtl').hide();
+		$('#AnB').hide();
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide2').hide();
+
+    } 
+    else if (tableValue == "AnB") {
+    	
+        $('#centerhide2').show();
+        $('#AnB').show();
+        $('#PTyp').hide();
+    	$('#Dtls').hide();
+	    $('#Dtl').hide();
+	    $('#ArOnly').hide();
+        $('#AllDtl').hide();
+        $('#Hybred').hide();
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide3').hide();
+    } 
+    else if (tableValue == "Dtl") {
+        $('#centerhide').show();
+        $('#Dtl').show();
+        $('#AllDtl').hide();
+        $('#PTyp').hide();
+	    $('#Dtls').hide();
+        $('#Hybred').hide();
+        $('#AnB').hide();
+        $('#ArOnly').hide();
+		$('#centerhide1').hide();
+		$('#centerhide2').hide();
+		$('#centerhide3').hide();
+    }
+    else if (tableValue == "PTyp") {
+        $('#PTyp').show();
+        $('#Hybred').show();                
+        $('#Dtl').hide();
+        $('#Dtls').hide();
+        $('#AllDtl').hide();
+        $('#AnB').hide();
+        $('#ArOnly').hide();
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide2').hide();
+		$('#centerhide3').hide();
+    }
+    else{
+
+        $('#AllDtl').show();
+        $('#Dtls').show();
+        $('#PTyp').hide();
+        $('#Hybred').hide();
+        $('#Dtl').hide(); 
+        $('#AnB').hide();
+        $('#ArOnly').hide();               
+        $('#centerhide').hide();
+		$('#centerhide1').hide();
+		$('#centerhide2').hide();
+		$('#centerhide3').hide();
+    }
+    });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("filter1",document.getElementById("filter1").value);
+  });
+
+</script>    
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("route").value = localStorage.getItem("route");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("route",document.getElementById("route").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("center").value = localStorage.getItem("center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("center",document.getElementById("center").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("TreeAgeFrom").value = localStorage.getItem("TreeAgeFrom");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("TreeAgeFrom",document.getElementById("TreeAgeFrom").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("treeHeight").value = localStorage.getItem("treeHeight");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("treeHeight",document.getElementById("treeHeight").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("plantType").value = localStorage.getItem("plantType");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("plantType",document.getElementById("plantType").value);
+  });
+
+</script>
+
+
+
+
+<script type="text/javascript">
+$("#button").hide(); 
+</script>
+{% endblock %}

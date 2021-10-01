@@ -1,0 +1,396 @@
+{% load mathfilters %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+.hg-pdf table {
+  page-break-inside: avoid;
+}
+            .tablebreak{
+                /* page-break-inside:auto;*/
+                 border: 1px solid #dddddd;
+                 page-break-inside:avoid; 
+                 page-break-after:avoid;
+            }
+            tfoot { display:table-footer-group }
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 1px;
+              padding-bottom: 1px;
+              font-size: 13px;
+              font-family: Verdana;
+
+            }
+            .classtablefor{
+                border: 3px solid black;
+                padding-top : 1px;
+
+            }
+            tfoot { display:table-footer-group }
+            .title_center{text-align: center;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{text-align: center;
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 13px;
+}
+.title_right{text-align: right;
+            }
+
+            @page{
+            size:a4 portrait;
+                @frame header_frame {
+                    -pdf-frame-content:header_content;
+                    left:30pt;
+                    width:512pt;
+                    top:10pt;
+                    height:50pt;
+                }
+                @frame header_frame1 {
+                    -pdf-frame-content:header_content1;
+                    left:30pt;
+                    width:522pt;
+                    top:133pt;
+                    height:50pt;
+                }
+                @frame header_frame2 {
+                    -pdf-frame-content:header_content2;
+                    left:30pt;
+                    width:522pt;
+                    top:50pt;
+                    height:30pt;
+                }
+                @frame header_frame3 {
+                    -pdf-frame-content:header_content3;
+                    left:30pt;
+                    width:522pt;
+                    top:80pt;
+                    height:60pt;
+                }
+                @frame header_frame4 {
+                    -pdf-frame-content:header_content4;
+                    left:30pt;
+                    width:522pt;
+                    top:130pt;
+                    height:30pt;
+                }
+                @frame content_frame { 
+                    left:30pt;
+                    width:522pt;
+                    top:163pt;
+                    height:640pt;
+                }
+              
+             
+
+        </style>
+    
+            <div id="header_content">
+             <h1 class="uppercase">METRO LAGENDA SDN BHD </h1>
+            </div>
+             <div id="header_content2">
+             <h2 class="title_middle">EMS - TREE WISE HEALTH SUMMARYY REPORT </h2>
+            </div>
+            <div id="header_content3">
+            <h3 class="title_middle1">&emsp;&emsp;&emsp;PLANTATION DATE FROM {{datefrom1}} to {{dateto1}}</h3>
+         </div>
+         <hr>
+<div id="header_content4">
+            <table class="title_middle2">
+               <tr>
+                <hr></hr>
+                   <th>Area : {{routecode}}
+                                     
+                    </th>
+                   <th>
+                        Block : {{centercode}}
+                        
+                   </th>
+                   <th>
+                        Filter : {{filter1}}
+                        
+                   </th>
+                   <th>
+                    Tree Age : {{TreeAgeFrom}}
+                    </th>
+               </tr>
+            
+           </table>    
+            <hr></hr>
+</div>
+    </head><br><br><br>
+<body>   
+        <table>
+            <tr>
+                <th width="15%" class="school_activity">S.NO</th>
+                        <th width="15%" class="school_activity">Area</th>
+                        <th width="15%" class="school_activity">Block</th>
+                        <th width="20%" class="school_activity">teraceNo</th>
+                        <th width="20%" class="school_activity">Trees</th>
+                        <th width="22%" class="school_activity">Height  (Avg in CM.)</th>
+                        <th width="22%" class="school_activity">Girth  (Avg in CM.) </th>
+                        <th width="22%" class="school_activity">Leaves(Avg)</th>   
+            </tr>
+            
+            <tbody>
+                    {% for centerZ in dataz %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td style="text-align:center !important">{{centerZ.areaCode}}</td>
+                        
+                        
+                        <td style="text-align:center !important">{{centerZ.blkCode}}</td>
+                        <td style="text-align:center !important">{{centerZ.teraceNo|floatformat:0}}</td>
+                        <td style="text-align:center !important">{{centerZ.treeNo|floatformat:0}}</td>
+                        <td style="text-align:center !important">{{centerZ.height|floatformat:2}}</td>
+                        <td style="text-align:center !important">{{centerZ.girth|floatformat:2}}</td>
+                        <td style="text-align:center !important">{{centerZ.leaveCnt|floatformat:2}}</td>
+                        
+                        
+                    </tr>
+                    {% if centerZ.cid == 1 %}
+                    <thead style="background-color: #60bc1f !important;">   
+                    <tr>
+                    <th width="20%" class="school_activity"></th>  
+                    <th width="20%" class="school_activity"> </th>
+                        
+                    <th width="20%" class="school_activity"> </th>    
+                    <th width="20%" class="school_activity">----------</th>                   
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    
+                    </tr>
+                    <tr>
+
+                    <th width="20%" class="school_activity"> Sub Total</th>  
+                    <th width="20%" class="school_activity">{{centerZ.areaCode}}</th>
+                        
+                    <th width="20%" class="school_activity">{{centerZ.blkCode}}</th>
+                    <th width="20%" class="school_activity">{{centerZ.teraceNo}} &emsp;&emsp;</th>    
+                    <th width="20%" class="school_activity">{{centerZ.TeraceCnt|floatformat:2}} &emsp;&emsp;</th>                   
+                    <th width="20%" class="school_activity">{{centerZ.aHeight|floatformat:2}}&emsp;&emsp;</th>
+                    <th width="20%" class="school_activity">{{centerZ.aGirth|floatformat:2}} &emsp;&emsp;</th>
+                    <th width="20%" class="school_activity">{{centerZ.aLeaves|floatformat:2}}&emsp;&emsp;</th>
+                    
+                                    
+                           
+                        
+                    </tr>
+
+                    <tr>
+                    <th width="20%" class="school_activity"></th>  
+                    <th width="20%" class="school_activity"></th>
+                        
+                    <th width="20%" class="school_activity"> </th>    
+                    <th width="20%" class="school_activity">---------- </th>                   
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">--------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    
+                    </tr>
+
+                    </thead>                        
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+             <div style="page-break-before:always">&nbsp;</div>
+             <hr><br>
+             <table >
+                
+                <thead style="background-color: #69bc5f !important;">
+                    <tr>
+                        <th width="20%" class="school_activity">S.NO</th>
+                        <th width="20%" class="school_activity">Area</th>
+                        <th width="20%" class="school_activity">Block</th>
+                        <th width="20%" class="school_activity">Terrace</th>
+                        
+                        
+                        
+                        <th width="20%" class="school_activity">&emsp;&emsp;Trees&emsp;&emsp;</th>
+                        <th width="20%" class="school_activity">Height&emsp;&emsp;  (Avg in CM.)</th>
+                        <th width="20%" class="school_activity">Girth&emsp;&emsp;  (Avg in CM.) </th>
+                        <th width="20%" class="school_activity">Leaves&emsp;&emsp;(Avg) &emsp;&emsp;</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {% for center1 in data %}
+                    <tr>
+                        <td style="text-align:center !important">{{ forloop.counter}}</td>
+                        <td style="text-align:center !important">{{center1.areaCode}}</td>
+                                               
+                        <td style="text-align:center !important">{{center1.blkCode}}</td>
+                        <td style="text-align:center !important">{{center1.teraceNo}}</td>
+
+                        <td style="text-align:right !important">{{center1.treeCnt|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>
+                        <td style="text-align:right !important">{{center1.aHeight|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        <td style="text-align:right !important">{{center1.aGirth|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        <td style="text-align:right !important">{{center1.aLeaves|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        
+                       
+                    </tr>
+
+                {% if center1.cid == 1 %}
+                    <thead style="background-color: #60bc1f !important;"> 
+                     <tr>
+                        <th width="20%" class="school_activity"></th>  
+                        <th width="20%" class="school_activity"> </th>
+                            
+                        <th width="20%" class="school_activity"> </th>    
+                        <th width="20%" class="school_activity">----------</th>                   
+                        <th width="20%" class="school_activity">----------- </th>
+                        <th width="20%" class="school_activity">----------- </th>
+                        <th width="20%" class="school_activity">----------- </th>
+                        <th width="20%" class="school_activity">----------- </th>
+                        
+                    </tr>  
+                        <tr>                    
+                        <th width="10%" class="school_activity">Sub Total</td>  
+                        <th width="10%" class="school_activity">{{center1.areaCode}}</td>
+                        <th style="text-align:center !important">{{center1.blkCode}}</td>
+                        <th width="10%" class="school_activity">{{center1.terace}}</td>
+
+                        <th width="10%" class="school_activity" style="text-align:right !important">{{center1.teraceCnt|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>    
+                                    
+                        <th width="10%" class="school_activity" style="text-align:right !important">{{center1.height|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        
+                        <th width="12%" class="school_activity" style="text-align:right !important">{{center1.girth|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        <th width="11%" class="school_activity" style="text-align:right !important">{{center1.leaves|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                        
+                        </tr>
+                    <tr>
+                    <th width="20%" class="school_activity"></th>  
+                    <th width="20%" class="school_activity"></th>
+                        
+                    <th width="20%" class="school_activity"> </th>    
+                    <th width="20%" class="school_activity">---------- </th>                   
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">--------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    <th width="20%" class="school_activity">----------- </th>
+                    
+                    </tr>
+                    </thead>                        
+                {% endif %}
+                {% endfor %}
+                </tbody>
+                </table>
+                           
+                <div style="page-break-before:always">&nbsp;</div>
+                <hr><br>
+                <table id="centerhide" >
+                 <thead style="background-color: #69bc5f !important;">
+                    <tr>
+                        <th width="3%" class="school_activity">S.NO</th>
+                        <th width="20%" class="school_activity">Area</th>
+                        <th width="20%" class="school_activity">Block</th>
+                        <th width="20%" class="school_activity">Terrace</th>
+                        
+                        
+                        
+                        <th width="20%" class="school_activity">&emsp;&emsp;Trees&emsp;&emsp;</th>
+                        <th width="20%" class="school_activity">Height&emsp;&emsp;  (Avg in CM.)</th>
+                        <th width="20%" class="school_activity">Girth&emsp;&emsp;  (Avg in CM.) </th>
+                        <th width="20%" class="school_activity">Leaves&emsp;&emsp;(Avg) &emsp;&emsp;</th>
+                        
+                    </tr>
+
+                <tbody>
+
+                     {% for center11 in data1 %}
+                
+                        <tr>
+
+                            <td style="text-align:center !important">{{ forloop.counter}}</td>
+                            <td style="text-align:center !important">{{center11.areaCode}}</td>
+                            
+                            
+                            <td style="text-align:center !important">{{center11.blkCode}}</td>
+                            <td style="text-align:center !important">{{center11.teraceNo}}</td>
+
+                            <td style="text-align:right !important">{{center11.treeCnt|floatformat:0}}&emsp;&emsp;&emsp;&emsp;</td>
+                            <td style="text-align:right !important">{{center11.aHeight|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                            <td style="text-align:right !important">{{center11.aGirth|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                            <td style="text-align:right !important">{{center11.aLeaves|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                            
+                            
+                        </tr>
+
+                    {% endfor %}
+                     </thead>   
+                    </tbody>
+                </table>
+            </div>
+            <div style="page-break-before:always">&nbsp;</div>
+            <hr><br>
+            <table id="centerhide">
+                
+                <thead style="background-color: #69bc5f !important;">
+                    <tr>
+                            
+                       
+                        <th width="3%" class="school_activity">S.NO</th>
+                        <th width="20%" class="school_activity">Area</th>
+                        <th width="20%" class="school_activity">Block(s)</th>
+                        <th width="20%" class="school_activity">Terrace(s) </th>
+                        <th width="20%" class="school_activity">Total Trees&emsp;&emsp;</th>
+                        <th width="20%" class="school_activity">Height&emsp;&emsp;  (Avg in CM.)</th>
+                        <th width="20%" class="school_activity">Girth&emsp;&emsp;  (Avg in CM.) </th>
+                        <th width="20%" class="school_activity">Leaves&emsp;&emsp;(Avg) &emsp;&emsp;</th>
+                        
+                    </tr>
+                        
+                      
+                    </thead>
+                
+            
+                    <tbody>
+                            
+                        {% for center11Ar in data11 %}
+                            <tr>                                                
+                                <td style="text-align:center !important">{{ forloop.counter}}</td>
+                                <td style="text-align:center !important">{{center11Ar.areaCode}}</td>
+                                
+                                <td style="text-align:center !important">{{center11Ar.blkCnt}}&emsp;&emsp;</td>
+                            
+                                <td style="text-align:center !important">{{center11Ar.teraceNo}}&emsp;&emsp;</td>
+
+                                
+                                <td style="text-align:right !important">{{center11Ar.treeCnt|floatformat:0}}&emsp;&emsp;</td>   
+
+                                
+                                <td style="text-align:right !important">{{center11Ar.aHeight|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                                <td style="text-align:right !important">{{center11Ar.aGirth|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+                                <td style="text-align:right !important">{{center11Ar.aLeaves|floatformat:2}}&emsp;&emsp;&emsp;&emsp;</td>
+
+                            </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+                 
+        
+    </body>
+
+</html>

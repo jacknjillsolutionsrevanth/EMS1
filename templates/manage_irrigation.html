@@ -1,0 +1,172 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 4px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 10px !important;
+	border: 3px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:100% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(100,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:125px !important;
+}
+input[type=date]{
+	width:150px !important;
+}  
+ 
+
+</style>
+
+	</style>
+	
+<script>
+    function myFunction() {
+        var bank=document.getElementById("irrigation").value; 
+        {
+            document.getElementById("irrigation").value = "S";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+				<h2><b><center>Manage Irrigation </center></b></h2>
+
+			<form  method="POST"  action="/manage_irrigation/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>					            	
+					            	<th>Icode</th>
+					            	<th>Block</th>					  
+					            	<th>Pump</th>
+					            	<th>Duration</th>
+					            	<th>Qtypertree</th>
+					            	<th>Freqofpumping</th>
+					            	<th>Fuelcostperhour</th>
+					            	<th>Incrper</th>
+					            	<th>Istage</th>
+					            	<th>Iendage</th>
+					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+
+					            	{% for al in al %}
+					            	<tr class="odd"  role="row">
+					            		<input type="hidden" value="{{al.id}}" name="id[]">			            		
+					            		<td ><input type="text" value="{{al.Icode}}" name="Icode[]"></td>
+						                <td ><input type="text" value="{{al.Block}}" name="Block[]" ></td>
+						                <td ><input type="text" value="{{al.Pump}}" name="Pump[]" ></td>
+						                <td ><input type="text" value="{{al.Duration}}" name="Duration[]"></td>
+						                <td ><input type="text" value="{{al.Qtypertree}}" name="Qtypertree[]"></td>
+						                <td ><input type="text" value="{{al.Freqofpumping}}" name="Freqofpumping[]"></td>
+						                <td ><input type="text" value="{{al.Fuelcostperhour}}" name="Fuelcostperhour[]"></td>
+						                <td ><input type="text" value="{{al.Incrper}}" name="Incrper[]"></td>
+						                <td ><input type="text" value="{{al.Istage}}" name="Istage[]"></td>
+						                <td ><input type="text" value="{{al.Iendage}}" name="Iendage[]"></td>
+
+						               
+			  	</select></td>
+			  	{% csrf_token %}   
+			  	
+						               
+						                
+										</tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					
+
+						
+						
+		
+					</div>
+					</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+					<a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/irrigation/" >Cancel </a>
+					<button type="submit" class="btn btn-primary btn-lg"  href="/manageirrigationsave/"> Submit </button>
+						
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+					</form>
+				</div>
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

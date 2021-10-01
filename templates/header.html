@@ -1,0 +1,965 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <link rel="shortcut icon" type="image/png" href="https://1.bp.blogspot.com/-vrC8l-uMiok/X8nQD6BameI/AAAAAAAAh2M/LDI8o-p_n_ESWmYsvipwkS4o9UIW6kNIgCLcBGAsYHQ/s320/WhatsApp%2BImage%2B2020-12-04%2Bat%2B11.27.26%2BAM.jpeg">
+   <!-- <img src="http://jacknjill.me/static/images/jacknjill.gif" width="60px" height="63px" alt="JnJlogo"></img>-->
+
+
+
+   
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+  <meta name="keyword" content="{% block keyword %}{% endblock %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/static/css/aos.css">
+
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+    
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+
+    <link href= 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ ui-lightness/jquery-ui.css' rel='stylesheet'> 
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" > </script>    
+    <script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > </script> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/new.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+    
+    <link rel="stylesheet" href="/static/css/style5.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<style>
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  right: 50%
+  margin-top:-1px;
+}
+
+nav ul li ul li {
+  border: none;
+  }
+nav ul li ul li a{
+  color:black;
+  font-size: 15px;
+  line-height: 25px;
+
+}
+nav ul li{
+  display: inline-block;
+}
+nav ul li a{
+  color: green ;
+  display: block;
+  padding: 0 9px;
+  line-height: 58px;
+  font-size: 21px;
+  background: #ffffff;
+  transition: .5s;
+  border-bottom : 0px;
+}
+
+nav ul li a:hover,
+nav ul li a.active{
+  color: #23dbdb;
+}
+nav ul ul{
+  position: absolute;
+  top: 65px;
+  border-top: 0px solid #23dbdb;
+  border-bottom : 0px;
+  opacity: 0;
+  visibility: hidden;
+}
+nav ul ul li{
+  width: 165px;
+  display: block;
+  position: relative;
+  border: 1px solid #042331;
+  border-top: none;
+  border-bottom : 0px;
+}
+
+ #footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #00ccff;
+  color: white;
+  text-align: center;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: blue;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: blue;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+</style>
+<!--sriya code 21/1/2021 -->
+<script type="text/javascript">
+             var IDLE_TIMEOUT = 300; //seconds
+                var _idleSecondsCounter = 0;
+                document.onclick = function() {
+                _idleSecondsCounter = 0;
+                };
+                document.onmousemove = function() {
+                _idleSecondsCounter = 0;
+                };
+                document.onkeypress = function() {
+                _idleSecondsCounter = 0;
+                };
+                window.setInterval(CheckIdleTime, 1000);
+
+                function CheckIdleTime() {
+                _idleSecondsCounter++;
+                var oPanel = document.getElementById("SecondsUntilExpire");
+                if (oPanel)
+                oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+                if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+                document.location.href = '/logout/';
+                }
+                }
+        </script>
+        <!--sriya code 21/1/2021 -->
+  </head>
+  <body>
+    {% if request.user.extendeduser.branch == 'KJPuram' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">33/17,Krishan Jimhapuram,197 Ramapuram,Chittoor-517403,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'Malaysia' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-0 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">Perak Malaysia</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">cto@dnd.com.my</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+03 - 3324 5300 | +006 03 3324 5300 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'TKunta' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">TagaraKunta,Kanaganapalle,Anantapur-515641,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'KPMitta' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">Tippinaidu palli,Vedurukuppm,Chittoor-517167,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'KCheruvu' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">1/681 Kothaceruvu,Anantapuram-515133,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'SDN' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">Sri Srinivasa Dairy Needs,Srirampuram,Narasaraopeta-522601,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'SDF' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">2-284,Dayankhanpalli Khajipet Kadapa-516203,A.P</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'SDP' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">1/89/6 MacherlaRoad
+                 Karampudi-522614,Guntur,A.P,</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% elif request.user.extendeduser.branch == 'BRGuda' %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">8-3-3--5/1,PindiPullaReddyColony Bairamalaguda,Hyderabad,T.S</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">lsdairyproductspvtltd@gmail.com</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+91 7799291899 | +91 7799137899 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    {% else %}
+    <div class="py-2 bg-primary">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+          <div class="col-lg-12 d-block">
+            <div class="row d-flex">
+              <div class="col-md-4 pr-5 d-flex topper align-items-center">
+                <div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span>
+                </div>
+                 <span class="text">Perak Malaysia</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <span class="text">cto@dnd.com.my</span>
+              </div>
+              <div class="col-md pr-4 d-flex topper align-items-center">
+                <div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <span class="text">+03 - 3324 5300 | +006 03 3324 5300 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  {% endif %}
+   <!-- <div id="timer"></div>
+  <script src="/static/js/bootstrap.min.js"></script>-->
+  {% if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+      <div class="navbar-nav mr-auto align-items-center">
+      
+      <img src="/static/images/ems/toppng.com-coconut-trees-711x785.png" width="90px" height="65px" alt="logoems"></img>               
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://media.tenor.com/images/f417c08d9fc98d0100ee198bf3184712/tenor.gif" width="90px" height="65px" alt="logo"></img>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp; <a class="navbar-brand" href="/" style="color:blue">..METRO LAGENDA SDN BHD..</a>        
+        
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+          </button>
+  {% elif request.user.extendeduser.branch == 'HO' and user.extendeduser.role == 'Admin'%}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+      <div class="navbar-nav mr-auto align-items-center"> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="https://1.bp.blogspot.com/-qW93ZZ_L7M0/X4Bgco0ImSI/AAAAAAAAhlc/3gG7-_tW7Tg-6k-GR6g77CcDShCD-XFKQCLcBGAsYHQ/s320/logo.jpeg" width="60px" height="65px" alt="logo"></img> 
+        &nbsp;&nbsp; <a class="navbar-brand" href="/" style="color:blue">LS DAIRY PRODUCTS PVT LTD</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+          </button>
+  {% else %}
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+      <div class="navbar-nav mr-auto align-items-center"> 
+       <img src="/static/images/ems/toppng.com-coconut-trees-711x785.png" width="90px" height="65px" alt="logoems"></img>  
+
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://media.tenor.com/images/f417c08d9fc98d0100ee198bf3184712/tenor.gif" width="90px" height="65px" alt="logo"></img>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp; <a class="navbar-brand" href="/" style="color:blue">METRO LAGENDA SDN BHD</a>        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="/static/images/ems/toppng.com-coconut-trees-711x785.png" width="90px" height="65px" alt="logoems"></img>                      
+        
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <img src="/static/images/ems/toppng.com-coconut-trees-711x785.png" width="90px" height="65px" alt="logoems"></img>                      
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <img src="/static/images/ems/toppng.com-coconut-trees-711x785.png" width="90px" height="65px" alt="logoems"></img>                      
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <img src="/static/images/ems/giphy.gif" width="90px" height="65px" alt="logoems"></img>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+          </button>
+  {% endif %}
+          <div class="navbar-nav ml-auto" >
+            <ul>
+              {% if user.is_authenticated %}
+<li><b><a   href="/">Home</a></b></li>
+
+  
+  {% if user.extendeduser.role == 'Manager' or user.extendeduser.role == 'Admin' %}
+
+<li><b><a  href="#">Masters
+          <i class="fas fa-caret-down"></i>
+        </a></b>
+          <ul>
+<!--<li>{{masterss.mastersname}}</li>-->
+{% if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+<li><a  href="/emsarea/">Area</a></li>
+<li><a href="/department/">Block</a></li>
+<li><a href="/supervisor/">Terace</a></li>
+<li><a  href="/emsplanttype/">Hybrid</a></li>
+<li><a href="/emspnd/">PND</a></li>
+<li><a href="/emsfertiliser/">Fertiliser</a></li>
+<li><a href="/harvesting/">Harvesting</a></li>
+<li><a href="/irrigation/">Irrigation</li>
+<li><a  href="/route/">Gross Cutting</a></li>
+<li><a href="/agent/">Workers</a></li>
+
+{% elif request.user.extendeduser.branch == 'HO' and user.extendeduser.role == 'Admin'%}
+<li><a  href="/branch/">Branch</a></li>
+<li><a href="/category/">Category</a></li>
+<li><a href="/department/">Department</a></li>
+<li><a href="/formulae/">Formula</a></li>
+<li><a href="/milktype/">Milk Type</a></li>
+<li><a href="/office/">Office</a></li>
+<li><a href="/role/">Role</a></li>
+{% else %}
+{% if perms.school.add_route %}
+<li><a href="/route/">Route</a></li>
+{% endif %}
+{% if perms.school.add_supervisor %}
+<li><a href="/supervisor/">Supervisior</a></li>
+{% endif %}
+{% if perms.school.add_agent %}
+<li><a href="/agent/">Agent</a></li>
+{%endif%}
+
+
+
+
+
+<li><a href="/emsplanttype/">EmsPlant Type</a></li>
+<li><a href="/emsblock/">EMSBlock</a></li>
+<li><a href="/emsfertiliser/">Fertiliser</a></li>
+<li><a href="/harvesting/">Harvesting</a></li>
+<li><a href="/irrigation/">Irrigation</li>
+<li><a href="/emspnd/">Emspnd</a></li>
+<li><a href="/manage_village/">Village</a></li>
+<li><a href="/notice/">Notice</a></li>
+
+
+
+<li><a href="/bank/">Bank</a></li>
+<li><a href="/center/">Center</a></li>
+
+<li><a href="#">TS Rates
+              <i class="fas fa-caret-right"></i>
+            </a>
+              <ul>
+<li><a href="#">Cow Milk
+        <i class="fas fa-caret-right"></i>  
+          </a>
+          <ul>
+                <li><a href="/cow-milk-route/">BY Route</a></li>
+                <li><a href="/cow-milk-category/">BY Category</a></li>
+                <li><a href="/cow-milk-center/">BY Center</a></li>
+          </ul>
+  </li>
+<li><a href="#">Buffalo Milk
+              <i class="fas fa-caret-right"></i>
+              </a>
+              <ul>
+                <li><a href="/bufallo-milk-route/">BY Route</a></li>
+                <li><a href="/bufallo-milk-category/">BY Category</a></li>
+                <li><a href="/bufallo-milk-center/">BY Center</a></li>
+          </ul> 
+          </li>
+
+</ul>
+</li>
+
+{% endif %}
+
+</ul>
+</li>
+{%endif%}
+  {% if user.extendeduser.role == 'Manager' or user.extendeduser.role == 'Admin' %}
+
+  <li><b><a  href="#">Transactions
+    <i class="fas fa-caret-down"></i>
+  </a></b>
+          <ul>
+            {% if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+            <li><a href="/EntryModule/">Census Data</a></li>
+            <li><a href="/manage_EntryModule/">Manage Census Data </a></li>            
+
+             <li><a href="#">Excel Files
+              <i class="fas fa-caret-right"></i>
+            </a> 
+             <ul>
+              <li><a href="/ExtractPlantData/"> Plant Data</a></li>
+              <!--<li><a href="/ExtractEMSData/"> EMS Data</a></li>-->
+              <li><a href="/excelupload/">Harvest Data</a></li>
+              
+           
+          </ul>
+
+
+            {% elif request.user.extendeduser.branch == 'HO' and user.extendeduser.role == 'Admin'%}
+            <li><a href="/updateho/">Update Rates</a></li>
+            <li><a href="/additionsho/">Additions</a></li>
+            {% else %}
+<li><a href="/EntryModule/">Entry Module</a></li>
+<li><a href="/manage_EntryModule/">EntryMOdule Manage</a></li>
+<li><a href="/DokandQC/">Proc Entry</a></li>
+<li><a href="/DokQC_manage/">Proc Manage</a></li>
+<li><a href="/dockentry-form/">Dock Entry</a></li>
+<li><a href="/manage_dok/">Dock Manage</a></li>
+<li><a href="/qcentry-form/">Qc Entry</a></li>
+<li><a href="/manage_qc/">QC Manage</a></li>
+<li><a href="/match-data/">Match Data</a></li>
+<li><a href="/update-data/">Update Rates</a></li>
+<!--<li><a href="/centerlist/">Center Excel extraction</a></li>-->
+<li><a href="#">Loans &emsp; &emsp;
+<i class="fas fa-caret-right"></i>
+        </a>
+          <ul>
+<li><a href="/cloan/">Cattle Loans</a></li>
+<li><a href="/loanbilldate/">Loan bills</a></li>
+<li><a href="/deposit/">Deposits</a></li>
+<li><a href="/refund/">Refund</a></li>
+<li><a href="/additions/">Additions</a></li>
+</ul></li>
+<li><a href="#">Extractions
+              <i class="fas fa-caret-right"></i>
+            </a>
+            <ul>
+            <li><a href="#">CSV Files
+              <i class="fas fa-caret-right"></i>
+            </a>
+            <ul>
+            <li><a href="#">Proc Data
+              <i class="fas fa-caret-right"></i>
+            </a>
+           <ul>
+              <li><a href="/csv-upload/">Daily Data with Amounts</a></li>
+              <li><a href="/milkbilldata/">MilkBill Full Data</a></li>
+              <li><a href="/centerextraction/">Center Master Data</a></li>
+              <li><a href="/milkbillextraction/">Milk Bill</a></li>
+            </ul>
+        </li>
+             <li><a href="#">TS Rates
+              <i class="fas fa-caret-right"></i>
+            </a><ul>
+            <li><a href="#">Cow Milk
+        <i class="fas fa-caret-right"></i>  
+          </a>
+          <ul>
+              
+              <li><a href="/tsratesexcel/">Category wise</a></li>
+              <li><a href="/tsratescowroute/">Route Wise</a></li>
+              <li><a href="/tsratescowcenter/">Center Wise</a></li> 
+           </ul> 
+       </li>
+           <li><a href="#">Buffalo Milk
+        <i class="fas fa-caret-right"></i>  
+          </a>
+           <ul>
+              
+              <li><a href="/tsratesbuffcategory/">Category Wise</a></li>
+              <li><a href="/tsratesbuffroute/">Route Wise</a></li>
+              <li><a href="/tsratesbuffcenter/">Center Wise</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
+</ul>
+</li>
+
+            <li><a href="#">Excel Files
+              <i class="fas fa-caret-right"></i>
+            </a> 
+            <ul>
+              <li><a href="#">CCMS Import
+                <i class="fas fa-caret-right"></i>
+                  </a>
+              <ul>
+                <li><a href="/dailydataexcelupload/">Daily Data</a></li>                                
+                <li><a href="/ifscexcelupload/">IFSC Data</a></li>
+                <li><a href="/centermasterdataexcelupload/">Center Master Data</a></li>
+                <li><a href="/tsratesexcelupload_/">TsRate Data</a></li>
+              </ul>
+          </li>
+
+           <li><a href="#">CCMS Extract
+                <i class="fas fa-caret-right"></i>
+                  </a>
+              <ul>
+                <li><a href="/excelupload/">Milk Bill</a></li>                
+                <li><a href="/Proc_Data_EE">Proc Data EE</a></li>                
+              </ul>
+          </li>
+          
+          
+            <li><a href="#">EMS Data
+              <i class="fas fa-caret-right"></i>
+            </a>
+             <ul>              
+              <li><a href="/ExtractPlantData/"> Plant Data</a></li>
+              <li><a href="/ExtractEMSData/"> EMS Data</a></li>              
+            </ul>
+          </ul>       
+           
+</li>
+</ul>
+<!--<li><a href="/centerbankdata/">Center Extraction</a></li>-->
+<!--ss<li><a href="/excelupload/">Excel Extraction</a></li>-->
+
+{%endif%}
+</ul>
+</li>
+{%endif%}
+
+{%if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+            
+{%else%}
+<li><b><a  href="#">Notify
+    <i class="fas fa-caret-down"></i>
+        </a></b>
+          <ul>
+            <!--<li><a href="/sendsms/">Send SMS</a></li>-->
+            <li><A href="/sendanemail/">Send Email</a></li>
+          </ul>
+        </li>
+{%endif%}
+  {% if user.extendeduser.role == 'Operator' or user.extendeduser.role == 'Admin' %}
+
+  <li><b><a  href="#">Reports
+    <i class="fas fa-caret-down"></i>
+        </a></b>
+          <ul>
+<li><a href="#">Masters
+  <i class="fas fa-caret-right"></i>
+        </a>
+          <ul>
+            {%if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+            <li><a href="/emsareareport/">Area Report</a></li>
+            <li><a href="/emsplanttypereport/">Hybrid Report</a></li>
+            <li><a href="/emspndreport/">EMSPND Report</a></li>
+            <li><a href="/emsfertiliserreport/">EMSFertiliser Report</a></li>
+            <li><a href="/harvestingreport/">Harvesting Report</a></li>
+            <li><a href="/irrigationreport/">Irrigation Report</a></li>
+            {% elif request.user.extendeduser.branch == 'HO' and user.extendeduser.role == 'Admin'%}
+            <li><a href="/branchreport/">Branch Report</a></li>
+            <li><a href="/categoryreport/">Category Report</a></li>
+            <li><a href="/departmentreport/">Department Report</a></li>
+            <li><a href="/formulaereport/">Formula Report</a></li>
+            <li><a href="/milktypereport/">MilkType Report</a></li>
+            <li><a href="/officereport/">Office Report</a></li>
+            <li><a href="/rolereport/">Role Report</a></li>
+            {%else%}
+            <li><a href="/bank_report/">Bank Report</a></li>
+            <li><a href="/branchreport/">Branch Report</a></li>
+            <li><a href="/logreport/">Log Report</a></li>
+            <li><a href="/emsareareport/">Area Report</a></li>
+            <li><a href="/routereport/">Route Report</a></li>
+            <li><a href="/supervisorreport/">Supervisor Report</a></li>
+            <li><a href="/versionreport/">Version Report</a></li>
+            <li><a href="/noticereport/">Notice Report</a></li>
+            <li><a href="/emsplanttypereport/">Emsplanttype Report</a></li>
+            <li><a href="/harvestingreport/">Harvesting Report</a></li>
+            <li><a href="/emsfertiliserreport/">EMSFertiliserreport</a></li>
+            <li><a href="/irrigationreport/">Irrigation Report</a></li>
+            <li><a href="/emspndreport/">EMSPND Report</a></li>
+            <li><a href="/agentreport/">Agent Report</a></li>
+            <li><a href="/departmentreport/">Department Report</a></li>
+            <li><a href="/rolereport/">Role Report</a></li>
+            <li><a href="/officereport/">Office Report</a></li>
+            <li><a href="/villagereport/">Village Report</a></li>
+            <li><a href="/milktypereport/">MilkType Report</a></li>
+            <li><a href="/categoryreport/">Category Report</a></li>
+            <li><a href="/formulaereport/">Formula Report</a></li>
+
+<li><a href="#">TS Rates
+  <i class="fas fa-caret-right"></i>
+</a>
+<ul>
+  <li><a href="#">Cow Milk
+      <i class="fas fa-caret-right"></i>
+      </a>
+      <ul>
+        <li><a href="/cm-route-report/">BY Route</a></li>
+        <li><a href="/cm-category-report/">BY Category</a></li>
+        <li><a href="/cm-center-report/">BY Center</a></li>
+  </ul> 
+  </li>
+  <li><a href="#">Bufallo Milk
+    <i class="fas fa-caret-right"></i>
+    </a>
+    <ul>
+      <li><a href="/bm-route-report/">BY Route</a></li>
+      <li><a href="/bm-category-report/">BY Category</a></li>
+      <li><a href="/bm-center-report/">BY Center</a></li>
+
+</ul> 
+</li>
+</ul>
+</li>
+
+    <li><a href="/centerreport/">CenterReport</a></li>
+   <!-- <li><a href="/centerreportbank/">Center Report WithoutBank</a></li>-->
+    
+
+
+<li><a href="/loanreport/">Loan Report</a></li>
+<li><a href="/loanschdeulereport/">Loan SchdeuleReport</a></li>
+<!--<li><a href="/loanbillreport/"> loanbillreport </a></li>-->
+<li><a href="/depositreport/">Deposit Report</a></li>
+<li><a href="/refundreport/">Refund Report</a></li>
+<li><a href="/additionsreport/">Additions Report</a></li>
+</ul>
+</li>
+<li><a href="#">Transactions
+    <i class="fas fa-caret-right"></i>
+        </a>
+          <ul>
+      
+            <li><a href="/daily_data/">Daily Data</a></li>
+            <li><a href="/consolidated/">Consolidated</a></li>
+            <li><a href="/daily_data/">Daily Data</a></li>
+            <li><a href="/consolidated/">Consolidated</a></li>
+            <li><a href="/daily_data/">Daily Data</a></li>
+            <li><a href="/consolidated/">Consolidated</a></li>
+            <li><a href="/milkbill1/">Milk Bill Voucher</a></li>
+            <li><a href="/bank_wise/">Bank Acquisition </a></li>
+            <li><a href="/daywiseabstract/">Bill Abstract Daywise</a></li>
+            <li><a href="/routewisebillabstract/">Bill Abstract Routewise</a></li>
+          
+           <li><a href="/milkcollection/">Collection</a></li>          
+
+{%endif%}
+
+</ul>
+</li>
+
+<li><a href="#">Management
+  <i class="fas fa-caret-right"></i>
+        </a>
+          <ul>
+{% if request.user.extendeduser.branch == 'Malaysia' and user.extendeduser.role == 'Admin'%}
+    <li><a href="/Censusreport/">Census Report</a></li>
+    <li><a href="/EMSSmryAreaBlock/">Tree Summary Report</a></li>
+    <li><a href="/EMSSmryTreeHealth/">Tree Health Report</a></li> 
+    <li><a href="/EmsRevFC/">Revenue ForeCast</a></li>           
+{% elif request.user.extendeduser.branch == 'HO' and user.extendeduser.role == 'Admin'%}
+
+<li><a href="/dashboardbranch/">Dashboard </a></li> 
+            <li><a href="/barchart/">ChartData</a></li> 
+
+
+
+{%else%}
+      <li><a href="/Censusreport/">Census Report </a></li>
+      <li><a href="/EMSSmryTreeHealth/">Tree Health Report</a></li>
+      <li><a href="/EMSSmryAreaBlock/">Summary Report</a></li>
+      <li><a href="/barchart/">Datewise </a></li>
+      <li><a href="/barchart1/">centerwise </a></li>
+      <li><a href="/barchart2/">routewise </a></li>
+      <li><a href="/barchart3/">Chart Datewise </a></li>
+
+</ul>
+</li>
+
+<li><a href="#">Admin
+    <i class="fas fa-caret-right"></i>
+        </a>
+          <ul>
+
+<li><a href="/groupdata/">Group Reports</a></li>
+<li><a href="/groupdata1/">Group Reports1</a></li>
+<li><a href="/users_data/">Users Data Report</a></li>
+{%endif%}
+</ul>
+</li>
+
+</ul>
+</li>
+{% endif %}
+<ul></ul>
+
+<li><b><a  href="#">{{user.username}} @ {{user.extendeduser.branch}}
+  <i class="fas fa-caret-down"></i>
+  </a></b>
+      <ul>
+        
+        {% if user.extendeduser.role == 'Admin'%}
+<li><a href="/apassword/">UpdatePass</a></li>
+<li><a href="/version/">Version</a></li>
+{%else%}
+<li><a href="/password/">UpdatePass</a></li>
+<li><a href="/version/">Version</a></li>
+{%endif%}
+
+  <li><a href="/logout/">Logout</a></li>
+      
+
+{% endif %}
+
+</ul>
+            
+          </div>
+      </div>
+  </nav><br>
+    <!-- END nav -->
+    <div class="col-md col-sm">
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  
+         
+              <div class="alert alert-info">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                          <b>
+                        {{ message }}
+                          </b>
+                    </div></div>{% endif %}
+
+        {% endfor %}
+
+    {% endif %}   
+{% block content %}{% endblock %}
+     
+
+<footer>
+  
+   <div class="" id= "footer">
+    <div class="row">
+
+      <div class="col-md-12 text-center"> <a href="http://jacknjill.me/"><b style="color: #fff;"><font size = 4 color = yellow ><img src="/static/images/ems/Glogo.jpeg" width="35px" height="25px" alt="JnJlogo"></img> <img src="/static/images/ems/jacknjill.gif" width="33px" height="23px" alt="JnJlogo"></img>  www.<b style="font-family: consolas; color: white; size:11; " >J</b>ackn<b style="font-family: consolas; color: white; size:11; " >J</b>ill.me  </font></a>
+      <font size = 4 color = black>@ Copyright &copy;<script>document.write(new Date().getFullYear());</script>  Version_{{user.extendeduser.ver}} - All rights reserved to <b style="color: #fff;"><font size = 4 color = yellow >Jack n Jill Solutions Pvt Ltd.&nbsp;&nbsp;&nbsp;&nbsp;</b>
+     </font> </div>
+  </div>
+</div>
+  
+</footer>   
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.stellar.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.magnific-popup.min.js"></script>
+  <script src="/static/js/aos.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="/static/js/google-map.js"></script>
+  <script src="/static/js/main.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        
+        });
+      });
+</script>
+<script type="text/javascript">
+  
+</script>
+  </body>
+</html>

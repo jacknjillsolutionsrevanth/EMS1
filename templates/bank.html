@@ -1,0 +1,206 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+select {
+    width: 100px;
+    margin: 10px;
+}
+#select:focus {
+    min-width: 150px;
+    width: auto;
+}
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit 
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#submit :hover{
+	background-color: #66CCFF;
+	color:white;
+}
+
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+
+</style>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("bank").value = localStorage.getItem("bank");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("bank",document.getElementById("bank").value);
+  });
+
+	</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("bank1").value = localStorage.getItem("bank1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("bank1",document.getElementById("bank1").value);
+  });
+
+	</script>
+	<script>
+
+		$(document).ready(function(){
+		document.getElementById("bank2").value = localStorage.getItem("bank2");
+			});
+	
+	   $(window).on('beforeunload', function() {
+		localStorage.setItem("bank2",document.getElementById("bank2").value);
+	  });
+	
+		</script>
+		<script>
+
+			$(document).ready(function(){
+			document.getElementById("bank3").value = localStorage.getItem("bank3");
+				});
+		
+		   $(window).on('beforeunload', function() {
+			localStorage.setItem("bank3",document.getElementById("bank3").value);
+		  });
+		
+			</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="container">
+	<h2><center>Bank</center></h2>
+	<form  method="POST" action="" enctype="">
+		{% csrf_token %}
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>Bank Name</b></label>
+		&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="name" placeholder="Enter Bank Name" id ="bank" onkeyup="sync()">
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>Bank Full Name</b></label>
+		&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="border-right" type="text" name="fname" placeholder="Enter Bank Name" id ="bank1" required=""><br><br>
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"> <b>Branch Name</b></label>
+		&emsp;&emsp;&emsp;&emsp;&nbsp;
+		<input class="border-right" type="text" name="branch" placeholder="Enter Branch Name"id ="bank2" required="">
+		
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="fname"><b>IFSC Code</b></label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&ensp;&ensp;&ensp;
+		<input class="border-right" type="text" name="ifsc" placeholder="Enter IFSC Code" id="IFSC" required="" onclick="sync()"> <br><br>
+		
+	
+
+
+
+
+
+
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/bank/" >New </a>
+		<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/manage_bank/" >Edit </a>
+		
+	<br>
+		</form>
+</div>
+
+<script>
+		function sync() {
+			var bank=document.getElementById("bank").value; 
+			if(bank.startsWith('AX')){
+				document.getElementById("IFSC").value = "UTIB";
+			}
+			else if(bank.startsWith('H')){
+				document.getElementById("IFSC").value = "HDFC";
+			}
+			else if(bank.startsWith('h')){
+				document.getElementById("IFSC").value = "HDFC";
+			}
+			else if(bank.startsWith('ax')){
+				document.getElementById("IFSC").value = "UTIB";
+			}
+			else if(bank.startsWith('AN')){
+				document.getElementById("IFSC").value = "ANDB";
+			}
+			else if(bank.startsWith('an')){
+				document.getElementById("IFSC").value = "ANDB";
+			}
+			else if(bank.startsWith('SBI')){
+				document.getElementById("IFSC").value = "SBIN";
+			}
+			else if(bank.startsWith('sbi')){
+				document.getElementById("IFSC").value = "SBIN";
+			}
+			else{
+				document.getElementById("IFSC").value = "";
+			}
+			}
+		</script>
+
+
+{% endblock %}

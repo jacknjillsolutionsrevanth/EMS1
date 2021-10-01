@@ -1,0 +1,159 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+    #select:focus {
+        min-width: 150px;
+        width: auto;
+    }
+
+input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+
+	</style>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("village").value = localStorage.getItem("village");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("village",document.getElementById("village").value);
+  });
+
+</script>
+<div class="container">
+	<h2><center> <b>Village</b></center></h2>
+	<form  method="POST" action="/manage1/" enctype="">
+		{% csrf_token %}
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<label for="fname"><b>Village</b></label>
+		<select name="village" id="village">
+	  			<option>Select</option>
+	  			{% for village in village %}
+					<option value="{{village.code}}">{{village.code}}-{{village.name}}</option>
+				{% endfor %}
+			  	</select>
+		<button type="submit" class="btn btn-primary btn-lg" id="getdata" value="">GetDetails </button>
+			  	
+		</form>
+		<form  method="POST"  action="/manage_village/" enctype="">  
+				{% csrf_token %}
+			{% for av in av %}		
+				<input type="hidden" name="dcid[]" value="{{av.id}}">
+		&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	
+		<label for="fname"><b>Village Code</b> &nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&ensp;&nbsp;&emsp;
+		
+		<input class="border-right" type="text" name="code[]"  value="{{av.code}}" readonly><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp;
+		<label for="fname"><b>Village Name</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<input class="border-right" type="text" name="name[]"  value="{{av.name}}"><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+		<label for="fname"><b>Route code</b> &emsp;&emsp;&emsp;&emsp;</label>
+		
+		&ensp;&ensp;<input type="text" value="{{av.Route_attached}}" name="route[]" >
+		<select name="route1[]"  value ="{{av.Route_attached}}" id="Route_attached" required>
+	  			<option>Select</option>
+ <option value="{{ av.Route_attached }}" {% if av.Route_attached == form.av.value %} selected{% endif %} selected>{{av.Route_attached}}</option>
+
+	  			{% for route in route %}
+					<option value="{{route.Route_number}}-{{route.Route_name}}">{{route.Route_number}}-{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br><br>
+			{% endfor %}
+		<!--<label for="fname">Village code &emsp;&emsp;&emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_number}}	">{{route.Route_number}}</option>
+				{% endfor %}
+			  	</select><br>
+		<label for="fname">Route Attached &emsp;&emsp;: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="route">
+	  			<option>Select</option>
+	  			{% for route in route %}
+				    <option value="{{route.Route_name}}	">{{route.Route_name}}</option>
+				{% endfor %}
+			  	</select><br>
+				
+				
+		
+		<br>-->
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+		<a type="" class="btn btn-primary btn-lg" href="/village/"> New </a>
+
+	</form>
+</div>
+<!--<script>
+	$(function() {
+  var select = $('select');
+  select.html(select.find('option').sort(function(x, y) {
+    return $(x).text() > $(y).text() ? 1 : -1;
+  }));
+});
+</script>-->
+
+{% endblock %}

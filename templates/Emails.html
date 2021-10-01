@@ -1,0 +1,132 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+
+
+<style>
+h4{
+	margin: 1em 0 0.5em 0;
+	font-weight: normal;
+	position: relative;
+	text-shadow: 0 -1px rgba(0,0,0,0.6);
+	font-size: 20px;
+	line-height: 30px;
+	background: #355681;
+	background: rgba(53,86,129, 0.8);
+	border: 1px solid #fff;
+	padding: 5px 15px;
+	color: white;
+	border-radius: 0 10px 0 10px;
+	box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+	font-family: 'Muli', sans-serif;
+}
+.card {
+        margin-left: 75%;      
+    margin-right: -70%;
+</style>
+
+
+
+
+<html lang ="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+		
+			  	
+<div class="container register">
+	<form  action="" method="POST">
+		{% csrf_token %}
+
+
+
+
+<aside class="col-sm-5">
+
+<div class="card" align="center">
+<article class="card-body">
+	<h4 class="card-title text-center mb-4 mt-1">EMAIL</h4><hr>
+	
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		
+		 </div>
+
+
+<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		 </div>
+<label><b>From Email</b></label>&nbsp;&ensp;
+
+<input type="text" value="lsmcc2020@gmail.com"  disabled>
+
+
+
+</div> <!-- input-group.// -->
+	</div> <!-- form-group// --><br>&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;&nbsp;&ensp;
+
+
+	<label><b>To Email</b></label>&nbsp;&ensp;&nbsp;&ensp;
+	<select name="toemail" onchange="myFunction()" id="toemail">
+				    <option value="all">All</option>
+				    {% for center in center %}
+						    <option   value={{center.Email}} placeholder="email" required="">{{center.Email}}</option>
+
+
+				  	{% endfor %}
+
+			  	</select>
+			  	
+
+</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		 </div>
+<label><b>Content</b></label>&nbsp;&ensp;&nbsp;&ensp;
+
+ <textarea name="content" id="sendanemail" placeholder="message"  cols="31" rows="5">{{sendanemail}}</textarea>
+
+
+
+
+</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary btn-block"> Send Email</button>
+	<button type="reset" value="clear" class="btn btn-primary btn-block"> Reset</button>
+	</div> <!-- form-group// -->
+	
+	
+</article>
+</div> <!-- card.// -->
+</aside> <!-- col.// -->
+
+
+		
+		
+
+
+	</form></div> 
+</body>
+</html>
+<script>
+function myFunction() {
+  var x = document.getElementById("toemail").value;
+  document.getElementById("sendanemail").innerHTML = "content: " + x;
+}
+</script>
+
+
+{% endblock %}

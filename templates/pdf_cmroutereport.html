@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Cow Milk Route Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">center code : {{centercode}}<br>
+
+		   </p><br>
+		<table>
+			<tr>
+                <th>Route</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Rate Calc</th>
+                <th>Comm Type</th>
+                <th>Milk Type</th>
+                <th>Fat Min</th>
+                <th>Max Fat</th>
+                <th>Min Snf</th>
+                <th>Max Snf</th>
+                <th>TS-Rate</th>
+                <th>Fixed Value</th>
+                <th>RouteId</th>
+			</tr>
+            {% for cmroute in data %}
+            <tr>
+                <td>{{cmroute.Routecode }}</td>
+                <td>{{cmroute.from_date|date:'d-m-Y'}}</td>
+                <td>{{cmroute.to_date|date:'d-m-Y'}}</td>
+                <td>{{cmroute.rate_calculation}}</td>
+                <td>{{cmroute.commission_type}}</td>
+                <td>{{cmroute.milk_type}}</td>
+                <td>{{cmroute.min_fat}}</td>
+                <td>{{cmroute.max_fat}}</td>
+                <td>{{cmroute.min_SNF}}</td>
+                <td>{{cmroute.max_SNF}}</td>
+                <td>{{cmroute.tsrate}}</td>
+				<td>{{cmroute.fixed_value}}</td>
+                <td>{{cmroute.routeid}}</td>
+			</tr>
+			{% endfor %}
+	
+		</table>
+	</body>
+</html>

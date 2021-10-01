@@ -1,0 +1,274 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:60px !important;
+}
+</style>
+<div class="container">
+	<h2>TS Rates -CM - By Route</h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+				  		<label >Center</label>
+				  		<input type="text" id="category_cow" name="category_cow" placeholder="Center" value="{{centerrate.centercode}}">
+				  		<!-- <select name="category_cow">
+					  	{% for route in route %}
+							    <option value="{{route.Route_number}}-{{route.Route_name}}	">{{route.Route_number}}-{{route.Route_name}}</option>
+					  	{% endfor %}
+					  	</select><br> -->
+					  	<label for="fname"> Date Form  : </label>
+						<input type="date" id="my_date_picker" name="dateform" placeholder="Enter MM/DD/YYYY"  value="{{centerrate.from_date}}">
+						<label for="fname"> Date To : </label>
+						<input type="date" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY"  value="{{centerrate.from_date}}"><br>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12" style="border: 1px solid #dddddd;">
+						<!-- <h6>Cow Milk</h6> -->
+						<h6>TS Rate</h6>
+						<label >Rate Calculation</label>
+						<input type="text" id="rate_calculation" name="rate_calculation" placeholder="Rate Calculation" value="{{centerrate.Routecode}}">
+						<!-- <select name="rate_calculation">
+						   <option value="LtrRate">LtrRate</option>
+						   <option value="KgRate">KgRate</option>
+						   <option value="LtrTSRate">LtrTSRate</option>
+						   <option value="KgTSRate">KgTSRate</option>		    
+					  	</select>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0; -->
+					  	<label >SNF Value</label>
+					  	<input type="text" id="snfix_actual" name="snfix_actual" placeholder="SNF Value" value="{{centerrate.Routecode}}">
+				  	  	<!-- <input type="radio" name="snfix_actual" value="Actual" checked>
+				  	  	<label>Actual</label>
+			  	    	<input type="radio" name="snfix_actual" value="Fixed">
+			  	    	<label>Fixed</label> -->
+			  	    	<label>Fixed Value</label>
+			  	    	<input type="number" name="fixedvalue" value="{{centerrate.fixed_value}}" step="any"><br>
+			  	    	<div class="col-md-10 col-sm-10 col-xs-12  no_pad">
+				  	    	<table class="table display data-table text-nowrap" style="width:100%;">
+						        <thead class="tableHeadcolor">
+						            <tr>
+						                <th style="padding:1px !important;"><input type="checkbox" name="select_all" class="selecting_all" style="width:10px !important;"></th>
+						                <th>Min Fat</th>
+						                <th>Max Fat</th> 
+						                <th>MinSNF</th>
+						                <th>MaxSNF</th>
+						                <th>Rate</th> 
+						                <th>Commission</th>
+						                <th></th>
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						        	{% for minmax_obj in minmax_obj %}
+						            <tr class="odd"  role="row">
+						                <td><input class="checkbox_checked" type="checkbox" name="check" value="{{ minmax_obj.id }}" style="width:10px !important;"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="min_fat[]" value="{{minmax_obj.min_fat}}" step="any"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="max_fat[]" value="{{minmax_obj.max_fat}}" step="any"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="min_SNF[]" value="{{minmax_obj.min_SNF}}" step="any"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="max_SNF[]" value="{{minmax_obj.max_SNF}}" step="any"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="rate[]" value="{{minmax_obj.rate}}" step="any"></td>
+						                <td><input type="number" class="width_percent workflowinputRadius" name="commission[]" value="{{minmax_obj.commission}}" step="any"></td>
+						                <td>
+										    <a href="/condition-edit/{{ minmax_obj.id }}/" class="span_edit" data-toggle="modal" data-target="#myModal1"><span class="span_edit  text-center penColorgrey">edit</span></a>
+										    <div id="myModal1" class="modal fade" role="dialog" style="width:100%;">
+										        <div class="modal-dialog" style="width:100%;">
+										            <div class="modal-content" style="width: 570px !important;">
+										            	<div class="modal-header text-center" style="border-bottom:none;">		
+															<h4 class="modal-title w-100 dark-grey-text font-weight-bold my-3">Edit Rate</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														</div>
+														<div class="modal-body mx-4">
+															<form class="form-main" method="POST" action="/condition-update/{{ minmax_obj.id }}/">
+																{% csrf_token %}
+																<table class="table display data-table text-nowrap" style="width:100%;">
+															        <thead class="tableHeadcolor">
+															            <tr>
+															            	<th>Min Fat</th>
+															                <th>Max Fat</th> 
+															                <th>MinSNF</th>
+															                <th>MaxSNF</th>
+															                <th>Rate</th> 
+															                <th>Commission</th>
+															            </tr>
+															        </thead>
+															        <tbody id='form' class="form-block_1">
+															            <tr class="odd"  role="row">
+															                <td><input type="number" class="width_percent workflowinputRadius" name="min_fat" value="{{minmax_obj.min_fat}}" step="any"></td>
+															                <td><input type="number" class="width_percent workflowinputRadius" name="max_fat" value="{{minmax_obj.max_fat}}" step="any"></td>
+															                <td><input type="number" class="width_percent workflowinputRadius" name="min_SNF" value="{{minmax_obj.min_SNF}}" step="any"></td>
+															                <td><input type="number" class="width_percent workflowinputRadius" name="max_SNF" value="{{minmax_obj.max_SNF}}" step="any"></td>
+															                <td><input type="number" class="width_percent workflowinputRadius" name="rate" value="{{minmax_obj.rate}}" step="any"></td>
+															                <td><input type="number" class="width_percent workflowinputRadius" name="commission" value="{{minmax_obj.commission}}" step="any"></td>
+															            </tr>   
+															       </tbody>
+															    </table>
+															    <div id="form-new" class="no_pad_margin"></div>
+																<div class="col-md-12 pad_top noPaddingLeft textalignLeft">
+																	<input type="submit" name="submit" value="Save" class="btn btn-warning ruleEditButton save_btn_desgn modalInputSave">
+																</div>
+															</form>
+														</div>
+										            </div>
+										        </div>
+										    </div>
+										</td>
+						            </tr> 
+						            {% endfor %}       
+						       </tbody>
+						    </table>
+						    <div class="col-md-10 padWorkflowTop noPaddingLeft nopadding_mobileview">
+						        <!-- <a class="btn backgroundBlue add-more-btn addDeleteButton">Add</a> -->
+						        <form  method="POST" action="/checked-delete/" enctype="">
+									{% csrf_token %}
+							    	<button name="Delete" type="submit" class="btn btn-danger multi_delete_btn deletebutton" onclick="return confirm('Are you sure you want to delete these accounts?');">Delete</button>
+						    	</form>
+						    </div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-12">
+						<label >SNF Deduction</label>
+						<input type="checkbox" name="snfdeduction" ><br>
+						<div class="row">
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								<h6>SNF Deduction</h6>
+								<div class="row">
+									<div class="col-md-9 col-sm-9 col-xs-12">
+										<table style="border:none;">
+									  		<tr style="border:none;">
+											    <th style="border:none;">From</th>
+											    <th style="border:none;">To</th>
+											    <th style="border:none;">Penalty</th>
+										  	</tr>
+										 	<tr style="border:none;">
+												<td style="border:none;"><input type="text" name="from_snf" step="any" value="{{centerrate.fat_from}}"></td>
+											    <td style="border:none;"><input type="text" name="to_snf" step="any" value="{{centerrate.fat_to}}"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf" step="any" value="{{centerrate.penalty_in_RS}}"></td>
+									  		</tr>
+										</table>
+									</div>
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="col-md-9 col-sm-9 col-xs-12 no_pad">
+												<label>Deduction<br>Calculation</label>
+												<input type="text" name="ded_ltrkg" step="any" value="{{centerrate.deduction_calculation}}">
+										  	  	<br>
+									  	    	<label>Premium(%)</label>
+									  	    	<input type="text" name="premium" step="any" value="{{centerrate.premium}}"><br>
+									  	    	<label>Amount</label>
+									  	    	<input type="text" name="amount"  value="{{centerrate.amount}}" step="any" >
+									  	    </div>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<br>
+											<label>Comm. Type</label>
+											<input type="text" name="com_type" value="{{centerrate.commission_type}}">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<h6>Sub Standard Milk</h6>
+								<label>Sour Milk</label>
+						  	  	<input type="text" name="sour_ltrkg" value="{{milkrate.sour_milk}}">
+					  	    	<label>Min Rate</label>
+					  	    	<input type="text" name="min_rate" value="{{milkrate.min_rate}}">
+						  	  	<br>
+						  	  	<label>Curd Rate</label>
+						  	  	<input type="text" name="curd_rate" value="{{milkrate.curd}}">
+						  	  	<label>SourMilk Rate</label>
+						  	  	<input type="text" name="sourmilk_rate" value="{{milkrate.sour_milkrate}}">
+							</div>
+						</div>
+					</div>
+				</div>
+		  	</div>
+			<!-- <button id="save"  type="submit" class="Submit_form" value="save"><b>Submit</b></button>
+	  		<button id="cancel"  type="submit" class="Submit_form" value="cancel" ><b>Cancel</b></button> -->
+		
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trLast = $tableBody.find("tr:last");
+		        $trNew = $trLast.clone();
+				
+		    $trLast.after($trNew);
+        });
+    });
+
+	$(document).on("click", ".checkbox_checked", function(){
+        val = $(this).prop('checked');
+        len = $('.checkbox_checked:checked').length 
+        if (val){
+            $('.multi_delete_btn').show()
+        }
+        else if (len==0){
+            $('.multi_delete_btn').hide()
+        }
+        });
+
+    $('.multi_delete_btn').hide();
+    $('.selecting_all').change(function(){
+        sel_val = $('.selecting_all').prop('checked');
+        if(sel_val){
+            $('.checkbox_checked').prop('checked', true);
+            $('.multi_delete_btn').show()
+        }
+        else{
+            $('.checkbox_checked').prop('checked', false);
+            $('.multi_delete_btn').hide()
+        }
+    });
+
+
+    $('div').on('click', '.deleteRowRule', function() {
+        $(this).parents(".deleteRow").remove();
+    });
+
+</script>
+{% endblock %}

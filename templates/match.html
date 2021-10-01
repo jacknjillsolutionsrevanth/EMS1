@@ -1,0 +1,304 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 7px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(83,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:65px !important;
+}
+input[type=date]{
+	width:150px !important;
+}  
+ 
+
+</style>
+
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<form  method="POST"  action="/match-data/" enctype="">
+				{% csrf_token %}
+				<h2><b><center>Match Data</center></b></h2>&emsp;
+				<label for="fname"> <b>Date</b> </label>&emsp;&emsp;
+				<input type="date"  id="datePicker" name="date" placeholder="Enter YYYY/MM/DD" required="" >&emsp;&emsp;
+				<label for="fshift"> <b>Shift</b> </label>&emsp;&emsp;
+				<select name="shift">
+				    <option value="am">am</option>
+				    <option value="pm">pm</option>
+				  </select><br>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""> Fetch  </button>
+					
+
+			  	
+			</form>
+
+
+
+			<!--Declaring new form to submit the matched data of Dok Entry and QC Emtry to Daily Data table.-->
+			<form  method="POST"  action="/data/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<h3><center>Dock Entry</center></h3>
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>
+					            	<!--<th >Date</th>
+					            	<th >Shift</th>-->
+					            	<th >Sample No</th>
+					                <th >Milk Type</th>
+					               <!-- <th>Good Sour</th> -->
+					                <th>Center</th>
+					              <!--  <th>name</th>-->
+					                <th>Qty</th>
+					                <th >Can</th> 
+					               					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+					        	<input type="hidden" maxlength= 10 value="{{date1}}" name="date_t2" >
+					        	<input type="hidden" name="shift_t2" value="{{shift1}}" >
+					            	{% for dc in dc %}
+					            	<tr class="odd"  role="row">
+					            		<!-- <td><input type="text" value="{{dc.date}}" name="date" ></td>
+					            		 <td><input type="text" value="{{dc.shift}}" name="shift_loc1" ></td>-->
+					            		 <!--x = datetime.strptime(request.POST["date"], "%Y-%m-%d")
+										<td>{{board.date |date:'d-m-Y'}}</td>				-->
+					            		 <input type="hidden" value="{{dc.date |date:'Y-m-d'}}" name="sdate1[]" >
+					            		 <input type="hidden" value="{{dc.shift}}" name="shift1[]" >
+						                <td><input type="text" value="{{dc.samplecode}}" name="samplecode[]" ></td>
+						                <input type="hidden" value="{{dc.samplecode}}" name="samplecode2[]" >
+						                <td><input type="text" value="{{dc.milk_type}}" name="milk_type[]" ></td>
+						                <input type="hidden" value="{{dc.milk_type}}" name="milk_type2[]" >
+						               <!-- <td>{{dc.sour}}</td>-->
+						               <input type="hidden" value="{{dc.routecode}}" name="route[]" >
+						                <td><input type="text" value="{{dc.code}}" name="code[]"  ></td>
+						                <input type="hidden" value="{{dc.code}}" name="code2[]"  >
+						              <!--  <td>{{dc.center_name}}</td>-->
+						                <td><input type="number" value="{{dc.Quantity}}" name="Quantity[]"  step="any"></td>
+						                <input type="hidden" value="{{dc.Quantity}}" name="Quantity2[]"  step="any">
+						                <td><input type="number" value="{{dc.cans}}" name="cans[]"  ></td>
+						                <input type="hidden" value="{{dc.cans}}" name="cans2[]"  >
+
+						                <input type="hidden" value="{{dc.branch}}" name="branch11" />
+					              		
+					               </tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-5">
+						<h3><center>QC Entry</center></h3>
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>
+					            	<!-- <th>Id</th> -->
+					                <th >Sample No</th>
+					                <th>Fat</th>
+					               <!-- <th>Good Sour</th> -->
+					               <!-- <th>Center</th> -->
+					              <!--  <th>name</th>-->
+					              <th>CLR</th> 
+					                <th>SNF</th>
+					                
+
+					                
+					                
+					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+					            	{% for qc in qc %}
+					            <tr class="odd"  role="row">
+					            	
+						                <td><input type="text" value="{{qc.samplecode}}"name="samplecode1[]" > </td>
+						               <input type="hidden" value="{{qc.samplecode}}"name="samplecode22[]" > 
+						                <td><input type="number" value="{{qc.fat}}" name="fat[]" id="fat" step="any"></td>
+						                <input type="hidden" value="{{qc.fat}}" name="fat2[]" id="fat" step="any">
+						               <!-- <td>{{dc.sour}}</td>-->
+						               <td><input type="number" value="{{qc.clr}}" name="clr[]" id="clr" step="any"></td>
+						              <input type="hidden" value="{{qc.clr}}" name="clr2[]" id="clr" step="any">
+						                <td><input type="number" value="{{qc.snf|floatformat:2}}" name="snf[]" id="snf"onkeyup="myFunction()" onclick="myFunction()" step="any"></td>
+						              <!--  <td>{{dc.center_name}}</td>-->
+						              <input type="hidden" value="{{qc.snf|floatformat:2}}" name="snf2[]" id="snf"onkeyup="myFunction()" onclick="myFunction()" step="any">
+						                
+						                 <script>
+function myFunction() {
+  document.getElementById("snf").value = (((document.getElementById("clr").value)/4) +(0.21*(document.getElementById("fat").value))+0.36).toFixed(2) ;
+}
+
+</script>
+					
+						            
+					            </tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+						<button type="submit" class="btn btn-primary btn-lg" id="submitData" onclick="myFunction()"value=""> Submit</button>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+					</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('#delete_btn')click(function(){
+			if(confirm("Are you sure you want to delete this lists ?")){
+				var id=[];
+				$(':checkbox:checked').each(function(i){
+					id[i]=$(this)val()
+				})
+				if(id.length==0){
+					alert("please select items to delete ?")
+				}else{
+					console.log(id)
+				}
+			}
+		})
+	})
+</script>
+<script type="text/javascript">
+	$(document).on("change", "#centercode", function(){
+        var a =  $(this).find(':selected').data('name');
+        $("#center_name").val(a);
+    });
+	
+    function Amount(val) {
+    	/*alert("hi");*/
+        var fat = document.getElementById('fat').value;
+        var qty = document.getElementById('qty').value;
+        var snf = document.getElementById('snf').value;
+        var rate_min = '{{rate.rate}}';
+       	var quantity = parseFloat(qty)/parseFloat(1.03);
+       	var a1 = parseFloat(snf) + parseFloat(fat)
+        var rate = ( a1* parseFloat(rate_min))/100;
+        var total_amount = parseFloat(rate) * parseFloat(quantity);        
+        var amount = document.getElementById('rate');
+        var total = document.getElementById('amount');
+        total.value = total_amount;
+        amount.value = rate;
+    }
+</script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trLast = $tableBody.find("tr:last");
+		        $trNew = $trLast.clone();
+				
+		    $trLast.after($trNew);
+        });
+    });
+
+
+</script>
+
+<script type="text/javascript">
+	var field = document.querySelector('#today');
+	var date = new Date();
+
+	// Set the date
+	field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
+	    '-' + date.getDate().toString().padStart(2, 0);
+
+</script>
+<!-- <script type="text/javascript">
+	 $("#table_notshow").css('display','none');
+		$("#getdata").click(function(){
+			$("#table_notshow").css('display','block');
+			});
+</script> -->
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "header1.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+input[type=text],input[type=email],input[type=password], select {
+  width: 20%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input[type=Number]{
+	width: 25%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#select:focus {
+     min-width: 150px;
+     width: auto;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+	</style>
+
+<div class="container">
+	<h2><center>Sign Up</center></h2>
+	<form  method="POST" action="/signup/{{slug}}/" enctype="">
+		{{form}}
+		{% csrf_token %}
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="firstname"><b>First Name </b></label>&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="first_name" placeholder="Enter First Name" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="lastname"><b>Last Name</b></label>&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="last_name" placeholder="Enter Last Name" required=""><br><br>
+	
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="uname"><b>User Name</b> </label>&emsp;&emsp;&emsp;
+		<input class="border-right" type="text" name="username" placeholder="Enter User Name" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="email"><b>Email </b></label>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+		<input class="border-right" type="email" name="email" placeholder="Enter Email" required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="password1"><b>Password</b> </label>&emsp;&emsp;&emsp;&ensp;
+		<input class="border-right" type="password" name="password1" id="password1" placeholder="Enter Password" required="">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="password2"><b>Confirm Password </b></label>&emsp;&emsp;&emsp;
+		<input class="border-right" type="password" name="password2" placeholder="Confirm Password" id="confirm_password" required=""><br><br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="role"><b>Role</b> </label>&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;&ensp;&nbsp;
+		
+		<select name="role">
+			{% if slug|first == 'A' %}
+			<option value="Admin">ADMIN</option>
+			{% elif slug|first == 'M' %}
+			<option value="Manager">Manager</option>
+			{% else %}
+			<option value="Operator">operator</option>
+			{%endif%}</select>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="dept"><b>Department</b> </label>&emsp;&emsp;&emsp;
+		<select name="department">
+	  			<option>SELECT </option>
+				{% for department in department %}
+					<option value="{{department.dname}}">{{department.dname}}</option>
+				{% endfor %}</select><br>
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="branch"><b>Branch </b></label>&emsp;&emsp;&emsp;&emsp;
+		<select name="branch">
+				<option>SELECT </option>
+				{% for branch in branch %}
+					<option value="{{branch.code}}">{{branch.code}}</option>
+				{% endfor %}
+		</select>
+		
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		<label for="office"><b>Office</b> </label>&emsp;&emsp;&emsp;&emsp;
+		<select name="office">
+	  			<option>SELECT </option>
+				{% for office in office %}
+					<option value="{{office.oname}}">{{office.oname}}</option>
+				{% endfor %}  
+	  	</select><br>
+	
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label for="mobno"><b>Mobile</b></label>&emsp;&emsp;&emsp;
+		<input type="tel" name="mobileno"  placeholder = "98480 98490" pattern="[+]{1}[1-9]{2}[1-9]{1}[0-9]{9}"  title =" Enter 10 digits"  maxlength="13">&nbsp;&nbsp;<br><br>
+		<!--<label for="grace"><b>Grace Period</b> </label>&nbsp;&nbsp;&nbsp;&emsp;&emsp;-->
+		<!--<input class="border-right" type="hidden" name="graceperiod"><b>Days</b><br><br> // not neccesary for nowd-->
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	
+		&emsp;&emsp;&emsp;
+		
+		<button type="reset" class="btn btn-primary btn-lg"> Reset </button>
+		<button type="submit"   type="submit" class="btn btn-primary btn-lg"> Submit </button>
+	</form>
+      
+		
+	
+</div>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<script>
+var password = document.getElementById("password1")
+  , confirm_password = document.getElementById("password2");
+
+function validatePassword(){
+  if(password1.value != password2.value) {
+    confirm_password.setCustomValidity("Password Doesn't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+
+{% endblock %}

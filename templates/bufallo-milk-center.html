@@ -1,0 +1,660 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+   var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+
+   $('#datePicker1').val(today);
+});</script>
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:60px !important;
+}
+input[type=date]{
+	width:150px !important;
+}
+button[type=button]{
+	width:100px; 
+	height:40px;
+}
+button{
+	width:100px; 
+	height:40px;
+}
+
+
+</style>
+<div class="container">
+	<h2><center><b>TS Rates Buffalo Milk By Center</b></center></h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<form  method="POST" action="/bufallo-milk-center/" enctype="">
+			{% csrf_token %}
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+				  		<label ><b>Center</b></label>
+				  		<select name="category_cow" style="width:60%" id="center">
+					  	{% for center in center %}
+							    <option value="{{center.centre_code}}">{{center.centre_code}}</option>
+					  	{% endfor %}
+					  	</select><br>
+					  	<label for="fname">  <b>Date From</b>  </label><br>
+						<input type="date" id="datePicker" name="dateform" placeholder="Enter MM/DD/YYYY" required=""><br>
+						<label for="fname"> <b>Date To </b> </label><br>
+						<input type="date" id="datePicker1" name="dateto" placeholder="Enter MM/DD/YYYY" required=""><br><br>
+					
+						<label ><b>Milk Type</b></label>
+						<select name="milk" id="milk">
+						    <option value=BM>BM</option>
+					  	</select><br>
+						<label ><b>Rate Calculation</b></label>
+						<select name="rate_calculation" id="rate">
+						   <option value="LtrRate">LtrRate</option>
+						   <option value="KgRate">KgRate</option>
+						   <option value="LtrTSRate">LtrTSRate</option>
+						   <option value="KgTSRate">KgTSRate</option>		    
+					  	</select><br>
+						<label><b>Comm. Type</b></label>
+											<select name="com_type" id="com">
+											   <option value="LtrTSRate">LtrTSRate</option>
+											   <option value="KgTSRate">KgTSRate</option>		    
+										  	</select>
+						<label><b>Fixed Value</b></label><br>
+			  	    	<input type="number" id="resultText" name="fixedvalue" step="any" oninput="validate(this)" />&emsp;<b>(In Rs.)</b><br>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-14" style="border: 1px solid #dddddd;">
+						<!-- <h6>Cow Milk</h6> -->
+			
+					  	<div class="col-md-10 col-sm-10 col-xs-12  no_pad">
+				  	    	<!-- <table>
+				  	    		<tr>
+								    <th colspan="2"> Fat</th>
+								    <th colspan="2"> SNF</th>						    
+								    <th>Rate</th>
+								    <th>Commission</th>
+							  	</tr>
+						  		<tr>
+								    <th>Min </th>
+								    <th>Max </th>
+								    <th>Min</th>
+								    <th>Max</th>
+								    <th>Rate</th>
+								    <th>Comm</th>
+							  	</tr>
+							 	<tr>
+				  	    			<td class="td_border"><input type="number" name="min_fat" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="max_fat" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="min_SNF" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="max_SNF" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="rate" step="any"></td>
+				  	    			<td class="td_border"><input type="number" name="commission" step="any"></td>
+				  	    		</tr>							
+				  	    	</table> -->
+				  	    	<table class="table display data-table text-nowrap" style="width:120%;">
+						        <thead class="tableHeadcolor">
+						            <tr>
+						               <!--  <th><input type="checkbox" name="select_all" class="selecting_all"></th> -->
+						                <th>Min Fat</th>
+						                <th>Max Fat</th> 
+						                <th>Min SNF</th>
+						                <th>Max SNF</th>
+						                <th>TS Rates</th> 
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+						                <!-- <td><input class="checkbox_checked" type="checkbox" name="check" value="{{ forloop.counter }}"></td> -->
+						                <td>&emsp;<input type="number" class="width_percent workflowinputRadius" name="min_fat[]" step="any" id="minfat"></td>
+						                <td>&emsp;<input type="number" onload = 'setfocusTomyfunction()' class="width_percent workflowinputRadius" name="max_fat[]" step="any" id="maxfat" onchange="myFunction(this.value)"></td>
+						                <td>&emsp;<input type="number" class="width_percent workflowinputRadius" name="min_SNF[]" step="any" id="minsnf"></td>
+						                <td>&emsp;<input type="number" onload = 'setfocusTomyfunction1()' class="width_percent workflowinputRadius" name="max_SNF[]" step="any" id="maxsnf" onchange="myFunction1(this.value)"></td>
+						                <td>&emsp;<input type="number" class="width_percent workflowinputRadius" name="rate[]" step="any"></td>
+						                
+						            </tr>        
+						       </tbody>
+						    </table>
+						   
+							</div>
+						<button type="button" class="btn btn-primary btn-lg"><a class="btn backgroundBlue add-more-btn addDeleteButton"><h6>Add</h6></a></button>
+							<a type="edit" class="btn btn-primary btn-lg" value="edit"  href="/managebuffcenter/" >Edit</a>
+							<button type="button" class="btn btn-teritiory btn-lg"><b>TSRATES</b></button>&emsp;
+							<button type="submit" class="btn btn-primary btn-lg" value="save">Submit</button>
+							<a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/bufallo-milk-center/" >Cancel </a>
+
+
+							<table class="table display data-table1 text-nowrap" style="width:100%;">
+							        <tbody id='form' class="form-block_1">   
+							       </tbody>
+							 </table>
+
+
+
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-12">
+						<label ><b>SNF Value</b></label>
+				  	  	<input type="radio" name="snfix_actual" value="Actual" checked>
+				  	  	<label><b>Actual</b></label>
+			  	    	<input type="radio" name="snfix_actual" value="Fixed">
+						<label ><b>SNF Deduction</b></label>
+						<input type="checkbox" name="snfdeduction" id="isOther" /><br>
+						<div class="row">
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								<h6><b>SNF Deduction</b></h6>
+								<div class="row">
+									<div class="col-md-9 col-sm-9 col-xs-12">
+										<table style="border:none;">
+									  		<tr style="border:none;">
+											    <th style="border:none;">From</th>
+											    <th style="border:none;">To</th>
+											    <th style="border:none;">Penalty</th>
+										  	</tr>
+										 	<tr style="border:none;">
+												<td style="border:none;"><input type="text" name="from_snf"  id="other" readonly /></td>
+											    <td style="border:none;"><input type="text" name="to_snf"   id="other1" readonly /></td>
+											    <td style="border:none;"><input type="text" name="penalty_snf"  id="other2" readonly /></td>
+									  		</tr>
+									  		<!-- <tr style="border:none;">
+												<td style="border:none;"><input type="number" name="from_snf1"></td>
+											    <td style="border:none;"><input type="number" name="to_snf1"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf1"></td>
+									  		</tr>
+									  		<tr style="border:none;">
+												<td style="border:none;"><input type="number" name="from_snf2"></td>
+											    <td style="border:none;"><input type="number" name="to_snf2"></td>
+											    <td style="border:none;"><input type="number" name="penalty_snf2"></td>
+									  		</tr> -->
+										</table>
+									</div>
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="col-md-25 col-sm-0 col-xs-25 no_pad">
+												<label>&emsp;&emsp;<b>Deduction Calculation</b>&emsp;&emsp;</label><br>&emsp;
+										  	  	<input type="radio" name="ded_ltrkg" value="kg">
+										  	  	<label><b>Kg</b></label> 
+									  	    	<input type="radio" name="ded_ltrkg" value="Ltr" checked>
+									  	    	<label><b>Ltr</b></label><br>
+									  	    	<label>&emsp;&emsp;<b>Premium(%)</b>&emsp;&emsp;</label>
+									  	    	<input type="number" name="premium" checked step="any" id="premium"><br>
+									  	    	<label>&emsp;&emsp;<b>Amount</b>&emsp;&emsp;&emsp;&emsp;&ensp;</label>
+									  	    	<input type="number" name="amount" checked step="any" id="amount">
+									  	    </div>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<br>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<h6><b>Sub Standard Milk</b></h6>
+								<label><b>Sour Milk</b></label>
+						  	  	<input type="radio" name="sour_ltrkg" value="kg">
+			                    <label><b>Kg</b></label>
+			                    <input type="radio" name="sour_ltrkg" value="Ltr" checked>
+					  	    	<label>Ltr<b></b></label>
+					  	    	<label><b>Min Rate</b></label>&emsp;&emsp;&emsp;&ensp;
+						  	  	<input type="number" name="min_rate" id="minrate"><br>
+						  	  	<label><b>Curd Rate</b></label>&emsp;&emsp;&emsp;
+					  	    	<input type="number" name="curd_rate" id="curdrate"><br>
+						  	  	<label><b>SourMilk Rate</b></label>&emsp;
+					  	    	<input type="number" name="sourmilk_rate" id="sourmilk">
+							</div>
+						</div>
+					</div>
+				</div>
+			  </div><br>&emsp;&emsp;
+			  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		
+			<br>
+	  		<br>
+	  		<br>
+	  		<br>
+	  		<br>
+	  		<br>
+		</form> 
+		<!-- <form action="/checked-delete/" method="POST" style="text-align: right;"> 
+        	<a name="Delete" class="btn btn-danger multi_delete_btn deletebutton" onclick="return confirm('Are you sure you want to delete these accounts?');">Delete</a>
+        </form> -->
+	</div>
+</div>
+<script>
+function myFunction(val) {
+	var minfat = document.getElementById("minfat").value;
+	var maxfat = document.getElementById("maxfat").value;
+	if (maxfat < minfat) {
+		alert("maxfat value should need to be greater");
+
+	document.getElementById("maxfat").focus();
+
+
+	}
+
+}
+
+ 
+</script>
+
+<script type="text/javascript">
+function myFunction1(val) {
+	var minsnf = document.getElementById("minsnf").value;
+	var maxsnf = document.getElementById("maxsnf").value;
+	if (maxsnf < minsnf) {
+		alert("maxsnf value should need to be greater");
+    
+	document.getElementById("maxsnf").focus();
+     
+    }
+
+}
+ 
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("minfat").value = localStorage.getItem("minfat");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("minfat",document.getElementById("minfat").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("maxfat").value = localStorage.getItem("maxfat");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("maxfat",document.getElementById("maxfat").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("minsnf").value = localStorage.getItem("minsnf");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("minsnf",document.getElementById("minsnf").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("maxsnf").value = localStorage.getItem("maxsnf");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("maxsnf",document.getElementById("maxsnf").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("tsrate").value = localStorage.getItem("tsrate");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("tsrate",document.getElementById("tsrate").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("premium").value = localStorage.getItem("premium");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("premium",document.getElementById("premium").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("amount").value = localStorage.getItem("amount");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("amount",document.getElementById("amount").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("minrate").value = localStorage.getItem("minrate");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("minrate",document.getElementById("minrate").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("curdrate").value = localStorage.getItem("curdrate");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("curdrate",document.getElementById("curdrate").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("sourmilk").value = localStorage.getItem("sourmilk");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("sourmilk",document.getElementById("sourmilk").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("resultText").value = localStorage.getItem("resultText");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("resultText",document.getElementById("resultText").value);
+  });
+
+	</script>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("milk").value = localStorage.getItem("milk");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("milk",document.getElementById("milk").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("rate").value = localStorage.getItem("rate");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("rate",document.getElementById("rate").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("com").value = localStorage.getItem("com");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("com",document.getElementById("com").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("center").value = localStorage.getItem("center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("center",document.getElementById("center").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker").value = localStorage.getItem("datePicker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker",document.getElementById("datePicker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker1").value = localStorage.getItem("datePicker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker1",document.getElementById("datePicker1").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("other").value = localStorage.getItem("other");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("other",document.getElementById("other").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("other1").value = localStorage.getItem("other1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("other1",document.getElementById("other1").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("other2").value = localStorage.getItem("other2");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("other2",document.getElementById("other2").value);
+  });
+
+</script>
+<script>
+	var validate = function(e) {
+  	var t = e.value;
+  	e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+	}
+</script>
+<script>
+var isOther = document.getElementById("isOther");
+var other = document.getElementById("other");
+isOther.addEventListener("click", function () {
+    other.readOnly = !isOther.checked;
+});
+other.addEventListener("focus", function (evt) {
+     // Checkbox must be checked before data can be entered into textbox
+    other.readOnly = !isOther.checked;
+});
+</script>
+<script>
+var isOther1 = document.getElementById("isOther");
+var other1 = document.getElementById("other1");
+isOther1.addEventListener("click", function () {
+    other1.readOnly = !isOther1.checked;
+});
+other1.addEventListener("focus", function (evt) {
+     // Checkbox must be checked before data can be entered into textbox
+    other1.readOnly = !isOther1.checked;
+});
+</script>
+<script>
+var isOther2 = document.getElementById("isOther");
+var other2 = document.getElementById("other2");
+isOther2.addEventListener("click", function () {
+    other2.readOnly = !isOther2.checked;
+});
+other2.addEventListener("focus", function (evt) {
+     // Checkbox must be checked before data can be entered into textbox
+    other2.readOnly = !isOther2.checked;
+});
+</script> 
+<!--<script type="text/javascript">
+    $(function () {
+        $("#opt").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#txt").removeAttr("disabled");
+                $("#txt").focus();
+            } else {
+                $("#txt").attr("disabled", "disabled");
+            }
+        });
+    });
+    $(function () {
+        $("#opt").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#txt1").removeAttr("disabled");
+                $("#txt1").focus();
+            } else {
+                $("#txt1").attr("disabled", "disabled");
+            }
+        });
+    });
+    $(function () {
+        $("#opt").change(function () {
+            if ($(this).val()=="others" ) {
+                $("#txt2").removeAttr("disabled");
+                $("#txt2").focus();
+            } else {
+                $("#txt2").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>-->
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trFirst = $tableBody.find("tr:first");
+		        $trNew = $trFirst.clone();
+				
+		     var $tableBody1 = $('.data-table1 ').find("tbody");
+			($trNew).attr("readonly", true);
+			($trNew).each(function () {
+                   $(this).children("td").each(function () {
+                   		$(this).find("input").prop("readonly", true);
+                   		//$(this).find("input");
+                   });
+
+               });
+			var rowCount = $('.data-table1 tr').length+1;
+			($trNew).prepend($('<td>').append(rowCount));
+			$tableBody1.prepend($trNew);
+        });
+    });
+
+
+	/*$(document).on("click", ".checkbox_checked", function(){
+        val = $(this).prop('checked');
+        len = $('.checkbox_checked:checked').length 
+        if (val){
+            $('.multi_delete_btn').show()
+        }
+        else if (len==0){
+            $('.multi_delete_btn').hide()
+        }
+        });
+
+    $('.multi_delete_btn').hide();
+    $('.selecting_all').change(function(){
+        sel_val = $('.selecting_all').prop('checked');
+        if(sel_val){
+            $('.checkbox_checked').prop('checked', true);
+            $('.multi_delete_btn').show()
+        }
+        else{
+            $('.checkbox_checked').prop('checked', false);
+            $('.multi_delete_btn').hide()
+        }
+    });
+
+
+    $('div').on('click', '.deleteRowRule', function() {
+        $(this).parents(".deleteRow").remove();
+    });*/
+
+</script>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "header.html" %}
+{% block title %}Ls Milks{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left !important;
+  		padding: 4px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(83,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:125px !important;
+}
+input[type=date]{
+	width:150px !important;
+}  
+ 
+
+</style>
+
+	</style>
+	
+<script>
+    function myFunction() {
+        var bank=document.getElementById("notice").value; 
+        {
+            document.getElementById("notice").value = "S";
+        }
+        }
+    </script>
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+				<h2><b><center>Manage Notice </center></b></h2>
+
+			<form  method="POST"  action="/manage_notice/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<table>
+							<thead class="tableHeadcolor">
+					            <tr>					            	
+					            	<th>Code</th>
+					                <th>Notice Name</th>
+					               <!-- <th>Good Sour</th> --> 
+					                <th>From Date</th>
+					                <th>To Date</th>
+					                <!-- <th>Created By</th>
+					                <th>Edited By</th> -->
+					                <th>Remarks</th>
+					            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+
+					            	{% for al in al %}
+					            	<tr class="odd"  role="row">
+					            		<!-- <td><input type="text" value="{{dc.date}}" name="date" ></td>
+					            		 <td><input type="text" value="{{dc.shift}}" name="shift_loc1" ></td>-->
+					            		 <!--x = datetime.strptime(request.POST["date"], "%Y-%m-%d")
+										<td>{{board.date |date:'d-m-Y'}}</td>				-->
+										<input type="hidden" value="{{al.id}}" name="id[]">
+					            		<td><input type="text"  value="{{al.noticecode}}" name="noticecode[]" readonly></td>
+						                <td ><input type="text" value="{{al.noticename}}" name="noticename[]" ></td>
+						                
+
+						               
+			  	</select></td>
+			  	{% csrf_token %}   
+			  	<td>
+			  	 <input type="date" id="datePicker" name="effectedfromdate[]" placeholder=" DD/MM/YYYY"   value='{{al.effectedfromdate | date:"Y-m-d"}}' required="" ></td>
+                     <td><input type="date" id="datePicker1" name="effectedtodate[]" placeholder=" DD/MM/YYYY"   value='{{al.effectedtodate | date:"Y-m-d"}}' required="" ></td>
+                </td>
+
+                                        <!-- <td><input type="text" value="{{al.createdby}}" name="createdby[]" ></td>
+						                <td><input type="text" value="{{al.editedby}}" name="editedby[]" ></td> -->
+						                <td><input type="text" value="{{al.remarks}}" name="remarks[]" ></td>
+						                
+										</tr>        
+					                {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					
+
+						
+						
+		
+					</div>
+					</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>
+					<a type="cancel" class="btn btn-primary btn-lg" value="cancel"  href="/notice/" >Cancel </a>
+					<button type="submit" class="btn btn-primary btn-lg" > Submit </button>
+						
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+					</form>
+				</div>
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,150 @@
+ {% extends 'header.html' %}
+ {% block title %}Ls Milks{% endblock %}
+{% block content %}
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script> 
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+});</script>
+
+<style>
+  input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+</style>
+
+
+<div class="container">
+  <form method="post"action="/version/" enctype="">
+  {% csrf_token %}
+  <center>
+     <h2> <center>Version</center></h2><br>
+        
+    <label for="fname"><b>Version code</b></label>
+    &emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="vercode" placeholder="Enter version code" >
+    
+    &emsp;&emsp;&emsp;&emsp;
+    <label for="fname"><b>Version Name</b></label>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="border-right" type="text" name="vername" placeholder="Enter Version Name"><br><br>
+
+
+    <label for="fname"><b>From Date</b></label>&emsp;&emsp;&emsp;&emsp;
+    <input type="date"  id="datePicker" name="effectedfromdate" placeholder="Enter DD/MM/YYYY"  value="{{curdate}}">
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;<label for="fname"><b> To Date</b></label>
+            &ensp;&emsp;&emsp;&nbsp;
+            <input type="date" id="datePicker1" name="effectedtodate" placeholder="Enter DD/MM/YYYY" required="">
+            <br><br>
+            &emsp;&emsp;&ensp;
+  
+
+
+    &emsp;&emsp;&emsp;
+    <label for="fname"><b>Remarks</b></label>
+    &ensp;&ensp;
+    <input class="border-right" type="text" name="remarks" > <br><br>
+               
+                <button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>&ensp;&ensp;
+                 <button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+      
+<script type="text/javascript">
+
+
+    $(document).ready(function(){
+    document.getElementById("datePicker").value = localStorage.getItem("datePicker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker",document.getElementById("datePicker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker1").value = localStorage.getItem("datePicker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker1",document.getElementById("datePicker1").value);
+  });
+</script>
+   
+{% endblock %}

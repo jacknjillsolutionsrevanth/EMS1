@@ -1,0 +1,270 @@
+
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+var time = new Date();
+
+  var shift = time.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+  
+  $('#shift').val(shift);
+});</script>
+<script>
+$(document).ready( function() {
+var d = new Date();
+var hours = d.getHours() % 12;
+  hours = hours ? hours : 12;
+    var test =  
+    ("00" + d.getMinutes()).slice(-2) + ":" + 
+    ("00" + d.getSeconds()).slice(-2) + ' ' + (d.getHours() >= 12 ? 'PM' : 'AM'); 
+    
+document.getElementById("demo").innerHTML = test;
+});</script>
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: right !important;
+  		padding: 8px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 8px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:70% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+input[type=shift]{
+	width:50px !important;
+}  
+ input{
+	width:150px !important;
+}
+</style>
+
+<div class="container">
+	<h2><b><center>Dock Entry</center></b></h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+			
+			<div class="col-md-45 col-sm-45 col-xs-45">
+				
+					<form  method="POST"  action="/dockentry-form/" enctype="">
+						{% csrf_token %}
+						<div class="col-md-05 col-sm-07 col-xs-09">
+							<h6><b>Daily Dock Entries</b></h6>
+							<label><b>Branch</b></label>&ensp;
+							<input type="text" name="branch11" value="{% if user.is_authenticated %}{{user.extendeduser.branch}}{%endif%}" disabled>
+						  	<label><b>Date</b></label>&ensp;
+							<input type="date" id="datePicker" name="dateform" placeholder="Enter YYYY-MM-DD" required="">&emsp;&emsp;
+							<label for="fshift"><b>Shift</b></label>&ensp;
+							<!--<input type="shift" id="shift" name="shift "  required="">-->
+							<select name="time">
+							    <option value="am">am</option>
+							    <option value="pm">pm</option>
+						  	</select> &emsp;&emsp;
+						  	<label> <b>Good Sour</b></label>&ensp;
+							<select name="goodsour">&emsp;&emsp;
+							    <option value="good">GOOD MILK</option>
+							    <option value="sour">SOUR MILK</option>
+						  	</select>&emsp;&emsp;
+							<button type="button" class="btn btn-primary btn-lg"><a class="btn backgroundBlue add-more-btn addDeleteButton">Add</a></button>&emsp;&emsp;
+									<button type="submit" class="btn btn-primary btn-lg"  id="submitData" value="">Submit </button>
+									<br></br>
+						  	<!-- <label>Code</label>
+						  	<select name="code" id="centercode">
+							    <option >None</option>
+							    {% for cowmilkrate in center %}
+						  		<option value="{{cowmilkrate.centre_code}}" data-name="{{cowmilkrate.name}}">{{cowmilkrate.centre_code}}</option>
+						  		{% endfor %}
+						  	</select>
+						  	<label>Center Name</label>
+						  	<input type="text" id="center_name" name="center_name" value="">
+						  	<label> SMP No. </label>
+						  	<input type="number" name="samplecode" id="samplecode"  step="any">
+						  	<label> Milk Type</label>
+							<select name="milktype">
+							    <option value="cm">CM</option>
+							    <option value="bm">BM</option>
+						  	</select>
+						  	<label> Qty(kgs) </label>
+						  	<input type="number" name="qty" id="qty" step="any">
+						  	<label> Cans </label>
+						  	<input type="number" name="can" step="any"> -->
+						  	<table class="table display data-table text-nowrap" id ="doctable"  style="width:100%;">
+								    
+			    
+									<thead class="tableHeadcolor">
+						            <tr>
+						                <th>Center</th>
+						                <!-- <th>Center name</th>  -->
+						                <th>Milk Type </th>
+						                <th>Samp No</th> 
+						                <th>Can</th>
+						                <th>Qty(Kgs)</th> 
+						                 
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+										<td>&emsp;&emsp;&emsp;&emsp;	
+											<select name="code[]" id="code_center">
+												{% for center in center %}
+											    <option value="{{center.centre_code}}" data-name="{{center.route_number}}"   >{{center.centre_code}}-{{center.name}}</option>
+											    {% endfor %}
+										  	</select>
+											<input type="hidden" name="route" id="route">
+											
+										</td>
+						                <!-- <td><input class="checkbox_checked" type="checkbox" name="check" value="{{ forloop.counter }}"></td> -->
+						                <!-- <td><input type="number" class="width_percent workflowinputRadius" name="code[]" step="any"></td> -->
+						                <td>	&emsp;
+											<select name="milktype[]" >
+											    <option value="cm">CM</option>
+											    <option value="bm">BM</option>
+										  	</select>
+										</td>
+						                <td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="samplecode[]" step="any" style="text-align:right"></td>
+						                <!-- <td><input type="number" class="width_percent workflowinputRadius" name="milktype[]" step="any"></td> -->
+						               
+										<td>&emsp;&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="can[]" step="any" style="text-align:right"></td>
+						                
+										<td>&emsp;&emsp;
+										<input type="number" class="width_percent workflowinputRadius" name="qty[]" step="any" style="text-align:right"></td>
+						               
+						                
+						            </tr>        
+						       </tbody>
+						    </table>
+			    
+			    	
+			 
+						</div>
+			</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			
+		
+			<!--<input type="button" class = "deleterows" id = "delrow" value="delete rows"/>-->
+			
+		</form>
+		<br>
+		<br>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// $(document).on("change", "#centercode", function(){
+ //        var a =  $(this).find(':selected').data('name');
+ //        $("#center_name").val(a);
+ //    });
+    $(document).on("change", "#code_center", function(){
+        var b =  $(this).find(':selected').data('name');
+       	
+        $("#route").val(b);
+        
+    });
+    // $(document).on("change", "#code_center", function(){
+    //     var c =  $(this).find(':selected').data('bankname');
+    //     alert(c);
+    //     $("#bankname").val(c);
+    // });
+    // function Amount(val) {
+    //     var fat = document.getElementById('fat').value;
+    //     var qty = document.getElementById('qty').value;
+    //     var snf = document.getElementById('snf').value;
+    //     var rate_min = '{{rate.rate}}';
+    //    	var quantity = parseFloat(qty)/parseFloat(1.03);
+    //    	var a1 = parseFloat(snf) + parseFloat(fat)
+    //     var rate = ( a1* parseFloat(rate_min))/100;
+    //     var total_amount = parseFloat(rate) * parseFloat(quantity);        
+    //     var amount = document.getElementById('rate');
+    //     var total = document.getElementById('amount');
+    //     total.value = total_amount;
+    //     amount.value = rate;
+    // }
+</script>
+<script>
+	function deleteRow() {
+  document.querySelectorAll('#doctable .select:checked').forEach(e => {
+    e.parentNode.parentNode.remove()
+  });
+}
+//$(document).ready(function(){
+  //  $('#delrow').click(function(){
+    //        $("#doctable input:checkbox").each(function(){
+      //          if (this.checked) {
+        //             $(this).parent().parent().remove();
+          //      }
+            //    return false;  
+
+           // })
+    //});
+    //});
+
+//	$(function(){
+//		$(document).on("click",".deleterows",function(){
+//			var deleterowsfromtable=$(".form-block_1 input:checked").parents("tr").remove();
+//		});
+//	});
+</script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trFirst = $tableBody.find("tr:first");
+		        $trNew = $trFirst.clone();
+				
+		    $trFirst.after($trNew);
+        });
+    });
+
+</script>
+
+{% endblock %}

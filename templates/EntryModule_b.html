@@ -1,0 +1,938 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+var time = new Date();
+
+  var shift = time.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+  
+  $('#shift').val(shift);
+});</script>
+<script>
+$(document).ready( function() {
+var d = new Date();
+var hours = d.getHours() % 12;
+  hours = hours ? hours : 12;
+    var test =  
+    ("00" + d.getMinutes()).slice(-2) + ":" + 
+    ("00" + d.getSeconds()).slice(-2) + ' ' + (d.getHours() >= 12 ? 'PM' : 'AM'); 
+    
+document.getElementById("demo").innerHTML = test;
+});</script>
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: left; !important;
+  		padding: 6px !important;
+  		width: 100%;
+	}
+th{
+	text-align: center !important;
+	padding: 6px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+	width:100% !important;
+}
+.td_border input{
+	width:55% !important;
+}
+th{
+	
+	color:#000 !important;
+}
+input[type=shift]{
+	width:50px !important;
+}  
+input[type=date]{
+	width:140px !important;
+} 
+input[type=text] {
+	width:100px !important;
+}
+ input{
+	width:50px !important;
+}
+</style>
+
+<div class="container">
+	<h2><b><center>Data Entry</center></b></h2>
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+			
+			<div class="col-md-12 col-sm-12 col-xs-12">
+					<form  method="POST"  action="/EntryModule/" enctype="">
+						{% csrf_token %}
+						<div class="col-md-05 col-sm-07 col-xs-09">
+							<h6><b>Data Entries</b></h6>
+							<label><b>Branch</b></label>&ensp;
+							<input type="text" name="branch11" value="{% if user.is_authenticated %}{{user.extendeduser.branch}}{%endif%}" disabled>&emsp;&emsp;&emsp;&emsp;
+							</div>
+							<br><br>
+							<div class="col-md-22 col-sm-22 col-xs-22" style="border: 1px solid #dddddd;">
+							<div class="col-md-12 col-sm-12 col-xs-12  no_pad">	
+								<!--<table>
+									 <tr>						            	
+						                <th width="2%">Area</th>						     
+						                <th width="2%">Block </th>
+						                <th width="2%">Terace No</th> 
+						                <th width="2%">Tree No</th>
+						                <th width="2%">DatePlanted</th>
+						                <th width="2%">Hybrid</th>
+						                <th width="2%">Height</th> 
+						                <th width="2%">Girth</th> 
+						                <th width="2%">NOOfLeave</th>
+						                <th width="2%">Weeds</th>  
+						                <th width="2%">WaterLog</th> 
+						                <th width="2%">MUD</th> 
+						                <th width="2%">Net</th> 
+						                <th width="2%">Ring</th> 
+						                <th width="2%">Pipe</th> 
+						                <th width="2%">FUNGUS</th> 
+						                <th width="2%">Termite</th> 
+						                <th width="2%">Chemical</th> 
+						                <th width="2%">Date</th> 
+						                <th width="2%">Fertiliser</th> 
+						                <th width="2%">Rate</th>
+						                <th width="2%">Date</th> 
+						                <th width="2%">Remarks</th>
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+										<td >
+												
+											<select name="routecode[]" id="route" style="width:35px">
+										    <option value="all">All</option>
+										    {% for censusA in censusA %}
+												    <option value="{{censusA.areaCode}}">{{censusA.areaCode}}</option>
+										  	{% endfor %}
+									  	</select>
+											
+										</td>
+										<td>
+											
+											<select name="centercode[]" id="center" style="width:35px">
+											    <option value="all">All</option>
+											    {% for censusB in censusB %}
+													    <option value="{{censusB.blkCode}}">{{censusB.blkCode}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>
+											
+											<select name="teraceNo[]" id="terace" style="width:55px">
+											     <option value="all">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.teraceNo}}">{{extractplantdata.teraceNo}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>	
+						                	
+											<select name="treeNo[]" style="width:55px" >
+											    <option value="2">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.treeNo}}">{{extractplantdata.treeNo}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>
+						               
+										<input type="date" id="datePicker" name="PDate[]"  style="width:55px" value=""required="">
+           								</td><br><br>
+						                <td>
+											
+											<select name="hybrid[]" id="center" style="width:55px">
+											    <option value="all">All</option>
+											    {% for emsplanttype in emsplanttype %}
+													    <option value="{{emsplanttype.PType}}">{{emsplanttype.PType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						               
+										<td>
+										
+										<input type="number" class="width_percent workflowinputRadius" name="Height[]" step="any" style="width:55px"></td>
+						                <td>
+						                
+										<input type="number" class="width_percent workflowinputRadius" name="Girth[]" step="any" style="width:55px"></td>
+										<td>
+										
+										<input type="number" class="width_percent workflowinputRadius" name="noofleave[]" step="any" style="width:55px"></td>
+										<td>
+							               
+											<select name="weeds[]" id="weeds" style="width:55px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="water[]" id="water" style="width:55px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="mud[]" id="mud" style="width:55px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="net[]" id="net" style="width:35px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="ring[]" id="ring" style="width:35px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="pipe[]" id="pipe" style="width:35px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="fungus[]" id="fungus" style="width:35px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										<td>
+										
+										<select name="termite[]" id="termite" style="width:35px">
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+											
+											<select name="chemicaltype[]" id="chemical" style="width:35px">
+											    <option value="all">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.PNDChType}}">{{extractplantdata.PNDChType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										<td>
+										
+										<input type="date" id="datePicker1" name="Fdate[]"    value=""required="" style="width:35px">
+           								</td>
+           								<td>
+											<select name="Fert[]" id="fertiliser" style="width:35px">
+											    <option value="all">All</option>
+											    {% for  Emsfertiliser in  Emsfertiliser %}
+													    <option value="{{ Emsfertiliser.FType}}">{{ Emsfertiliser.FType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										
+										<td>
+											
+											<select name="rate[]" id="rate" style="width:35px">
+											    <option value="0">0.0</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.ManureRate}}">{{extractplantdata.ManureRate}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										<td>
+										
+										<input type="date" id="datePicker2" name="MDate[]"    value=""required="" style="width:35px">
+           								</td>
+           								<td>
+           								
+     									 <input type="text" name="remarks[]"  id="remarks" style="width:35px"> 
+     									</td>
+						            </tr> -->
+						  	<table class="table display data-table text-nowrap" id ="doctable" >
+							  	    
+			    		
+								<thead class="tableHeadcolor">
+						            <tr>						            	
+						                <th width="2%">Area</th>						     
+						                <th width="2%">Block </th>
+						                <th width="2%">Terace No</th> 
+						                <th width="2%">Tree No</th>
+						                <th width="2%">DatePlanted</th>
+						                <th width="2%">Hybrid</th>
+						                <th width="2%">Height</th> 
+						                <th width="2%">Girth</th> 
+						                <th width="2%">NOOfLeave</th>
+						                <th width="2%">Weeds</th>  
+						                <th width="2%">WaterLog</th> 
+						                <th width="2%">MUD</th> 
+						                <th width="2%">Net</th> 
+						                <th width="2%">Ring</th> 
+						                <th width="2%">Pipe</th> 
+						                <th width="2%">FUNGUS</th> 
+						                <th width="2%">Termite</th> 
+						                <th width="2%">Chemical</th> 
+						                <th width="2%">Date</th> 
+						                <th width="2%">Fertiliser</th> 
+						                <th width="2%">Rate</th>
+						                <th width="2%">Date</th> 
+						                <!--<th width="2%">Remarks</th>-->
+						            </tr>
+						        </thead>
+						        <tbody id='form' class="form-block_1">
+						            <tr class="odd"  role="row">
+										<td >
+												
+											<select name="routecode[]" id="route" style="width:35px" required>
+										    <option value="all">All</option>
+										    {% for censusA in censusA %}
+												    <option value="{{censusA.areaCode}}">{{censusA.areaCode}}</option>
+										  	{% endfor %}
+									  	</select>
+											
+										</td>
+										<td>
+											
+											<select name="centercode[]" id="center" style="width:35px" required>
+											    <option value="all">All</option>
+											    {% for censusB in censusB %}
+													    <option value="{{censusB.blkCode}}">{{censusB.blkCode}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>
+											
+											<select name="teraceNo[]" id="terace" style="width:55px" required>
+											     <option value="all">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.teraceNo}}">{{extractplantdata.teraceNo}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>	
+						                	
+											<select name="treeNo[]" id="tree" style="width:55px" required>
+											    <option value="2">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.treeNo}}">{{extractplantdata.treeNo}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						                <td>
+						               
+										<input type="date" id="datePicker" name="PDate[]"  style="width:55px" value=""required>
+           								</td><br><br>
+						                <td>
+											
+											<select name="hybrid[]" id="hybrid" style="width:55px" required>
+											    <option value="all">All</option>
+											    {% for emsplanttype in emsplanttype %}
+													    <option value="{{emsplanttype.PlantType}}">{{emsplanttype.PlantType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+						               
+										<td>
+										
+										<input type="number" class="width_percent workflowinputRadius" name="Height[]" step="any" id="height" style="width:55px" required></td>
+						                <td>
+						                
+										<input type="number" class="width_percent workflowinputRadius" name="Girth[]" step="any" id="girth" style="width:55px" required></td>
+										<td>
+										
+										<input type="number" class="width_percent workflowinputRadius" name="noofleave[]" id="noofleave" step="any" style="width:55px"required></td>
+										<td>
+							               
+											<select name="weeds[]" id="weeds" style="width:55px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="water[]" id="water" style="width:55px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="mud[]" id="mud" style="width:55px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="net[]" id="net" style="width:35px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="ring[]" id="ring" style="width:35px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="pipe[]" id="pipe" style="width:35px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+										
+										<select name="fungus[]" id="fungus" style="width:35px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										<td>
+										
+										<select name="termite[]" id="termite" style="width:35px" required>
+											
+												<option value="VGOOD">VGOOD</option>
+												<option value="GOOD">GOOD</option>
+												<option value="OK">OK</option>
+												<option value="POOR">POOR</option>
+												</select>
+										</td>
+										<td>
+											
+											<select name="chemicaltype[]" id="chemical" style="width:35px" required>
+											    <option value="all">All</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.PNDChType}}">{{extractplantdata.PNDChType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										<td>
+										
+										<input type="date" id="datePicker1" name="Fdate[]"    value=""required="" style="width:35px" required>
+           								</td>
+           								<td>
+											<select name="Fert[]" id="fertiliser" style="width:35px" required>
+											    <option value="all">All</option>
+											    {% for  Emsfertiliser in  Emsfertiliser %}
+													    <option value="{{ Emsfertiliser.FType}}">{{ Emsfertiliser.FType}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										
+										<td>
+											
+											<select name="rate[]" id="rate" style="width:35px" required>
+											    <option value="0">0.0</option>
+											    {% for extractplantdata in extractplantdata %}
+													    <option value="{{extractplantdata.ManureRate}}">{{extractplantdata.ManureRate}}</option>
+											  	{% endfor %}
+										  	</select>
+										</td>
+										<td>
+										
+										<input type="date" id="datePicker2" name="MDate[]"    value=""required style="width:35px">
+           								</td>
+           								<!--<td>
+           								
+     									 <input type="text" name="remarks[]"  id="remarks" style="width:35px"> 
+     									</td>-->
+						            </tr> 
+						            
+						              
+						                
+						      </tbody>
+						  </table>  
+					</form>	      
+			     			<button type="button" class="btn btn-primary btn-lg" onclick="myFunction()"><a class="btn backgroundBlue add-more-btn addDeleteButton" >Add</a></button>&emsp;&emsp;
+							<button type="submit" class="btn btn-primary btn-lg"  id="submitData" value="" disabled>Submit </button>
+							<br></br>
+			    				<table class="table display data-table1 text-nowrap" style="width:100%;">
+							        <tbody id='form' class="form-block_1">   
+							       </tbody>
+							 	</table>
+			    	</div>
+			</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			
+		
+			
+			
+		</form>
+		<br>
+		<br>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// $(document).on("change", "#centercode", function(){
+ //        var a =  $(this).find(':selected').data('name');
+ //        $("#center_name").val(a);
+ //    });
+    $(document).on("change", "#code_center", function(){
+        var b =  $(this).find(':selected').data('name');
+       	
+        $("#route").val(b);
+        
+    });
+    // $(document).on("change", "#code_center", function(){
+    //     var c =  $(this).find(':selected').data('bankname');
+    //     alert(c);
+    //     $("#bankname").val(c);
+    // });
+    // function Amount(val) {
+    //     var fat = document.getElementById('fat').value;
+    //     var qty = document.getElementById('qty').value;
+    //     var snf = document.getElementById('snf').value;
+    //     var rate_min = '{{rate.rate}}';
+    //    	var quantity = parseFloat(qty)/parseFloat(1.03);
+    //    	var a1 = parseFloat(snf) + parseFloat(fat)
+    //     var rate = ( a1* parseFloat(rate_min))/100;
+    //     var total_amount = parseFloat(rate) * parseFloat(quantity);        
+    //     var amount = document.getElementById('rate');
+    //     var total = document.getElementById('amount');
+    //     total.value = total_amount;
+    //     amount.value = rate;
+    // }
+</script>
+<script>
+	function deleteRow() {
+  document.querySelectorAll('#doctable .select:checked').forEach(e => {
+    e.parentNode.parentNode.remove()
+  });
+}
+//$(document).ready(function(){
+  //  $('#delrow').click(function(){
+    //        $("#doctable input:checkbox").each(function(){
+      //          if (this.checked) {
+        //             $(this).parent().parent().remove();
+          //      }
+            //    return false;  
+
+           // })
+    //});
+    //});
+
+//	$(function(){
+//		$(document).on("click",".deleterows",function(){
+//			var deleterowsfromtable=$(".form-block_1 input:checked").parents("tr").remove();
+//		});
+//	});
+</script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+        	/*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trFirst = $tableBody.find("tr:first");
+		    $trNew = $trFirst.clone();
+		    $trFirst.after($trNew);
+		   
+		   	
+        
+    		var $tableBody1 = $('.data-table1 ').find("tbody");
+			($trNew).attr("readonly", true);
+			($trNew).each(function () {
+                   $(this).children("td").each(function () {
+                   		//$(this).find("input").prop("readonly", true);
+                   	
+                   		//$(this).find("input");
+                   });
+
+               });
+			var rowCount = $('.data-table1 tr').length+1;
+			($trNew).prepend($('<td>').append(rowCount));
+			$tableBody1.prepend($trNew);
+			$("#submitData").prop('disabled', false); //enable
+			$trNew.find("#route").val( $trFirst.find("#route").val());
+		   	$trNew.find("#center").val( $trFirst.find("#center").val());
+		   	$trNew.find("#terace").val( $trFirst.find("#terace").val());
+		   	$trNew.find("#tree").val( $trFirst.find("#tree").val());
+		   	$trNew.find("#hybrid").val( $trFirst.find("#hybrid").val());
+		   	$trNew.find("#weeds").val( $trFirst.find("#weeds").val());
+		   	$trNew.find("#water").val( $trFirst.find("#water").val());
+		   	$trNew.find("#mud").val( $trFirst.find("#mud").val());
+		   	$trNew.find("#net").val( $trFirst.find("#net").val());
+		   	$trNew.find("#ring").val( $trFirst.find("#ring").val());
+		   	$trNew.find("#pipe").val( $trFirst.find("#pipe").val());
+		   	$trNew.find("#fungus").val( $trFirst.find("#fungus").val());
+		   	$trNew.find("#termite").val( $trFirst.find("#termite").val());
+		   	$trNew.find("#chemical").val( $trFirst.find("#chemical").val());
+		   	$trNew.find("#fertiliser").val( $trFirst.find("#fertiliser").val());
+		   	$trNew.find("#rate").val( $trFirst.find("#rate").val());
+			
+
+			
+        });
+    });
+   
+
+</script>
+
+<!--<script type="text/javascript">
+function disable(i){
+    $("#rbutton_"+i).prop("disabled",true);
+}
+</script>-->
+<script>
+function myFunction() {
+  var height = document.getElementById("height").value;
+  var girth = document.getElementById("girth").value;
+  var noofleave = document.getElementById("noofleave").value;
+  
+  	if (!height || !girth || !noofleave) {
+    	//alert("please fill the empty box");
+
+    	return false;
+  	}
+  	else{
+  		return true;
+  	}
+
+}
+</script>
+<!--<script>
+function myFunction() {
+    var btn = document.createElement("Button");
+    var noofleave = document.createTextNode("noofleave").value;
+    document.getElementById("noofleave").focus();
+
+    btn.setAttribute("onclick", alert("please fill the text box"));
+//    btn.appendChild(noofleave);
+    //document.body.appendChild(btn);
+
+}
+</script>-->
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("route").value = localStorage.getItem("route");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("route",document.getElementById("route").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("center").value = localStorage.getItem("center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("center",document.getElementById("center").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("terace").value = localStorage.getItem("terace");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("terace",document.getElementById("terace").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("tree").value = localStorage.getItem("tree");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("tree",document.getElementById("tree").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker").value = localStorage.getItem("datePicker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker",document.getElementById("datePicker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("hybrid").value = localStorage.getItem("hybrid");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("hybrid",document.getElementById("hybrid").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("height").value = localStorage.getItem("height");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("height",document.getElementById("height").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("girth").value = localStorage.getItem("girth");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("girth",document.getElementById("girth").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("noofleave").value = localStorage.getItem("noofleave");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("noofleave",document.getElementById("noofleave").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("weeds").value = localStorage.getItem("weeds");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("weeds",document.getElementById("weeds").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("water").value = localStorage.getItem("water");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("water",document.getElementById("water").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("mud").value = localStorage.getItem("mud");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("mud",document.getElementById("mud").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("net").value = localStorage.getItem("net");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("net",document.getElementById("net").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("ring").value = localStorage.getItem("ring");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("ring",document.getElementById("ring").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("pipe").value = localStorage.getItem("pipe");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("pipe",document.getElementById("pipe").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("fungus").value = localStorage.getItem("fungus");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("fungus",document.getElementById("fungus").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("termite").value = localStorage.getItem("termite");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("termite",document.getElementById("termite").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("chemical").value = localStorage.getItem("chemical");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("chemical",document.getElementById("chemical").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker1").value = localStorage.getItem("datePicker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker1",document.getElementById("datePicker1").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("fertiliser").value = localStorage.getItem("fertiliser");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("fertiliser",document.getElementById("fertiliser").value);
+  });
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("rate").value = localStorage.getItem("rate");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("rate",document.getElementById("rate").value);
+  });
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("datePicker2").value = localStorage.getItem("datePicker2");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("datePicker2",document.getElementById("datePicker2").value);
+  });
+
+</script>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+	<meta charset="utf-8"><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker().datepicker("setDate", new Date()); 
+        }); 
+    }) 
+</script>  
+<?php
+    // Fetch the year, month and day
+    $year = date(Y);
+    $month = date(m);
+    $day = date(d);
+
+    // Merge them into a string accepted by the input field
+    $date_string1= "$year-$month-$day";
+?>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = (now.getFullYear()+2)+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker1').val(today);
+});</script>
+
+<style>
+	th{
+	text-align: center !important;
+	
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<br><button type="button"><a href="/dashboardbranch/pdf/{{datefrom}}/{{dateto}}/{{branchcode}}/{{selecting}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<button type="button"><a href="/excel_dashboardbranch/{{datefrom}}/{{dateto}}/{{branchcode}}/{{selecting}}/" target="_blank"> Excel Download</a></button><br>
+			<form method="POST" action="/dashboardbranch/"  method="get" enctype=""><br>
+				{% csrf_token %}
+				<label><b>Issued to</b></label>&emsp;
+                  <select name="Issued_to"  id="Issuedto" onchange="changeDropdown()">
+
+                  <option value="Date">Date</option>
+                  <option value="Branch" >Branch</option>
+                
+                  </select><br>
+				<label > <b>From Date</b></label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="datePicker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{curdate}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"><b>TO Date</b> </label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="datePicker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label > <b>Branch</b> </label>
+				<select name="brcode" id="branch">
+				    <option value="all" disabled="">All</option>
+				     
+				    
+						    <option value="{{brch}}">{{brch}}</option>
+			
+			  	</select>
+				    			  	
+			  	<label for="fname"><b>Shift</b></label>
+				<select name="dayshift" id="Shift">
+				    <option value="all">All</option>
+				    <option value="AM">AM</option>
+				    <option value="PM">PM</option>				    
+			  	</select>
+
+			  	<label for="fname"> <b>Milk Type</b> </label>
+				<select name="milk_type" id="Milktype">
+				    <option value="all">All</option>
+				    <option value="CM">CM</option>
+					<option value="BM">BM</option>
+			  	</select>				
+				<button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""><b>Get Data</b></button>
+			</form>
+			<br>
+			
+		
+  	<div class="col-sm-12 col-md-12 col-xs-12">
+			<table>
+				<thead>
+					<tr>
+   						<th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">Dashboard</th>
+  					</tr>
+  				</thead>
+			</table>
+			<table id="centerhide">
+				<thead style="background-color: #69bc5f !important;">
+					<tr>						
+						<th width="3%" class="school_activity">Branch code</th>
+						<th width="3%" class="school_activity">Milk Type</th>
+						<th width="3%" class="school_activity">Qty(Kgs)</th>
+						<th width="3%" class="school_activity">Qty(Ltrs)</th>
+						<th width="3%" class="school_activity">FAT</th>
+						<th width="3%" class="school_activity">SNF</th>
+						<th width="3%" class="school_activity">Rate/Ltr</th>
+						<th width="3%" class="school_activity">Gross Amount</th>		
+					</tr>
+				</thead>
+				<tbody>
+
+					{% for queryResult in queryResult %}
+					<!--if(queryResult.branch == total){
+					<tr>
+				}else{queryResult
+					<tr>
+					}-->
+					<tr>
+						<td>{{queryResult.branch}}</td>
+						<td>{{queryResult.Milktype}}</td>
+						<td>{{queryResult.kgs|floatformat:2}}</td>
+						<td>{{queryResult.Ltrs|floatformat:2}}</td>
+						<td>{{queryResult.afat|floatformat:2}}</td>
+						<td>{{queryResult.asnf|floatformat:2}}</td>
+						<td>{{queryResult.RateLTR|floatformat:2}}</td>
+						<td>{{queryResult.gamount|floatformat:2}}</td>											
+					</tr>
+					{% endfor %}	
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br><br>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("branch").value = localStorage.getItem("branch");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("branch",document.getElementById("branch").value);
+  });
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("Issuedto").value = localStorage.getItem("Issuedto");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("Issuedto",document.getElementById("Issuedto").value);
+  });
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("Shift").value = localStorage.getItem("Shift");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("Shift",document.getElementById("Shift").value);
+  });
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("Milktype").value = localStorage.getItem("Milktype");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("Milktype",document.getElementById("Milktype").value);
+  });
+</script>
+{% endblock %}

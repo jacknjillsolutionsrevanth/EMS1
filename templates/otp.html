@@ -1,0 +1,118 @@
+{% extends "header1.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<style>
+    select {
+        width: 100px;
+        margin: 10px;
+    }
+input[type=text],input[type=email],input[type=password], select {
+  width: 20%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+input[type=Number]{
+	width: 25%;
+  padding: 8px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#select:focus {
+     min-width: 150px;
+     width: auto;
+}
+h2{margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 28px;
+line-height: 40px;
+background: #355681;
+background: rgba(53,86,129, 0.8);
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Muli', sans-serif;
+
+}
+#submit
+{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background:#66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+#reset{
+margin: 1em 0 0.5em 0;
+font-weight: normal;
+position: relative;
+text-shadow: 0 -1px rgba(0,0,0,0.6);
+font-size: 20px;
+line-height: 40px;
+background: #66CCFF;
+border: 1px solid #fff;
+padding: 5px 15px;
+color: white;
+border-radius: 0 10px 0 10px;
+box-shadow: inset 0 0 5px rgba(53,86,129, 0.5);
+font-family: 'Arial', sans-serif;
+}
+	</style>
+	<script>
+
+    $(document).ready(function(){
+    document.getElementById("agent").value = localStorage.getItem("agent");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("agent",document.getElementById("agent").value);
+  });
+
+	</script>
+
+<div class="container">
+	                
+	<h2><center>OTP</center></h2><br><br>
+	<form  method="POST" action="/otp/" enctype="">
+		{{form}}
+		{% csrf_token %}
+		<div class="col-md col-sm">
+    
+       
+        <center>
+		
+		<label for="otp"><b>Enter OTP  </b>  </label>&emsp;&emsp;&emsp;
+		<input type="number" name="otp">&nbsp;&nbsp;
+		
+		
+		
+		<button type="submit"   type="submit" class="btn btn-primary btn-lg"> Verify </button>
+		</center>
+	</form>
+      
+		
+	
+</div>
+
+
+{% endblock %}

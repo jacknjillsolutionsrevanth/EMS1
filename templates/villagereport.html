@@ -1,0 +1,151 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+
+<style>
+	th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px white;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<br><button type="button"><a href="/villagereport/pdf/{{villagecode}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<button type="button"><a href="/excel-village-report/{{villagecode}}/" target="_blank"> Excel Download</a></button><br>
+			<form method="POST" action="" enctype=""><br>
+				{% csrf_token %}
+				<label for="fname"><b>From Date</b> </label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"> <b>TO Date</b></label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				<!--<input class="border_foot" type="date" id="my_date_picker" name="date_to" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"><b>Village</b>  </label>
+				<select name="villagecode">
+				    <option value="all">All</option>
+				    {% for village in village %}
+						    <option value="{{village.code}}">{{village.code}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	<!--<label for="fname"><b>Center</b> </label>
+				<select name="centercode">
+				    <option value="all">All</option>
+				    {% for center in center %}
+						    <option value="{{center.centre_code}}">{{center.centre_code}}</option>
+				  	{% endfor %}
+                  </select>-->
+     
+				  <button type="submit" class="btn btn-primary btn-lg" id="getdata" value=""> Get Data </button>
+				<br><br>
+			</form>
+			<table>
+				<thead>
+					<tr>
+   						 <th colspan="5" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">Village Report</th>
+  					</tr>
+  				</thead>
+			</table>
+			<table>
+				<thead style="background-color: #69bc5f !important;" id="centershow">
+					<tr>
+						<!-- <th width="30%" class="school_activity"><center> <label ><b>&emsp;&emsp;Center</b>&emsp;:&emsp;</label>
+				  		<select name="category_cow">
+						 <option value="">All</option>
+					  	{% for center in dc %}
+							    <option value="{{center.centercode}}">{{center.centercode}}</option>
+					  	{% endfor %}
+					  	</select></th> -->
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+						
+					</tr>
+				</thead>
+			</table>
+				<table id="centerhide">
+				<thead style="background-color: #69bc5f !important;">
+					<tr>
+						
+						<th width="10%" class="school_activity">Village Code</th>
+                        <th width="10%" class="school_activity">Village Name</th>
+                        <th width="10%" class="school_activity">Route Code</th>
+           
+						
+						
+						<!--<th width="10%" class="school_activity">Receviable</th>
+						<th width="10%" class="school_activity">Payment</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for vr in vr %}
+					<tr>
+						<td>{{vr.code}}</td>
+						<td>{{vr.name}}</td>
+						<td>{{vr.Route_attached}}</td>
+						
+						
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div><br><br><br><br><br><br>
+<script src="{% static 'js/ajax-jquery.min.js' %}"></script>
+<script type="text/javascript">
+/*$("#displaytable").hide();
+*/
+$(document).ready(function(){
+	/*$("#centerhide").hide()
+		$('#centershow').click(function() {
+		
+			
+
+			$("#centerhide").show()
+			
+		
+	});*/
+});
+
+$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+});
+</script>
+{% endblock %}

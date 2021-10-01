@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+            .title_middle{text-align: center;
+            }
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: right;
+            font-family: arial, sans-serif;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+        </style>
+    </head>
+    <body>
+            <h1 class="uppercase">LS MILK TRADERS {{name}}<br>{{name}}</h1>
+           
+            <h2 class="title_middle">Loan Report From {{datefrom}} to {{dateto}}<br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            <!--<p class="title_middle">route code : {{routecode}}<br>
+
+           </p><p class="title_middle">center code : {{centercode}}<br>
+
+           </p>-->
+           <table class="title_middle1">
+               <tr>
+                   <th>Center : {{centercode}} <br>
+                                     
+                    </th>
+                   <th>
+                        Route : {{routecode}}<br>
+                        
+                   </th>
+               </tr>
+           </table>
+            
+<h2>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
+            
+           
+        <table>
+            <tr>
+                        <th width="10%" class="school_activity">Route</th>
+                        <th width="5%" class="school_activity">Loan No</th>
+
+                        <th width="8%" class="school_activity">Center</th>
+                        <th width="8%" class="school_activity">Issue Date</th>
+                        <th width="12%" class="school_activity">Closing Date</th>
+
+                        <th width="8%" class="school_activity">Amount</th>
+                        <th width="15%" class="school_activity">NoofInstallments</th>
+
+                        <th width="8%" class="school_activity">Interest Rate</th>
+                        <th width="8%" class="school_activity">Loan Duration</th>
+                        <th width="15%" class="school_activity">Interest Amount</th>
+                        <th width="10%" class="school_activity">Installments Amount</th>
+                        
+                        <!--<th width="10%" class="school_activity">Receviable</th>
+                        <th width="10%" class="school_activity">Payment</th>-->
+                    </tr>
+                    {% for data in data %}
+                    <tr>
+                        <td>{{data.route}}</td>
+                        <td>{{data.loan_no}}</td>
+
+                        <td>{{data.center}}</td>
+                        <td>{{data.loan_date}}</td>
+                        <td>{{data.closingdate}}</td>
+
+                        <td>{{data.principal_amt}}</td>
+                        <td>{{data.noofinstallments}}</td>
+
+                        <td>{{data.interest_rate}}</td>
+                        <td>{{data.loan_duration}}</td>
+                        <td>{{data.interest_amt}}</td>
+                        <td>{{data.installment_amt}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                   
+
+           <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Totals</td>
+                <td style="text-align:right !important">{{total_r}}</td>
+                <td style="text-align:right !important">{{total_p}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Difference(Receviable & payment)</td>
+                <td style="text-align:right !important">{{tp}}</td>
+                <td style="text-align:right !important">{{tr}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:right !important">{{total_recsum}}</td>
+                <td style="text-align:right !important">{{total_paysum}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:right !important">Total</td>
+                <td style="text-align:right !important">{{total_sum}}</td>
+            </tr>-->
+
+        </table>
+<!-- <h6>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</h6>
+<table>
+    <tr>
+        <th>Additions</th>
+        <th>Recoveries</th>
+        <th>Bill Details</th>
+    </tr>
+    <tr>
+        <th>Auto Fine :  - <br>  
+            Cartage : -  <br>
+         Others : - <br>
+     -------------------------
+     <br>        0.0<br>
+ ---------------------------</th>
+        <th> Stationary : - <br>
+            Cattle Feed:   - <br>
+            Seed:        -   <br>
+            EMT:         - <br>
+            Advance Rec :  - <br>
+            Finance Rec :  - <br>
+            Stores  :  -  <br>
+            Others :  - 0.0  <br>
+            ------------------------------<br>
+            0.0 <br>
+            -----------------------------
+        </th>
+        <th>Milk Value :  - <br>
+            P&I Exp. :   - <br>
+            Additions :       -   <br>
+            --------------------------<br>
+            Gross Amount : -  <br>
+            Recoveries :  -  0.0<br>
+            -----------------------------------<br>
+            Net Payable : - <br>
+            ---------------------------------------<br>
+
+        </th>
+    </tr>
+
+    <tr>
+        <th> Milk Value/Ltr : <br>
+        Avg. Per Day : </th>
+    </tr>
+</table>-->
+ 
+    </body>
+</html>

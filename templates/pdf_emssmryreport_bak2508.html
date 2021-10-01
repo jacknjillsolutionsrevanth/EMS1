@@ -1,0 +1,152 @@
+{% load mathfilters %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <style>
+            
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 0px solid #dddddd;
+              text-align: center;
+              /*padding: 8px;*/
+              padding-top: 1px;
+              padding-bottom: 1px;
+              font-size: 13px;
+              font-family: Verdana;
+            }
+            
+            .title_middle{text-align: center;
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle1{
+            font-family: arial, sans-serif;
+            font-size: 15px;}
+            .title_middle2{text-align: center;
+            font-family: arial, sans-serif;
+            font-size: 13px;
+            }
+            h1.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+    font-family: arial, sans-serif;
+    font-size: 18px;
+}
+
+        </style>
+    </head>
+     </style>
+    </head>
+    <body>
+             <h1 class="uppercase">METRO LAGENDA SDN BHD </h1>
+
+            <h2 class="title_middle">EMS - PLANTATION CENSUS SUMMARY REPORT </h2>
+
+             <h3 class="title_middle2">PLANTATION DATE FROM {{datefrom1}} to {{dateto1}}</h3>
+
+            <table class="title_middle1">
+               <tr>
+                <hr>
+                   <th>Area : {{routecode}} <br>
+                                     
+                    </th>
+                   <th>
+                        Block : {{centercode}}<br>
+                        
+                   </th>
+               </tr>
+            
+           </table>
+            <hr>    
+        <table>
+            <tr>
+                <th width="20%" class="school_activity">S.NO</th>
+                <th width="20%" class="school_activity">Area</th>
+                <th width="20%" class="school_activity">Block</th>
+                <th width="20%" class="school_activity">Terace</th> 
+                <th width="20%" class="school_activity">Live Tree</th>
+                <th width="20%" class="school_activity">Dead Tree</th>
+                <th width="20%" class="school_activity">Total Tree </th>               
+            </tr>
+           
+            <tbody>
+                    
+                    {% for center1 in data %}
+                    <tr>
+                                <td >{{ forloop.counter }}</td>                        
+                                <td style="text-align:center !important">{{center1.areaCode}}</td>                      
+                                <td style="text-align:center !important">{{center1.blkCode}}</td>
+                                <td style="text-align:center !important">{{center1.teraceNo}}</td>
+
+                                <td style="text-align:right !important">{{center1.LivCnt|floatformat:0}}&emsp;&emsp;</td>
+                                <td style="text-align:right !important">{{center1.DedCnt|floatformat:0}}&emsp;&emsp;</td>
+                                <td style="text-align:right !important">{{center1.TotCnt|floatformat:0}}&emsp;&emsp;</td>
+                                        
+                        </tr>
+                        {% if center1.cid == 1 %}
+                        <thead style="background-color: #60bc1f !important;">   
+                        <tr>
+                          <th width="20%" class="school_activity"></th>  
+                        <th width="20%" class="school_activity"> </th>
+                        
+                        <th width="20%" class="school_activity"> </th>    
+                        <th width="20%" class="school_activity"> </th>                   
+                        <th width="20%" class="school_activity">----------- </th>
+                        <th width="20%" class="school_activity"> </th>
+                        <th width="20%" class="school_activity">----------- </th>
+                        </tr>
+                        <tr>
+
+                        <th width="20%" class="school_activity"> Sub Total</th>  
+                        <th width="20%" class="school_activity">{{center1.areaCode}}</th>
+                        
+                        <th width="20%" class="school_activity">{{center1.blkCode}}</th>    
+                        <th width="20%" class="school_activity">Teraces &emsp;&emsp;</th>                   
+                        <th width="20%" class="school_activity">{{center1.TeraceCnt}}&emsp;&emsp;</th>
+                        <th width="20%" class="school_activity">Trees &emsp;&emsp;</th>
+                        <th width="20%" class="school_activity">{{center1.LivSum|floatformat:0}}&emsp;&emsp;</th>
+                        
+                        
+                        </tr>
+
+                         <tr>
+                          <th width="20%" class="school_activity"></th>  
+                        <th width="20%" class="school_activity"></th>
+                        
+                        <th width="20%" class="school_activity"> </th>    
+                        <th width="20%" class="school_activity"> </th>                   
+                        <th width="20%" class="school_activity">----------- </th>
+                        <th width="20%" class="school_activity"> </th>
+                        <th width="20%" class="school_activity">----------- </th>
+                        </tr>
+
+                        </thead>                        
+                        {% endif %}
+                        {% endfor %}
+                        </table>
+
+               
+                </tbody>
+            </table>
+                <table>
+                <tr>
+                        <hr>
+                        <td style="text-align:left !important">Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td  style="text-align: center !important">{{total_gLivsum_detail|floatformat:0}}</td>
+                        <td  style="text-align: center !important">{{total_gDedsum_detail|floatformat:0}}</td>
+                        <td style="text-align:center !important">{{total_gamtsum_detail|floatformat:0}}</td>
+                    
+                 </tr>
+            </hr>
+        </table>
+        <hr>
+    </body>
+
+</html>

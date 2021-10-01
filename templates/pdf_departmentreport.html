@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: center;
+			  /*padding: 8px;*/
+			  padding-top: 8px;
+			  padding-bottom: 8px;
+			}
+			.title_middle{text-align: center;}
+		</style>
+	</head>
+	<body>
+			<h2 class="title_middle">Department Report<br>{{datefrom}} to {{dateto}}</h2>
+			<p class="title_middle">Department code : {{departmentcode}}<br>
+
+		   </p><br>
+		<table>
+            <tr>
+                <th>Department Code</th>
+                <th>Department Name</th>
+                       
+			</tr>
+            {% for dr in data %}
+            <tr>
+                <td>{{dr.dcode}}</td>
+                <td>{{dr.dname}}</td>
+					</tr>
+			{% endfor %}
+		
+	
+		
+		</table>
+	</body>
+</html>

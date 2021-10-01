@@ -1,0 +1,136 @@
+ {% extends 'header.html' %}
+ {% block title %}Ls Milks{% endblock %}
+{% block content %}
+
+
+<style>
+  input[type=text],input[type=email],input[type=password],input[type=number],select {
+  width: 17%;
+  padding: 6px;
+  border:  1px solid #D3D3D3;
+  border-radius: 4px;
+  resize: vertical;
+}
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+<center>
+     <h2> <center> Irrigation </center></h2><br>
+<form id="irrigation-form" method="POST" action="" enctype="">
+    {% csrf_token %}
+
+       &emsp;&emsp;&emsp; &emsp; <label for="uname"><b>Icode</b> &nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="text" name="Icode" width="20%" id="Icode" />
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Block</b></label> &emsp;
+      <input type="text" name="Block" id="Block" />&ensp;&ensp;<br><br><br>
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Pump</b></label> &emsp;
+      <input type="text" name="Pump" id="Pump" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Duration</b></label> &emsp;
+      <input type="text" name="Duration" id="Duration" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Qtypertree</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Qtypertree" id="Qtypertree" />&ensp;&ensp;<br><br><br>
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Freqofpumping</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Freqofpumping" id="Freqofpumping" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Fuelcostperhour</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Fuelcostperhour" id="Fuelcostperhour" />&ensp;&ensp;<br><br><br>
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Incrper</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Incrper" id="Incrper" />&ensp;&ensp;<br><br><br>
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Istage</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Istage" id="Istage" />&ensp;&ensp;
+
+       &emsp;&emsp;&emsp;&emsp;&emsp; <label for="uname"><b>Iendage</b></label> &emsp;&emsp;&emsp;
+      <input type="text" name="Iendage" id="Iendage" />&ensp;&ensp;
+
+            
+
+
+    <!-- <label><b>Select Date</b></label>&ensp;&ensp;
+    <input type="date" name="noticedate" id="noticedate">&ensp;&ensp; -->
+<br>
+<br>
+<button type="submit" class="btn btn-primary btn-lg"> Submit </button>
+<button type="New" class="btn btn-primary btn-lg"> New </button>
+<a type="edit"class="btn btn-primary btn-lg" value="edit"  href="/manage_irrigation/">Edit</a>
+<button type="reset" class="btn btn-primary btn-lg" value="Reset"> Reset </button>&ensp;&ensp;
+    
+</form>
+
+<!-- <script>
+function compare()
+{
+
+    var tex1 = document.getElementById('Icode').value;
+   
+    var tex2 = document.getElementById('noticename').value;
+
+   
+    // var startDt = document.getElementById("startDate").value;
+    // var endDt = document.getElementById("endDate").value;
+    var fromDate = document.getElementById("effectedfromdate").value;
+    var toDate = document.getElementById("effectedtodate").value;
+
+    if( fromDate == "" || toDate == "")
+    {
+      alert("Please select Valid Date");
+      return;
+    }
+    else{
+      $('#notice-marque').html('Hi sravya');
+    }
+    
+  
+}
+
+
+
+</script> -->
+
+
+{% endblock %}
+
+
+
+
+
+

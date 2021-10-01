@@ -1,0 +1,335 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% block content %}
+<link href='https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' rel='stylesheet'> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+
+    }) 
+	$( ".start_date" ).datepicker({
+	  defaultDate: +7
+	});
+
+</script> 
+<!--<script>
+var date_input =document.getElementById('my_date_picker');
+date_input.onchange = function(){
+   var selecteddate = new Date(this.value);
+   print("dfghjk",selecteddate)
+   var nexdate=1000*60*60*24*30;   //30 day count 
+   document.getElementById('my_date_picker1').max = new Date((selecteddate.getTime()+(nexdate)) - selecteddate.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+}
+</script>-->
+<script type="text/javascript">
+ $('#my_date_picker').datepicker({
+        maxDate: "+90d",
+        minDate:0
+    });
+</script>
+<style>
+	th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px white;
+}
+
+	.css-serial {
+ counter-reset: serial-number; 
+}
+.css-serial td:first-child:before {
+ counter-increment: serial-number;
+ content: counter(serial-number); 
+}
+.total-column {
+    text-align:right;
+}
+	
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<br><button type="button"><a href="/censusreport/pdf/{{datefrom}}/{{dateto}}/{{areacode}}/{{blkcode}}/{{Date}}/" target="_blank"> PDF Download</a></button>&emsp;
+			<button type="button"><a href="/excelCensusReport/{{datefrom}}/{{dateto}}/{{areacode}}/{{blkcode}}/{{Date}}/" target="_blank"> Excel Download </a></button><br>
+			<form method="POST" action="" id="main" name="main" method="get" onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" enctype=""><br>
+				{% csrf_token %}
+				<label><b>Date</b></label>&emsp;
+                  <select name="Date"  id="Date" onchange="changeDropdown()">
+
+                  <option value="Plant">Plant</option>
+                  <option value="Census">Census</option>
+                  <option value="Data Ext">Data Ext</option>
+                  <option value="Manure">Manure</option>
+                  </select>
+                  &emsp;
+				<label for="fname" onChange="onDateChange(event)"><b>{{Date}} Date From </b> </label>
+				&emsp;&emsp;
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')"  id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}" >	
+				&emsp;&emsp;			
+				<label for="fname"> <b>To </b></label>
+				&emsp;&emsp;
+				<input class="border_right" type="date"  id="my_date_picker1" onfocus="(this.type='date')" onblur="(this.date')" type='date'name="dateto" placeholder="Enter MM/DD/YYYY" required=""value="{{end_of_m|date:'Y-m-d'}}" >
+
+				
+				&emsp;&emsp;
+			  	<label for="fname"><b>Area</b>  </label>
+			  	&emsp;&emsp;
+				<select name="areacode" id="areacode">
+				    <option value="all">All</option>
+				    {% for arA in arA %}
+						    <option value="{{arA.areaCode}}">{{arA.areaCode}}</option>
+				  	{% endfor %}
+			  	</select>
+				
+			  	<br>
+			  	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			  	<label for="fname" onChange="onDateChange(event)"><b>Age in Months </b> </label>
+			  	&emsp;&emsp;
+				<select name="TreeAgeFrom" id="TreeAgeFrom">
+					<option value="0">Within Mth</option>
+				    <option value="1">1 Mth</option>
+				    <option value="7">7th Mth</option>
+				    <option value="13">1 year</option>
+				    <option value="25">2 years</option>
+				    <option value="37">3 years</option>
+				    <option value="49">4 years</option>
+				    <option value="61">5 years</option>
+				    <option value="73">6 years</option>
+				    <option value="85">7 years</option>
+				    <option value="97">8 years</option>
+				    <option value="109">9 years</option>
+				    <option value="121">11 years</option>			    
+				    
+				   
+			  	</select>
+			  	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"> <b>To </b></label>
+				&emsp;&emsp;
+				<select name="TreeAgeTo" id="TreeAgeTo">
+				    <option value="1">Within Mth</option>
+				    <option value="2">2 Mth</option>
+				    <option value="6">6th Mth</option>
+				    <option value="12">1 year</option>
+				    <option value="24">2 years</option>
+				    <option value="36">3 years</option>
+				    <option value="48">4 years</option>
+				    <option value="60">5 years</option>
+				    <option value="72">6 years</option>
+				    <option value="84">7 years</option>
+				    <option value="96">8 years</option>
+				    <option value="108">9 years</option>
+				    <option value="120">11 years</option>
+				    <option value="180">15 years</option>
+				   
+			  	</select>
+			  	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			  	<label for="fname"><b>Block</b>  </label>
+			  	&emsp;&emsp;
+				<select name="blkcode" id="blkcode">
+				    <option value="all">All</option>
+				    {% for arF in arF %}
+						    <option value="{{arF.blkCode}}">{{arF.blkCode}}</option>
+				  	{% endfor %}
+			  	</select>
+
+     			&emsp;&emsp;&emsp;&emsp;
+				  <button type="submit" class="btn btn-primary btn-lg" id="getdata"  value="CountRows" onclick = "CountRows()" onclick="function()" > Get Data </button>
+				<br><br>
+			</form>
+			<table class="css-serial" id="tblCustomers">
+				<thead>
+					<tr>
+						<th colspan="19" class="title_dash" style="text-transform: capitalize;background-color: #5d50c6 !important;">EMS CENSUS REPORT  &nbsp;&nbsp;&emsp;&emsp;<br>
+   						  {{Date}} Date {{datefrom1}} {{a}} {{dateto1}} &emsp;&emsp;   <br> 
+   							Age {{TreeAgeFrom}} {{a}} {{TreeAgeTo}} {{a4}}  &nbsp;&nbsp;&emsp;&emsp; Area {{a1}} {{areacode}}  &emsp;&emsp; Block {{a1}} {{blkcode}}</th>
+  					</tr>
+  				</thead>
+			
+				<thead style="background-color: #69bc5f !important;">
+					<tr>						
+						<th width="3%" class="school_activity">S.No</th>
+						<th width="5%" class="school_activity">Area </th>
+						<th width="5%" class="school_activity">Block </th>
+						<th width="5%" class="school_activity">Terrace </th>
+                        <th width="5%" class="school_activity"> Tree No</th>
+                        <th width="10%" class="school_activity">Plantation Date</th>
+						<th width="5%" class="school_activity"> Type</th>
+						<th width="6%" class="school_activity">Height</th>
+                        <th width="5%" class="school_activity">Girth</th>
+						<th width="5%" class="school_activity">Leaves</th>
+						<th width="5%" class="school_activity">Age (in Months)</th>
+						<th width="6%" class="school_activity"> PND Fungus </th>
+						<th width="6%" class="school_activity">PND Termite </th>
+						<th width="6%" class="school_activity"> PND Chemical </th>
+						<th width="10%" class="school_activity">PND_Date</th>
+						<th width="6%" class="school_activity">Manure Rate</th>
+						<th width="15%" class="school_activity">Manure Date</th>
+						<th width="20%" class="school_activity">Remarks</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for arv in dd %}
+					<tr>
+						<td style="text-align:center !important">&nbsp;</td>
+						<td style="text-align:center !important">{{arv.areaCode}}</td>
+						<td style="text-align:center !important">{{arv.blkCode}}</td>	
+						<td style="text-align:center !important">{{arv.teraceNo}}</td>					
+						<td style="text-align:center !important">{{arv.treeNo}}&nbsp;&nbsp;</td>
+						<td style="text-align:center !important">{{arv.plantDate|date:'d-m-Y' }}</td>
+						<td style="text-align:center !important">{{arv.plantType}}</td>
+						<td style="text-align:center !important">{{arv.height|floatformat:2}} &nbsp;&nbsp;</td>
+                        <td style="text-align:center !important">{{arv.girth|floatformat:2}}&nbsp;&nbsp;</td>
+						<td style="text-align:center !important">{{arv.leaveCnt }}&nbsp;&nbsp;</td>
+						<td style="text-align:center !important">{{arv.TreeAge |floatformat:0}}&nbsp;&nbsp;</td>
+						
+                    	<td style="text-align:center !important">{{arv.PnDFung}}</td>
+                    	<td style="text-align:center !important">{{arv.PNDTermite }}</td>
+
+                    	<td style="text-align:center !important">{{arv.PNDChType}}</td>
+                    	<td style="text-align:center !important">{{arv.PNDDate|date:'d-m-Y'}}</td>
+                    	<!--<td>{{ar.seed}}</td>-->
+                    	<td style="text-align:right !important">{{arv.ManureRate|floatformat:2}}&nbsp;&nbsp;</td>
+                    	<td style="text-align:center !important">{{arv.ManureDate|date:'d-m-Y'}}</td>
+                    	<td>{{arv.Remarks}}</td>
+					</tr>
+                    </tbody>
+                    {% endfor %}
+                    
+				</table>
+
+				<table>
+					<tr>
+					
+					<td width="93%" style="text-align:center !important">End Of File</td>	
+						
+					</tr>
+				
+				</table><br>
+
+
+	 		<br>
+  
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    function CountRows() {
+        var totalRowCount = 0;
+        var rowCount = 0;
+        var table = document.getElementById("tblCustomers");
+        var rows = table.getElementsByTagName("tr")
+        for (var i = 0; i < rows.length; i++) {
+            totalRowCount++;
+            if (rows[i].getElementsByTagName("td").length > 0) {
+                rowCount++;
+            }
+        }
+        var message = "Total Row Count: " + totalRowCount;
+        message += "\nRow Count: " + rowCount;
+        #alert(message);
+    }
+</script>
+		</div>
+	</div>
+</div><br><br><br><br><br><br>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+  });
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("TreeAgeFrom").value = localStorage.getItem("TreeAgeFrom");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("TreeAgeFrom",document.getElementById("TreeAgeFrom").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("TreeAgeTo").value = localStorage.getItem("TreeAgeTo");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("TreeAgeTo",document.getElementById("TreeAgeTo").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("blkcode").value = localStorage.getItem("blkcode");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("blkcode",document.getElementById("blkcode").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("Date").value = localStorage.getItem("Date");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("Date",document.getElementById("Date").value);
+  });
+
+</script>
+<script type="text/javascript"></script>
+<script type="text/javascript">
+/*$("#displaytable").hide();
+*/
+$(document).ready(function(){
+	/*$("#centerhide").hide()
+		$('#centershow').click(function() {
+		
+			
+
+			$("#centerhide").show()
+			
+		
+	});*/
+});
+
+$(document).ready(function(){
+
+    $('[name="start_date"]').val( '{{start_of_yr | date:"m/d/yy"}}' );
+    $('[name="end_date"]').val( '{{end_of_yr | date:"m/d/yy"}}' );
+});
+</script><br><br>
+{% endblock %}

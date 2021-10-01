@@ -1,0 +1,348 @@
+{% extends "header.html" %}
+{% block title %}JacknJill{% endblock %}
+{% block description %}{% endblock %}
+{% block keyword %}{% endblock %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<script> 
+    $(document).ready(function() { 
+        $(function() { 
+            $( "#my_date_picker" ).datepicker(); 
+        }); 
+    }) 
+</script> 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#datePicker').val(today);
+});</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+	table 
+	{
+	  border-collapse: collapse !important;
+	  /*width: 100%;*/
+	}
+td 
+	{
+  		border: 1px solid #dddddd !important;
+  		text-align: center; 
+  		padding: 7px !important;
+	}
+th{
+	text-align: center !important;
+	padding: 7px !important;
+	border: 1px solid #dddddd !important;
+}
+.no_pad{
+	padding-left:0px !important;
+	padding-right: 0px !important;
+}
+.td_border{
+	border:none !important;
+}
+.td_border input{
+	width:55% !important;
+}
+.btn_delete{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_delete:hover{
+	background-color: rgb(83,4,4);
+}
+.btn_submit{
+	padding: 8px 10px;
+	font-size: 10px;
+	text-align: center;
+	width:100px;
+	display: block;
+	background-color: brown;
+	color:#fff;
+	cursor:pointer;
+}
+.btn_submit:hover{
+	background-color: rgb(83,4,4);
+}
+th{
+	
+	color:#000 !important;
+}
+ input{
+	width:55px !important;
+	
+}
+input[type=date]{
+	width:150px !important;
+}  
+ 
+
+</style>
+
+
+<div class="container">
+	<div style="border:1px solid #dddddd;padding:10px;margin:10px;">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<form  method="POST"  action="" action1="/manage_EntryModule/" enctype="">
+				{% csrf_token %}
+				<h2><b><center>EntryModule Manage</center></b></h2>
+				<label for="fname"> <b> Plantation Date From </b></label>
+				<input class="border_right " type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker" name="datefrom" placeholder="Enter MM/DD/YYYY" required="" value="{{start_of_m|date:'Y-m-d'}}">
+				<!--<input class="border_foot start_date" type="date" id="my_date_picker" name="date_from" placeholder="Enter MM/DD/YYYY" required="">-->
+				<label for="fname"><b>To </b> </label>
+				<input class="border_right" type="date" onfocus="(this.type='date')" onblur="(this.type='date')" id="my_date_picker1" name="dateto" placeholder="Enter MM/DD/YYYY" value="{{end_of_m|date:'Y-m-d'}}" required="">
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<label for="fname"> <b>Area</b> </label>
+				<select name="routecode" id="route" >
+				    <option value="all">All</option>
+				    {% for censusA in censusA %}
+						    <option value="{{censusA.areaCode}}">{{censusA.areaCode}}</option>
+				  	{% endfor %}
+			  	</select>
+			  	&emsp;&emsp;&emsp;&emsp;
+			  	<label for="fname"><b>Block</b></label>
+				<select name="centercode" id="center">
+				    <option value="all">All</option>
+				    {% for censusB in censusB %}
+						    <option value="{{censusB.blkCode}}">{{censusB.blkCode}}</option>
+				  	{% endfor %}
+			  	</select> 
+				
+				<br><br>
+				
+			  	</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				<button type="button" class="btn btn-primary btn-lg" id="getdata" value=""> ..Fetch Disabled for Now.. </button>
+			  	
+			</form>
+
+			
+			<br>
+			<br>
+
+
+
+			
+			<form  method="POST"  action="/csv_EntryModule/" enctype="">  
+				{% csrf_token %}
+
+			<div class="col-md-12 col-sm-12 col-xs-12" id="table_notshow">
+				<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					
+						<table>
+							<thead class="tableHeadcolor">
+					             <tr>						            	
+						                <th>Area</th>						     
+						                <th>Block </th>
+						                <th>Terace No</th> 
+						                <th>Tree No</th>
+						                <th>Date Planted</th>
+						                <th>Hybrid</th>
+						                <th>Height (CM)</th> 
+						                <th>Girth (CM)</th> 
+						                <th>NO Of Leave</th>
+						                <th>Weeds</th>  
+						                <th>WaterLog</th> 
+						                <th>MUD</th> 
+						                <th>Net</th> 
+						                <th>Ring</th> 
+						                <th>Pipe</th> 
+						                <th>FUNGUS</th> 
+						                <th>Termite</th> 
+						                <th>Chemical Type</th> 
+						                <th>Date</th> 
+						                <th>Fertiliser Type</th> 
+						                <th>Rate (KG)</th>
+						                <th>Date</th> 
+						                
+						                <th>Remove</th>
+						            </tr>
+					        </thead>
+					        <tbody id='form' class="form-block_1">
+					        	<input type="hidden"  value="{{areaCode}}" name="routecode_t2" >
+					        	<input type="hidden" name="centercode_t2" value="{{blkCode}}" >
+					        	<input type="hidden"  value="{{datefrom}}" name="PDate_t2" >
+					        	<input type="hidden" name="PDate_t2" value="{{dateto}}" >
+					      		{% for EM in EM %}
+					            	<tr class="odd"  role="row">
+
+					            	<input type="hidden" value="{{EM.id}}" name="dcid11[]">
+					            		<td>
+					            			<input type="text"  value="{{EM.areaCode}}"  name="routecode[]" style="text-align:right"id="route" style="width:35px"></td>
+										</td>
+										<td>
+											<input type="text"  value="{{EM.blkCode}}"  name="centercode[]" style="text-align:right"id="center" style="width:35px"></td>
+											
+										</td>
+						                <td>
+											<input type="text"  value="{{EM.teraceNo}}"  name="teraceNo[]"style="text-align:right" style="width:35px"></td>
+											
+										</td>
+						                <td>	
+						                	<input type="text"  value="{{EM.treeNo}}"  name="treeNo[]" style="text-align:right" style="width:35px"></td>
+											
+										</td>
+						                <td>
+						               
+										<input type="date" name="PDate[]"   value="{{EM.plantDate|date:'Y-m-d'}}" style="width:65px">
+           								</td>
+						                <td>
+											<input type="text"  value="{{EM.plantType}}" name="hybrid[]" style="text-align:right" style="width:35px"></td>
+											
+										</td>
+						               
+										<td>
+										<input type="number" name="Height[]" step="any" value="{{EM.height}}"  style="text-align:right" style="width:35px"></td>
+						                <td>
+						                
+										<input type="number"  name="Girth[]" value="{{EM.girth}}" step="any" style="text-align:right" style="width:35px"></td>
+										<td>
+										
+										<input type="number" name="noofleave[]" value="{{EM.leaveCnt}}" step="any" style="text-align:right" style="width:35px"></td>
+										<td>
+							               	<input type="text" name="weeds[]" value="{{EM.tcWeeType}}" step="any" style="text-align:right" style="width:35px"></td>
+										</td>
+										<td>
+										<input type="text" name="water[]" value="{{EM.tcWaterlog}}" step="any" style="text-align:right" style="width:35px"></td>
+										</td>
+										<td>
+										<input type="text" name="mud[]" value="{{EM.tcMud}}" step="any" style="text-align:right" style="width:35px"></td>
+										</td>
+										<td>
+										<input type="text"  name="net[]" value="{{EM.TCNet}}" step="any" style="text-align:right" style="width:35px"></td>
+										
+										</td>
+										<td>
+										<input type="text"  name="ring[]" value="{{EM.WTRing}}" step="any" style="text-align:right" style="width:35px"></td>
+										
+										</td>
+										<td>
+										<input type="text"  name="pipe[]" value="{{EM.Waterpipe}}" step="any" style="text-align:right" style="width:35px"></td>
+										
+										</td>
+										<td>
+										<input type="text"  name="fungus[]" value="{{EM.PnDFung}}" step="any" style="text-align:right" style="width:35px"></td>
+										<td>
+										<input type="text"  name="termite[]" value="{{EM.PNDTermite}}" step="any" style="text-align:right" style="width:35px"></td>
+										</td>
+										<td>
+										<input type="text"  name="chemicaltype[]" value="{{EM.PNDChType}}" step="any" style="text-align:right" style="width:35px"></td>	
+										</td>
+										<td>
+										<input type="date"  name="Fdate[]"   value="{{EM.PNDDate|date:'Y-m-d'}}" style="width:65px">
+           								</td>
+           								<td>
+										<input type="text"  name="Fert[]" value="{{EM.manurFType}}" step="any" style="text-align:right" style="width:35px"></td>	
+										</td>
+										<td>
+										<input type="number"   name="rate[]" value="{{EM.ManureRate}}" step="any" style="text-align:right" style="width:35px"></td>	
+										<td>
+										<input type="date"  name="MDate[]"   value="{{EM.ManureDate|date:'Y-m-d'}}" style="width:65px">
+           								</td>
+           								<td>	
+											<select name="remove[]" value="{{dc.id}}">
+											    <option value="N">N</option>
+											    <option value="Y">Y</option>
+										  	</select>
+										</td>
+						            </tr> 
+					            {% endfor %}
+					       </tbody>			    
+						</table>
+					</div>
+					
+
+						
+						
+		
+					</div>
+					</div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<button type="submit" class="btn btn-primary btn-lg" id="submitData" value=""> Submit</button>
+						
+
+	<br>
+	<br>
+	<br>
+	<br>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker").value = localStorage.getItem("my_date_picker");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker",document.getElementById("my_date_picker").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("my_date_picker1").value = localStorage.getItem("my_date_picker1");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("my_date_picker1",document.getElementById("my_date_picker1").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("route").value = localStorage.getItem("route");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("route",document.getElementById("route").value);
+  });
+
+</script>
+<script>
+
+    $(document).ready(function(){
+    document.getElementById("center").value = localStorage.getItem("center");
+        });
+
+   $(window).on('beforeunload', function() {
+    localStorage.setItem("center",document.getElementById("center").value);
+  });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-more-btn').click(function() {
+            /*var clone = $('.form-block_1:first').clone();
+            $('#form-new').append(clone);*/
+            var $tableBody = $('.data-table ').find("tbody"),
+            $trLast = $tableBody.find("tr:last");
+		        $trNew = $trLast.clone();
+				
+		    $trLast.after($trNew);
+        });
+    });
+
+
+</script>
+
+{% endblock %}
